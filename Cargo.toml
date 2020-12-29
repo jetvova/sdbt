@@ -1,5 +1,6 @@
 [workspace]
 members = [
     "sdbt",
-    "aarch64"
+    "aarch64",
+    "aarch64_generator"
 ]

@@ -1,11 +1,13 @@
 [package]
-name = "sdbt"
+name = "aarch64_generator"
 version = "0.1.0"
 authors = ["Vova Ivanov"]
 edition = "2018"
 
 [dependencies]
+failure = "0.1.8"
+glob = "0.3.0"
+handlebars = "3.5.1"
 serde = "1.0.118"
 serde_derive = "1.0.118"
 serde-xml-rs = "0.4.0"
-failure = "0.1.8"
