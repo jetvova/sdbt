@@ -6,14 +6,16 @@
 
 // Please note that the A64 instruction set is property and copyrighted material of Arm Ltd.
 
+#![allow(unused_attributes, non_snake_case, non_camel_case_types)]
 #![rustfmt::skip]
 
-#[allow(non_camel_case_types)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Instruction {
 	{{~#each instructions}}
-    {{name}},
+    {{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: {{data_type}},{{~/each}} }
+    {{~/if}},
   	{{~/each}}
+
     UNKNOWN(u32),
 }
 
@@ -22,7 +24,13 @@ impl Instruction {
     pub fn decode(opcode: u32) -> Self {
         {{~#each instructions}}
         if opcode & {{hex immutable_bits}} == {{hex identification}} {
-            return Self::{{name}};
+            return Self::{{name}}
+            {{~#if parameters}} {
+                {{~#each parameters}}
+                {{name}}: ((opcode & {{hex parameter_mask}}) >> {{low_bit}}) as {{data_type}},
+                {{~/each}}
+            }
+            {{~/if}};
         }
         {{~/each}}
         
@@ -32,7 +40,12 @@ impl Instruction {
     pub fn encode(&self) -> u32 {
         match self {
             {{~#each instructions}}
-            Self::{{name}} => {{hex identification}},
+            Self::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}},{{~/each}} }{{/if}} => {{hex identification}}
+            {{~#if parameters}}
+                {{~#each parameters}}
+                | ((*{{name}} as u32) << {{low_bit}})
+                {{~/each}}
+            {{~/if}},
             {{~/each}}
             
             Self::UNKNOWN(opcode) => *opcode,

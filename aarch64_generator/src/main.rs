@@ -11,13 +11,19 @@ pub use instruction_collection::*;
 mod instruction_info;
 pub use instruction_info::*;
 
+mod instruction_parameter;
+pub use instruction_parameter::*;
+
+mod merged_encoding;
+pub use merged_encoding::*;
+
 #[macro_use]
 extern crate serde_derive;
 
 #[macro_use]
 extern crate handlebars;
 
-handlebars_helper!(hex: |v: i64| format!("0x{:x}", v));
+handlebars_helper!(hex: |v: i64| format!("0x{:08x}", v));
 fn main() -> Result<(), Error> {
     let collection = InstructionColletion::new(
         &std::env::args()

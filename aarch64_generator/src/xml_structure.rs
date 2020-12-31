@@ -17,7 +17,7 @@ pub struct Iclass {
 #[derive(Debug, Deserialize)]
 pub struct RegDiagram {
     #[serde(rename = "box")]
-    pub box_element: Vec<BoxElement>,
+    pub box_elements: Vec<BoxElement>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -29,6 +29,8 @@ pub struct Encoding {
 
 #[derive(Debug, Deserialize)]
 pub struct BoxElement {
-    pub hibit: i32,
+    pub hibit: u32,
+    pub width: Option<u32>,
+    pub name: Option<String>,
     pub c: Vec<String>,
 }

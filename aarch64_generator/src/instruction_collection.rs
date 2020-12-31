@@ -4,6 +4,7 @@ use glob::glob;
 
 use std::fmt::Debug;
 
+use crate::MergedEncoding;
 #[derive(Debug, Serialize)]
 pub struct InstructionColletion {
     pub instructions: Vec<InstructionInfo>,
@@ -42,18 +43,20 @@ impl InstructionColletion {
                                             xml_instruction
                                         );
                                     } else {
+                                        let merged_encoding = MergedEncoding::new(
+                                            &encoding.name,
+                                            &iclass.regdiagram.box_elements,
+                                            &encoding.optional_box_elements,
+                                        );
+                               
+                                        instructions.push(InstructionInfo::new(merged_encoding));
+
                                         if &instruction_count % 250.0 == 0.0 {
                                             println!(
                                                 "Instruction Conversion Progress {}%",
                                                 &instruction_count / 25.0
                                             )
                                         }
-                                        instructions.push(InstructionInfo::new(
-                                            &encoding.name,
-                                            &iclass.regdiagram.box_element,
-                                            &encoding.optional_box_elements,
-                                        ));
-
                                         instruction_count += 1.0;
                                         // Workaround for an apparant error in MOV documentation
                                         if encoding.name == "MOV_dup_z_zi_" {
