@@ -13,7 +13,7 @@ Because the user will have full control over what code is executed, both now and
 # Applications
 Binary-translation-based virtualization would create new debugging methods through code instrumentation, which would work even in advanced cases such as self-modifying code, allowing for the analysis of polymorphic viruses. Additionally, it will provide a simple way to run applications in security-enhanced sandboxes without degrading performance as most of the instructions will be executed directly. This can even be done on platforms which don't support hardware virtualization—the project will be run in user mode at all times, and does not require elevated privilege to function.
 
-# Roadmap:
+# Roadmap
 - Fully parse ARM documentation provided in XML format.
 - Generate code that can automatically identify, decode, and encode different opcodes of ARM64 ISA.
 - Assemble generated code into a standalone library that can be switched out if needed.
