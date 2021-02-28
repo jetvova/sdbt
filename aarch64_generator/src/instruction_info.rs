@@ -5,8 +5,7 @@ use crate::MergedEncoding;
 #[derive(Debug, Serialize)]
 pub struct InstructionInfo {
     pub name: String,
-    pub identification_mask: u32,
-    pub identification: u32,
+    pub identification: MaskAndValue,
     pub parameters: Option<Vec<InstructionParameter>>,
     pub constraints: Vec<MaskAndValue>,
 }
@@ -14,14 +13,15 @@ pub struct InstructionInfo {
 impl InstructionInfo {
     pub fn new(merged_encoding: MergedEncoding) -> Self {
         let name = Self::standardize_name(merged_encoding.encoding_name);
-        let identification_mask = Self::create_bits(&merged_encoding.bit_ranges, false);
-        let identification = Self::create_bits(&merged_encoding.bit_ranges, true);
-        let parameters = Self::create_parameters(&merged_encoding.bit_ranges, identification_mask);
+        let identification = MaskAndValue {
+            mask: Self::create_bits(&merged_encoding.bit_ranges, false),
+            value: Self::create_bits(&merged_encoding.bit_ranges, true),
+        };
+        let parameters = Self::create_parameters(&merged_encoding.bit_ranges, identification.mask);
         let constraints = Self::create_constraints(&merged_encoding.bit_ranges);
 
         Self {
             name,
-            identification_mask,
             identification,
             parameters,
             constraints,
@@ -85,14 +85,12 @@ impl InstructionInfo {
                 let constraint_string = &constraint_string[3..];
 
                 let mask_string = constraint_string.replace("0", "1").replace("x", "0");
-                let mask = (isize::from_str_radix(&mask_string, 2).unwrap() << range.hibit - (range.width - 1)) as u32;
-                // println!("{:#034b}", mask);
+                let mask = (isize::from_str_radix(&mask_string, 2).unwrap()
+                    << range.hibit - (range.width - 1)) as u32;
 
                 let value_string = constraint_string.replace("x", "0");
-                let value = (isize::from_str_radix(&value_string, 2).unwrap() << range.hibit - (range.width - 1)) as u32;
-                // println!("{:#034b}", value);
-                // println!();
-
+                let value = (isize::from_str_radix(&value_string, 2).unwrap()
+                    << range.hibit - (range.width - 1)) as u32;
                 result.push(MaskAndValue { mask, value });
             }
         }

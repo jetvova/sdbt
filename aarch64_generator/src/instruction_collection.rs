@@ -1,6 +1,6 @@
 use crate::InstructionInfo;
-use crate::MaskAndValue;
 use crate::InstructionSection;
+use crate::MaskAndValue;
 use glob::glob;
 
 use std::fmt::Debug;
@@ -71,15 +71,15 @@ impl InstructionColletion {
                 }
             }
         }
-        
+
         println!("Sorting and printing to file...");
-        instructions.sort_by_key(|instruction_info| 
+        instructions.sort_by_key(|instruction_info| {
             (
-                -(Self::calculate_hamming_weight(instruction_info.identification_mask)),
+                -(Self::calculate_hamming_weight(instruction_info.identification.mask)),
                 -(Self::constraint_mask_hamming_weight(&instruction_info.constraints)),
-                instruction_info.identification,
+                instruction_info.identification.value,
             )
-        );
+        });
         Self { instructions }
     }
 

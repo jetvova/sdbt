@@ -13,7 +13,7 @@ mod tests {
             Instruction::UNKNOWN(0x01234567)
         );
     }
-    
+
     #[test]
     fn encode_UNKNOWN() {
         assert_eq!(Instruction::UNKNOWN(0x01234567).encode(), 0x01234567);
@@ -47,7 +47,7 @@ mod tests {
             }
         );
     }
-    
+
     #[test]
     fn encode_EXTR_32() {
         assert_eq!(
