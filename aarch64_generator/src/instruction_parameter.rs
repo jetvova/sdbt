@@ -14,13 +14,13 @@ pub struct InstructionParameter {
 impl InstructionParameter {
     pub fn try_create(
         bit_range: &BitRange,
-        instruction_immutable_bits: u32,
+        instruction_identification_mask: u32,
     ) -> Option<InstructionParameter> {
         if let Some(ref name) = bit_range.name {
             if bit_range.bits.iter().all(|bit| bit.is_none()) {
                 let low_bit = bit_range.hibit - (bit_range.width - 1);
                 let parameter_mask = 0xffffffff >> (32 - bit_range.width) << (low_bit);
-                if parameter_mask & instruction_immutable_bits == 0 {
+                if parameter_mask & instruction_identification_mask == 0 {
                     return Some(Self {
                         name: name.to_owned(),
                         width: bit_range.width,
@@ -28,7 +28,6 @@ impl InstructionParameter {
                         low_bit: low_bit,
                         parameter_mask: parameter_mask,
                     });
-                } else {
                 }
             }
         }

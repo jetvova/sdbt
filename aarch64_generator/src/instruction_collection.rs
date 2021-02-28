@@ -1,4 +1,5 @@
 use crate::InstructionInfo;
+use crate::MaskAndValue;
 use crate::InstructionSection;
 use glob::glob;
 
@@ -48,7 +49,7 @@ impl InstructionColletion {
                                             &iclass.regdiagram.box_elements,
                                             &encoding.optional_box_elements,
                                         );
-                               
+
                                         instructions.push(InstructionInfo::new(merged_encoding));
 
                                         if &instruction_count % 250.0 == 0.0 {
@@ -70,13 +71,30 @@ impl InstructionColletion {
                 }
             }
         }
+        
         println!("Sorting and printing to file...");
-        instructions.sort_by_key(|instruction_info| {
+        instructions.sort_by_key(|instruction_info| 
             (
-                -(instruction_info.immutable_bits as i64),
+                -(Self::calculate_hamming_weight(instruction_info.identification_mask)),
+                -(Self::constraint_mask_hamming_weight(&instruction_info.constraints)),
                 instruction_info.identification,
             )
-        });
+        );
         Self { instructions }
+    }
+
+    pub fn calculate_hamming_weight(input: u32) -> i8 {
+        let input = input - ((input >> 1) & 0x55555555);
+        let input = (input & 0x33333333) + ((input >> 2) & 0x33333333);
+        let result = ((input + (input >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
+        result as i8
+    }
+
+    pub fn constraint_mask_hamming_weight(constraints: &Vec<MaskAndValue>) -> i8 {
+        let mut combined_constraints_mask: u32 = 0;
+        for mav in constraints {
+            combined_constraints_mask |= mav.mask;
+        }
+        Self::calculate_hamming_weight(combined_constraints_mask)
     }
 }

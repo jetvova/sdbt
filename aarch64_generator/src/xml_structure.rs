@@ -32,5 +32,6 @@ pub struct BoxElement {
     pub hibit: u32,
     pub width: Option<u32>,
     pub name: Option<String>,
+    pub constraint: Option<String>,
     pub c: Vec<String>,
 }

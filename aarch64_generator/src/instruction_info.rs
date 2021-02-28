@@ -5,23 +5,26 @@ use crate::MergedEncoding;
 #[derive(Debug, Serialize)]
 pub struct InstructionInfo {
     pub name: String,
-    pub immutable_bits: u32,
+    pub identification_mask: u32,
     pub identification: u32,
     pub parameters: Option<Vec<InstructionParameter>>,
+    pub constraints: Vec<MaskAndValue>,
 }
 
 impl InstructionInfo {
     pub fn new(merged_encoding: MergedEncoding) -> Self {
         let name = Self::standardize_name(merged_encoding.encoding_name);
-        let immutable_bits = Self::create_bits(&merged_encoding.bit_ranges, false);
+        let identification_mask = Self::create_bits(&merged_encoding.bit_ranges, false);
         let identification = Self::create_bits(&merged_encoding.bit_ranges, true);
-        let parameters = Self::create_parameters(&merged_encoding.bit_ranges, immutable_bits);
+        let parameters = Self::create_parameters(&merged_encoding.bit_ranges, identification_mask);
+        let constraints = Self::create_constraints(&merged_encoding.bit_ranges);
 
         Self {
             name,
-            immutable_bits,
+            identification_mask,
             identification,
             parameters,
+            constraints,
         }
     }
 
@@ -61,11 +64,11 @@ impl InstructionInfo {
 
     fn create_parameters(
         bit_ranges: &Vec<BitRange>,
-        immutable_bits: u32,
+        identification_mask: u32,
     ) -> Option<Vec<InstructionParameter>> {
         let result: Vec<InstructionParameter> = bit_ranges
             .iter()
-            .filter_map(|range| InstructionParameter::try_create(range, immutable_bits))
+            .filter_map(|range| InstructionParameter::try_create(range, identification_mask))
             .collect();
 
         if !result.is_empty() {
@@ -74,4 +77,31 @@ impl InstructionInfo {
             None
         }
     }
+
+    fn create_constraints(bit_ranges: &Vec<BitRange>) -> Vec<MaskAndValue> {
+        let mut result: Vec<MaskAndValue> = Vec::new();
+        for range in bit_ranges.iter() {
+            if let Some(constraint_string) = &range.constraint {
+                let constraint_string = &constraint_string[3..];
+
+                let mask_string = constraint_string.replace("0", "1").replace("x", "0");
+                let mask = (isize::from_str_radix(&mask_string, 2).unwrap() << range.hibit - (range.width - 1)) as u32;
+                // println!("{:#034b}", mask);
+
+                let value_string = constraint_string.replace("x", "0");
+                let value = (isize::from_str_radix(&value_string, 2).unwrap() << range.hibit - (range.width - 1)) as u32;
+                // println!("{:#034b}", value);
+                // println!();
+
+                result.push(MaskAndValue { mask, value });
+            }
+        }
+        result
+    }
+}
+
+#[derive(Debug, Serialize)]
+pub struct MaskAndValue {
+    pub mask: u32,
+    pub value: u32,
 }

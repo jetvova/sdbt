@@ -23,7 +23,7 @@ impl Instruction {
     // Primitive decoding mechanism through repetetive if checking. To be improved later
     pub fn decode(opcode: u32) -> Self {
         {{~#each instructions}}
-        if opcode & {{hex immutable_bits}} == {{hex identification}} {
+        if opcode & {{hex identification_mask}} == {{hex identification}} {{~#each constraints}} && (opcode & {{hex mask}} != {{hex value}}) {{~/each}} {
             return Self::{{name}}
             {{~#if parameters}} {
                 {{~#each parameters}}
@@ -51,4 +51,28 @@ impl Instruction {
             Self::UNKNOWN(opcode) => *opcode,
         }
     }
+}
+
+pub trait Decode {
+    fn decode(&self) -> Instruction;
+}
+
+impl Decode for u32 {
+    fn decode(&self) -> Instruction {
+        Instruction::decode(*self)
+    }
+}    
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    {{~#each instructions}}
+    #[test]
+    fn roundtrip_{{name}}() {
+        assert_eq!(Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}}.encode().decode(), 
+                   Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}})
+    }
+    {{~/each}}
+
 }

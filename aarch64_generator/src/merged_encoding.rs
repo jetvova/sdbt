@@ -51,6 +51,7 @@ pub struct BitRange {
     pub hibit: u32,
     pub width: u32,
     pub name: Option<String>,
+    pub constraint: Option<String>,
     pub bits: Vec<Option<u32>>,
 }
 
@@ -69,6 +70,7 @@ impl BitRange {
             hibit: box_input.hibit,
             width: box_input.width.unwrap_or(1),
             name: box_input.name.to_owned(),
+            constraint: box_input.constraint.to_owned(),
             bits,
         }
     }
@@ -127,6 +129,7 @@ impl BitRange {
             hibit,
             width: 1,
             name,
+            constraint: None,
             bits: vec![value],
         }
     }
