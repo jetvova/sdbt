@@ -73,9 +73,11 @@ impl InstructionColletion {
         }
 
         println!("Sorting and printing to file...");
+        // Using instruction identification and constraint hamming weights to ensure the most specific encodings 
+        // are checked first.  
         instructions.sort_by_key(|instruction_info| {
             (
-                -(Self::calculate_hamming_weight(instruction_info.identification.mask)),
+                -(instruction_info.identification.mask.count_ones() as i8),
                 -(Self::constraint_mask_hamming_weight(&instruction_info.constraints)),
                 instruction_info.identification.value,
             )
@@ -83,18 +85,11 @@ impl InstructionColletion {
         Self { instructions }
     }
 
-    pub fn calculate_hamming_weight(input: u32) -> i8 {
-        let input = input - ((input >> 1) & 0x55555555);
-        let input = (input & 0x33333333) + ((input >> 2) & 0x33333333);
-        let result = ((input + (input >> 4) & 0xF0F0F0F) * 0x1010101) >> 24;
-        result as i8
-    }
-
     pub fn constraint_mask_hamming_weight(constraints: &Vec<MaskAndValue>) -> i8 {
         let mut combined_constraints_mask: u32 = 0;
         for mav in constraints {
             combined_constraints_mask |= mav.mask;
         }
-        Self::calculate_hamming_weight(combined_constraints_mask)
+        combined_constraints_mask.count_ones() as i8
     }
 }
