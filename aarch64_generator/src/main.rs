@@ -50,5 +50,20 @@ fn main() -> Result<(), Error> {
     )
     .unwrap();
 
+    handlebars = Handlebars::new();
+    handlebars
+        .register_template_string(
+            "test",
+            fs::read_to_string(format!("{}/test.hbs", src_directory)).unwrap(),
+        )
+        .unwrap();
+    handlebars.register_helper("hex", Box::new(hex));
+
+    fs::write(
+        format!("{}/test.rs", output_directory),
+        handlebars.render("test", &collection).unwrap(),
+    )
+    .unwrap();
+
     Ok(())
 }

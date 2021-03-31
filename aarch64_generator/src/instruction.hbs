@@ -62,17 +62,3 @@ impl Decode for u32 {
         Instruction::decode(*self)
     }
 }    
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    {{~#each instructions}}
-    #[test]
-    fn roundtrip_{{name}}() {
-        assert_eq!(Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}}.encode().decode(), 
-                   Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}})
-    }
-    {{~/each}}
-
-}
