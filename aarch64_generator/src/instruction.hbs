@@ -23,7 +23,7 @@ impl Instruction {
     // Primitive decoding mechanism through repetetive if checking. To be improved later
     pub fn decode(opcode: u32) -> Self {
         {{~#each instructions}}
-        if opcode & {{hex identification.mask}} == {{hex identification.value}} {{~#each constraints}} && (opcode & {{hex mask}} != {{hex value}}) {{~/each}} {
+        if opcode & {{hex identification.mask}} == {{hex identification.value}} {{~#each parameters}} {{~#if constraint}} && (opcode & {{hex constraint.mask}} != {{hex constraint.value}}) {{~/if}} {{~/each}} {
             return Self::{{name}}
             {{~#if parameters}} {
                 {{~#each parameters}}

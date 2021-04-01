@@ -13,7 +13,7 @@ use super::*;
 {{~#each instructions}}
 #[test]
 fn roundtrip_{{name}}() {
-    assert_eq!(Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}}.encode().decode(), 
-                Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: 0,{{~/each}} }{{/if}})
+    assert_eq!(Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: {{example_value}},{{~/each}} }{{/if}}.encode().decode(), 
+                Instruction::{{name}} {{~#if parameters}} { {{~#each parameters}} {{name}}: {{example_value}},{{~/each}} }{{/if}})
 }
 {{~/each}}

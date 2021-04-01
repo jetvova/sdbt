@@ -1,6 +1,6 @@
 use crate::InstructionInfo;
+use crate::InstructionParameter;
 use crate::InstructionSection;
-use crate::MaskAndValue;
 use glob::glob;
 
 use std::fmt::Debug;
@@ -73,22 +73,26 @@ impl InstructionColletion {
         }
 
         println!("Sorting and printing to file...");
-        // Using instruction identification and constraint hamming weights to ensure the most specific encodings 
-        // are checked first.  
+        // Using instruction identification and constraint hamming weights to ensure the most specific encodings
+        // are checked first.
         instructions.sort_by_key(|instruction_info| {
             (
                 -(instruction_info.identification.mask.count_ones() as i8),
-                -(Self::constraint_mask_hamming_weight(&instruction_info.constraints)),
+                -(Self::constraint_mask_hamming_weight(&instruction_info.parameters)),
                 instruction_info.identification.value,
             )
         });
         Self { instructions }
     }
 
-    pub fn constraint_mask_hamming_weight(constraints: &Vec<MaskAndValue>) -> i8 {
+    pub fn constraint_mask_hamming_weight(parameters: &Option<Vec<InstructionParameter>>) -> i8 {
         let mut combined_constraints_mask: u32 = 0;
-        for mav in constraints {
-            combined_constraints_mask |= mav.mask;
+        if let Some(parameters) = parameters {
+            for parameter in parameters {
+                if let Some(constraint) = &parameter.constraint {
+                    combined_constraints_mask |= constraint.mask;
+                }
+            }
         }
         combined_constraints_mask.count_ones() as i8
     }

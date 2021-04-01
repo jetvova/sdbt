@@ -1,5 +1,6 @@
 use crate::BitRange;
 use crate::InstructionParameter;
+use crate::MaskAndValue;
 use crate::MergedEncoding;
 
 #[derive(Debug, Serialize)]
@@ -7,7 +8,6 @@ pub struct InstructionInfo {
     pub name: String,
     pub identification: MaskAndValue,
     pub parameters: Option<Vec<InstructionParameter>>,
-    pub constraints: Vec<MaskAndValue>,
 }
 
 impl InstructionInfo {
@@ -18,13 +18,11 @@ impl InstructionInfo {
             value: Self::create_bits(&merged_encoding.bit_ranges, true),
         };
         let parameters = Self::create_parameters(&merged_encoding.bit_ranges, identification.mask);
-        let constraints = Self::create_constraints(&merged_encoding.bit_ranges);
 
         Self {
             name,
             identification,
             parameters,
-            constraints,
         }
     }
 
@@ -77,29 +75,4 @@ impl InstructionInfo {
             None
         }
     }
-
-    fn create_constraints(bit_ranges: &Vec<BitRange>) -> Vec<MaskAndValue> {
-        let mut result: Vec<MaskAndValue> = Vec::new();
-        for range in bit_ranges.iter() {
-            if let Some(constraint_string) = &range.constraint {
-                let constraint_string = &constraint_string[3..];
-
-                let mask_string = constraint_string.replace("0", "1").replace("x", "0");
-                let mask = (isize::from_str_radix(&mask_string, 2).unwrap()
-                    << range.hibit - (range.width - 1)) as u32;
-
-                let value_string = constraint_string.replace("x", "0");
-                let value = (isize::from_str_radix(&value_string, 2).unwrap()
-                    << range.hibit - (range.width - 1)) as u32;
-                result.push(MaskAndValue { mask, value });
-            }
-        }
-        result
-    }
-}
-
-#[derive(Debug, Serialize)]
-pub struct MaskAndValue {
-    pub mask: u32,
-    pub value: u32,
 }
