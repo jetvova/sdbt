@@ -61,9 +61,6 @@ pub enum Instruction {
     SETF16_only_setf { Rn: u8, },
     WFET_only_systeminstrswithreg { Rd: u8, },
     WFIT_only_systeminstrswithreg { Rd: u8, },
-    CFP_SYS_CR_systeminstrs { Rt: u8, },
-    DVP_SYS_CR_systeminstrs { Rt: u8, },
-    CPP_SYS_CR_systeminstrs { Rt: u8, },
     BR_64_branch_reg { Rn: u8, },
     BRAAZ_64_branch_reg { Rn: u8, },
     BRABZ_64_branch_reg { Rn: u8, },
@@ -81,7 +78,6 @@ pub enum Instruction {
     AUTDZB_64Z_dp_1src { Rd: u8, },
     XPACI_64Z_dp_1src { Rd: u8, },
     XPACD_64Z_dp_1src { Rd: u8, },
-    FMOV_dup_z_i { size: u8, Zd: u8, },
     HINT_HM_hints { CRm: u8, op2: u8, },
     PUNPKLO_p_p { Pn: u8, Pd: u8, },
     PUNPKHI_p_p { Pn: u8, Pd: u8, },
@@ -89,15 +85,8 @@ pub enum Instruction {
     PTEST_p_p { Pg: u8, Pn: u8, },
     PFIRST_p_p_p { Pg: u8, Pdn: u8, },
     RDFFRS_p_p_f { Pg: u8, Pd: u8, },
-    CSET_CSINC_32_condsel { cond: u8, Rd: u8, },
-    CSETM_CSINV_32_condsel { cond: u8, Rd: u8, },
-    CSET_CSINC_64_condsel { cond: u8, Rd: u8, },
-    CSETM_CSINV_64_condsel { cond: u8, Rd: u8, },
     MOVPRFX_z_z { Zn: u8, Zd: u8, },
     REV_p_p { size: u8, Pn: u8, Pd: u8, },
-    MOV_ADD_32_addsub_imm { Rn: u8, Rd: u8, },
-    SXTB_SBFM_32M_bitfield { Rn: u8, Rd: u8, },
-    SXTH_SBFM_32M_bitfield { Rn: u8, Rd: u8, },
     FCVTNS_32S_float2int { Rn: u8, Rd: u8, },
     FCMP_S_floatcmp { Rm: u8, Rn: u8, },
     FCMP_SZ_floatcmp { Rm: u8, Rn: u8, },
@@ -200,30 +189,10 @@ pub enum Instruction {
     FCVTZS_32H_float2int { Rn: u8, Rd: u8, },
     FCVTZU_32H_float2int { Rn: u8, Rd: u8, },
     PNEXT_p_p_p { size: u8, Pg: u8, Pdn: u8, },
-    MOV_ORR_32_log_shift { Rm: u8, Rd: u8, },
-    STADDB_LDADDB_32_memop { Rs: u8, Rn: u8, },
-    STCLRB_LDCLRB_32_memop { Rs: u8, Rn: u8, },
-    STEORB_LDEORB_32_memop { Rs: u8, Rn: u8, },
-    STSETB_LDSETB_32_memop { Rs: u8, Rn: u8, },
-    STSMAXB_LDSMAXB_32_memop { Rs: u8, Rn: u8, },
-    STSMINB_LDSMINB_32_memop { Rs: u8, Rn: u8, },
-    STUMAXB_LDUMAXB_32_memop { Rs: u8, Rn: u8, },
-    STUMINB_LDUMINB_32_memop { Rs: u8, Rn: u8, },
-    STADDLB_LDADDLB_32_memop { Rs: u8, Rn: u8, },
-    STCLRLB_LDCLRLB_32_memop { Rs: u8, Rn: u8, },
-    STEORLB_LDEORLB_32_memop { Rs: u8, Rn: u8, },
-    STSETLB_LDSETLB_32_memop { Rs: u8, Rn: u8, },
-    STSMAXLB_LDSMAXLB_32_memop { Rs: u8, Rn: u8, },
-    STSMINLB_LDSMINLB_32_memop { Rs: u8, Rn: u8, },
-    STUMAXLB_LDUMAXLB_32_memop { Rs: u8, Rn: u8, },
-    STUMINLB_LDUMINLB_32_memop { Rs: u8, Rn: u8, },
     AESE_B_cryptoaes { Rn: u8, Rd: u8, },
     AESD_B_cryptoaes { Rn: u8, Rd: u8, },
     AESMC_B_cryptoaes { Rn: u8, Rd: u8, },
     AESIMC_B_cryptoaes { Rn: u8, Rd: u8, },
-    UXTB_UBFM_32M_bitfield { Rn: u8, Rd: u8, },
-    UXTH_UBFM_32M_bitfield { Rn: u8, Rd: u8, },
-    NGC_SBC_32_addsub_carry { Rm: u8, Rd: u8, },
     RBIT_32_dp_1src { Rn: u8, Rd: u8, },
     REV16_32_dp_1src { Rn: u8, Rd: u8, },
     REV_32_dp_1src { Rn: u8, Rd: u8, },
@@ -243,23 +212,6 @@ pub enum Instruction {
     FCVTZS_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FRECPE_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FRECPX_asisdmiscfp16_R { Rn: u8, Rd: u8, },
-    STADDH_LDADDH_32_memop { Rs: u8, Rn: u8, },
-    STCLRH_LDCLRH_32_memop { Rs: u8, Rn: u8, },
-    STEORH_LDEORH_32_memop { Rs: u8, Rn: u8, },
-    STSETH_LDSETH_32_memop { Rs: u8, Rn: u8, },
-    STSMAXH_LDSMAXH_32_memop { Rs: u8, Rn: u8, },
-    STSMINH_LDSMINH_32_memop { Rs: u8, Rn: u8, },
-    STUMAXH_LDUMAXH_32_memop { Rs: u8, Rn: u8, },
-    STUMINH_LDUMINH_32_memop { Rs: u8, Rn: u8, },
-    STADDLH_LDADDLH_32_memop { Rs: u8, Rn: u8, },
-    STCLRLH_LDCLRLH_32_memop { Rs: u8, Rn: u8, },
-    STEORLH_LDEORLH_32_memop { Rs: u8, Rn: u8, },
-    STSETLH_LDSETLH_32_memop { Rs: u8, Rn: u8, },
-    STSMAXLH_LDSMAXLH_32_memop { Rs: u8, Rn: u8, },
-    STSMINLH_LDSMINLH_32_memop { Rs: u8, Rn: u8, },
-    STUMAXLH_LDUMAXLH_32_memop { Rs: u8, Rn: u8, },
-    STUMINLH_LDUMINLH_32_memop { Rs: u8, Rn: u8, },
-    NGCS_SBCS_32_addsub_carry { Rm: u8, Rd: u8, },
     FCVTNU_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FCVTMU_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FCVTAU_asisdmiscfp16_R { Rn: u8, Rd: u8, },
@@ -269,10 +221,6 @@ pub enum Instruction {
     FCVTPU_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FCVTZU_asisdmiscfp16_R { Rn: u8, Rd: u8, },
     FRSQRTE_asisdmiscfp16_R { Rn: u8, Rd: u8, },
-    MOV_ADD_64_addsub_imm { Rn: u8, Rd: u8, },
-    SXTB_SBFM_64M_bitfield { Rn: u8, Rd: u8, },
-    SXTH_SBFM_64M_bitfield { Rn: u8, Rd: u8, },
-    SXTW_SBFM_64M_bitfield { Rn: u8, Rd: u8, },
     FCVTNS_64S_float2int { Rn: u8, Rd: u8, },
     FCVTNU_64S_float2int { Rn: u8, Rd: u8, },
     SCVTF_S64_float2int { Rn: u8, Rd: u8, },
@@ -315,24 +263,6 @@ pub enum Instruction {
     FCVTMU_64H_float2int { Rn: u8, Rd: u8, },
     FCVTZS_64H_float2int { Rn: u8, Rd: u8, },
     FCVTZU_64H_float2int { Rn: u8, Rd: u8, },
-    MOV_ORR_64_log_shift { Rm: u8, Rd: u8, },
-    STADD_LDADD_32_memop { Rs: u8, Rn: u8, },
-    STCLR_LDCLR_32_memop { Rs: u8, Rn: u8, },
-    STEOR_LDEOR_32_memop { Rs: u8, Rn: u8, },
-    STSET_LDSET_32_memop { Rs: u8, Rn: u8, },
-    STSMAX_LDSMAX_32_memop { Rs: u8, Rn: u8, },
-    STSMIN_LDSMIN_32_memop { Rs: u8, Rn: u8, },
-    STUMAX_LDUMAX_32_memop { Rs: u8, Rn: u8, },
-    STUMIN_LDUMIN_32_memop { Rs: u8, Rn: u8, },
-    STADDL_LDADDL_32_memop { Rs: u8, Rn: u8, },
-    STCLRL_LDCLRL_32_memop { Rs: u8, Rn: u8, },
-    STEORL_LDEORL_32_memop { Rs: u8, Rn: u8, },
-    STSETL_LDSETL_32_memop { Rs: u8, Rn: u8, },
-    STSMAXL_LDSMAXL_32_memop { Rs: u8, Rn: u8, },
-    STSMINL_LDSMINL_32_memop { Rs: u8, Rn: u8, },
-    STUMAXL_LDUMAXL_32_memop { Rs: u8, Rn: u8, },
-    STUMINL_LDUMINL_32_memop { Rs: u8, Rn: u8, },
-    CMPP_SUBPS_64S_dp_2src { Xm: u8, Xn: u8, },
     SHA512SU0_VV2_cryptosha512_2 { Rn: u8, Rd: u8, },
     SM4E_VV4_cryptosha512_2 { Rn: u8, Rd: u8, },
     MSR_SI_pstate { op1: u8, CRm: u8, op2: u8, },
@@ -343,12 +273,10 @@ pub enum Instruction {
     STZGM_64bulk_ldsttags { Xn: u8, Xt: u8, },
     STGM_64bulk_ldsttags { Xn: u8, Xt: u8, },
     LDGM_64bulk_ldsttags { Xn: u8, Xt: u8, },
-    NGC_SBC_64_addsub_carry { Rm: u8, Rd: u8, },
     RBIT_64_dp_1src { Rn: u8, Rd: u8, },
     REV16_64_dp_1src { Rn: u8, Rd: u8, },
     REV32_64_dp_1src { Rn: u8, Rd: u8, },
     REV_64_dp_1src { Rn: u8, Rd: u8, },
-    REV64_REV_64_dp_1src { Rn: u8, Rd: u8, },
     CLZ_64_dp_1src { Rn: u8, Rd: u8, },
     CLS_64_dp_1src { Rn: u8, Rd: u8, },
     PACIA_64P_dp_1src { Rn: u8, Rd: u8, },
@@ -359,27 +287,9 @@ pub enum Instruction {
     AUTIB_64P_dp_1src { Rn: u8, Rd: u8, },
     AUTDA_64P_dp_1src { Rn: u8, Rd: u8, },
     AUTDB_64P_dp_1src { Rn: u8, Rd: u8, },
-    STADD_LDADD_64_memop { Rs: u8, Rn: u8, },
-    STCLR_LDCLR_64_memop { Rs: u8, Rn: u8, },
-    STEOR_LDEOR_64_memop { Rs: u8, Rn: u8, },
-    STSET_LDSET_64_memop { Rs: u8, Rn: u8, },
-    STSMAX_LDSMAX_64_memop { Rs: u8, Rn: u8, },
-    STSMIN_LDSMIN_64_memop { Rs: u8, Rn: u8, },
-    STUMAX_LDUMAX_64_memop { Rs: u8, Rn: u8, },
-    STUMIN_LDUMIN_64_memop { Rs: u8, Rn: u8, },
     ST64B_64L_memop { Rn: u8, Rt: u8, },
     LD64B_64L_memop { Rn: u8, Rt: u8, },
-    STADDL_LDADDL_64_memop { Rs: u8, Rn: u8, },
-    STCLRL_LDCLRL_64_memop { Rs: u8, Rn: u8, },
-    STEORL_LDEORL_64_memop { Rs: u8, Rn: u8, },
-    STSETL_LDSETL_64_memop { Rs: u8, Rn: u8, },
-    STSMAXL_LDSMAXL_64_memop { Rs: u8, Rn: u8, },
-    STSMINL_LDSMINL_64_memop { Rs: u8, Rn: u8, },
-    STUMAXL_LDUMAXL_64_memop { Rs: u8, Rn: u8, },
-    STUMINL_LDUMINL_64_memop { Rs: u8, Rn: u8, },
-    NGCS_SBCS_64_addsub_carry { Rm: u8, Rd: u8, },
     RDVL_r_i { imm6: u8, Rd: u8, },
-    FMOV_cpy_z_p_i { size: u8, Pg: u8, Zd: u8, },
     ST1_asisdlso_D1_1d { Q: u8, Rn: u8, Rt: u8, },
     ST3_asisdlso_D3_3d { Q: u8, Rn: u8, Rt: u8, },
     ST2_asisdlso_D2_2d { Q: u8, Rn: u8, Rt: u8, },
@@ -436,7 +346,6 @@ pub enum Instruction {
     DECP_r_p_r { size: u8, Pm: u8, Rdn: u8, },
     CTERMEQ_rr { sz: u8, Rm: u8, Rn: u8, },
     CTERMNE_rr { sz: u8, Rm: u8, Rn: u8, },
-    MVN_NOT_asimdmisc_R { Q: u8, Rn: u8, Rd: u8, },
     NOT_asimdmisc_R { Q: u8, Rn: u8, Rd: u8, },
     RBIT_asimdmisc_R { Q: u8, Rn: u8, Rd: u8, },
     FRINTA_asimdmiscfp16_R { Q: u8, Rn: u8, Rd: u8, },
@@ -453,7 +362,6 @@ pub enum Instruction {
     FCVTZU_asimdmiscfp16_R { Q: u8, Rn: u8, Rd: u8, },
     FRSQRTE_asimdmiscfp16_R { Q: u8, Rn: u8, Rd: u8, },
     FSQRT_asimdmiscfp16_R { Q: u8, Rn: u8, Rd: u8, },
-    MOV_UMOV_asimdins_X_x { imm5: u8, Rn: u8, Rd: u8, },
     UMOV_asimdins_X_x { imm5: u8, Rn: u8, Rd: u8, },
     FCVTNS_asisdmisc_R { sz: u8, Rn: u8, Rd: u8, },
     FCVTMS_asisdmisc_R { sz: u8, Rn: u8, Rd: u8, },
@@ -496,7 +404,6 @@ pub enum Instruction {
     FMINP_asisdpair_only_SD { sz: u8, Rn: u8, Rd: u8, },
     FEXPA_z_z { size: u8, Zn: u8, Zd: u8, },
     DUP_z_r { size: u8, Rn: u8, Zd: u8, },
-    MOV_dup_z_r { size: u8, Rn: u8, Zd: u8, },
     INSR_z_r { size: u8, Rm: u8, Zdn: u8, },
     SUNPKLO_z_z { size: u8, Zn: u8, Zd: u8, },
     SUNPKHI_z_z { size: u8, Zn: u8, Zd: u8, },
@@ -520,7 +427,6 @@ pub enum Instruction {
     LD3_asisdlsop_S3_i3s { Q: u8, S: u8, Rn: u8, Rt: u8, },
     LD2_asisdlsop_S2_i2s { Q: u8, S: u8, Rn: u8, Rt: u8, },
     LD4_asisdlsop_S4_i4s { Q: u8, S: u8, Rn: u8, Rt: u8, },
-    MOV_UMOV_asimdins_W_w { imm5: u8, Rn: u8, Rd: u8, },
     FCVTN_asimdmisc_N { Q: u8, sz: u8, Rn: u8, Rd: u8, },
     FCVTL_asimdmisc_L { Q: u8, sz: u8, Rn: u8, Rd: u8, },
     FRINTN_asimdmisc_R { Q: u8, sz: u8, Rn: u8, Rd: u8, },
@@ -584,7 +490,6 @@ pub enum Instruction {
     NEG_asisdmisc_R { size: u8, Rn: u8, Rd: u8, },
     SQXTUN_asisdmisc_N { size: u8, Rn: u8, Rd: u8, },
     UQXTN_asisdmisc_N { size: u8, Rn: u8, Rd: u8, },
-    AT_SYS_CR_systeminstrs { op1: u8, CRm: u8, op2: u8, Rt: u8, },
     ST4_asisdlse_R4 { Q: u8, size: u8, Rn: u8, Rt: u8, },
     ST1_asisdlse_R4_4v { Q: u8, size: u8, Rn: u8, Rt: u8, },
     ST3_asisdlse_R3 { Q: u8, size: u8, Rn: u8, Rt: u8, },
@@ -807,8 +712,6 @@ pub enum Instruction {
     FCMLE_p_p_z0 { size: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMEQ_p_p_z0 { size: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMNE_p_p_z0 { size: u8, Pg: u8, Zn: u8, Pd: u8, },
-    SXTL_SSHLL_asimdshf_L { Q: u8, immh: u8, Rn: u8, Rd: u8, },
-    UXTL_USHLL_asimdshf_L { Q: u8, immh: u8, Rn: u8, Rd: u8, },
     ADD_z_p_zz { size: u8, Pg: u8, Zm: u8, Zdn: u8, },
     SADDV_r_p_z { size: u8, Pg: u8, Zn: u8, Vd: u8, },
     ASR_z_p_zi { tszh: u8, Pg: u8, tszl: u8, imm3: u8, Zdn: u8, },
@@ -867,12 +770,10 @@ pub enum Instruction {
     FNEG_z_p_z { size: u8, Pg: u8, Zn: u8, Zd: u8, },
     NOT_z_p_z { size: u8, Pg: u8, Zn: u8, Zd: u8, },
     AND_z_zz { Zm: u8, Zn: u8, Zd: u8, },
-    MOV_orr_z_zz { Zm: u8, Zn: u8, Zd: u8, },
     ORR_z_zz { Zm: u8, Zn: u8, Zd: u8, },
     EOR_z_zz { Zm: u8, Zn: u8, Zd: u8, },
     BIC_z_zz { Zm: u8, Zn: u8, Zd: u8, },
     CPY_z_p_v { size: u8, Pg: u8, Vn: u8, Zd: u8, },
-    MOV_cpy_z_p_v { size: u8, Pg: u8, Vn: u8, Zd: u8, },
     LASTA_r_p_z { size: u8, Pg: u8, Zn: u8, Rd: u8, },
     COMPACT_z_p_z { size: u8, Pg: u8, Zn: u8, Zd: u8, },
     LASTB_r_p_z { size: u8, Pg: u8, Zn: u8, Rd: u8, },
@@ -884,7 +785,6 @@ pub enum Instruction {
     RBIT_z_p_z { size: u8, Pg: u8, Zn: u8, Zd: u8, },
     CLASTA_z_p_zz { size: u8, Pg: u8, Zm: u8, Zdn: u8, },
     CPY_z_p_r { size: u8, Pg: u8, Rn: u8, Zd: u8, },
-    MOV_cpy_z_p_r { size: u8, Pg: u8, Rn: u8, Zd: u8, },
     CLASTB_z_p_zz { size: u8, Pg: u8, Zm: u8, Zdn: u8, },
     CLASTA_v_p_z { size: u8, Pg: u8, Zm: u8, Vdn: u8, },
     CLASTB_v_p_z { size: u8, Pg: u8, Zm: u8, Vdn: u8, },
@@ -913,13 +813,9 @@ pub enum Instruction {
     ADC_32_addsub_carry { Rm: u8, Rn: u8, Rd: u8, },
     UDIV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     SDIV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    LSL_LSLV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     LSLV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    LSR_LSRV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     LSRV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    ASR_ASRV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     ASRV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    ROR_RORV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     RORV_32_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32B_32C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32H_32C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
@@ -927,8 +823,6 @@ pub enum Instruction {
     CRC32CB_32C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32CH_32C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32CW_32C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    MUL_MADD_32A_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    MNEG_MSUB_32A_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
     FMUL_S_floatdp2 { Rm: u8, Rn: u8, Rd: u8, },
     FDIV_S_floatdp2 { Rm: u8, Rn: u8, Rd: u8, },
     FADD_S_floatdp2 { Rm: u8, Rn: u8, Rd: u8, },
@@ -963,7 +857,6 @@ pub enum Instruction {
     UMIN_z_zi { size: u8, imm8: u8, Zdn: u8, },
     MUL_z_zi { size: u8, imm8: u8, Zdn: u8, },
     FDUP_z_i { size: u8, imm8: u8, Zd: u8, },
-    FMOV_fdup_z_i { size: u8, imm8: u8, Zd: u8, },
     MVNI_asimdimm_L_hl { Q: u8, a: u8, b: u8, c: u8, cmode: u8, d: u8, e: u8, f: u8, g: u8, h: u8, Rd: u8, },
     BIC_asimdimm_L_hl { Q: u8, a: u8, b: u8, c: u8, cmode: u8, d: u8, e: u8, f: u8, g: u8, h: u8, Rd: u8, },
     MVNI_asimdimm_M_sm { Q: u8, a: u8, b: u8, c: u8, cmode: u8, d: u8, e: u8, f: u8, g: u8, h: u8, Rd: u8, },
@@ -1024,14 +917,12 @@ pub enum Instruction {
     CASAH_C32_ldstexcl { Rs: u8, Rn: u8, Rt: u8, },
     CASALH_C32_ldstexcl { Rs: u8, Rn: u8, Rt: u8, },
     INS_asimdins_IR_r { imm5: u8, Rn: u8, Rd: u8, },
-    MOV_INS_asimdins_IR_r { imm5: u8, Rn: u8, Rd: u8, },
     SMOV_asimdins_X_x { imm5: u8, Rn: u8, Rd: u8, },
     SMMLA_asimdsame2_G { Rm: u8, Rn: u8, Rd: u8, },
     USMMLA_asimdsame2_G { Rm: u8, Rn: u8, Rd: u8, },
     SBC_32_addsub_carry { Rm: u8, Rn: u8, Rd: u8, },
     SHA1C_QSV_cryptosha3 { Rm: u8, Rn: u8, Rd: u8, },
     DUP_asisdone_only { imm5: u8, Rn: u8, Rd: u8, },
-    MOV_DUP_asisdone_only { imm5: u8, Rn: u8, Rd: u8, },
     SHA1P_QSV_cryptosha3 { Rm: u8, Rn: u8, Rd: u8, },
     SHA1M_QSV_cryptosha3 { Rm: u8, Rn: u8, Rd: u8, },
     SHA1SU0_VVV_cryptosha3 { Rm: u8, Rn: u8, Rd: u8, },
@@ -1139,23 +1030,13 @@ pub enum Instruction {
     SDIV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     IRG_64I_dp_2src { Xm: u8, Xn: u8, Xd: u8, },
     GMI_64G_dp_2src { Xm: u8, Xn: u8, Xd: u8, },
-    LSL_LSLV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     LSLV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    LSR_LSRV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     LSRV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    ASR_ASRV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     ASRV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    ROR_RORV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     RORV_64_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     PACGA_64P_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32X_64C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
     CRC32CX_64C_dp_2src { Rm: u8, Rn: u8, Rd: u8, },
-    MUL_MADD_64A_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    MNEG_MSUB_64A_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    SMULL_SMADDL_64WA_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    SMNEGL_SMSUBL_64WA_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    UMULL_UMADDL_64WA_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
-    UMNEGL_UMSUBL_64WA_dp_3src { Rm: u8, Rn: u8, Rd: u8, },
     LDADD_32_memop { Rs: u8, Rn: u8, Rt: u8, },
     LDCLR_32_memop { Rs: u8, Rn: u8, Rt: u8, },
     LDEOR_32_memop { Rs: u8, Rn: u8, Rt: u8, },
@@ -1207,9 +1088,6 @@ pub enum Instruction {
     SM3PARTW1_VVV4_cryptosha512_3 { Rm: u8, Rn: u8, Rd: u8, },
     SM3PARTW2_VVV4_cryptosha512_3 { Rm: u8, Rn: u8, Rd: u8, },
     SM4EKEY_VVV4_cryptosha512_3 { Rm: u8, Rn: u8, Rd: u8, },
-    DC_SYS_CR_systeminstrs { op1: u8, CRm: u8, op2: u8, Rt: u8, },
-    IC_SYS_CR_systeminstrs { op1: u8, CRm: u8, op2: u8, Rt: u8, },
-    TLBI_SYS_CR_systeminstrs { op1: u8, CRm: u8, op2: u8, Rt: u8, },
     SBC_64_addsub_carry { Rm: u8, Rn: u8, Rd: u8, },
     LDADD_64_memop { Rs: u8, Rn: u8, Rt: u8, },
     LDCLR_64_memop { Rs: u8, Rn: u8, Rt: u8, },
@@ -1284,7 +1162,6 @@ pub enum Instruction {
     FRECPS_asimdsamefp16_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     BIC_asimdsame_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     USDOT_asimdsame2_D { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
-    MOV_ORR_asimdsame_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     ORR_asimdsame_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     FMLSL_asimdsame_F { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     FMINNM_asimdsamefp16_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1295,7 +1172,6 @@ pub enum Instruction {
     ORN_asimdsame_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     MOVI_asimdimm_L_sl { Q: u8, a: u8, b: u8, c: u8, cmode: u8, d: u8, e: u8, f: u8, g: u8, h: u8, Rd: u8, },
     ORR_asimdimm_L_sl { Q: u8, a: u8, b: u8, c: u8, cmode: u8, d: u8, e: u8, f: u8, g: u8, h: u8, Rd: u8, },
-    ASR_SBFM_32M_bitfield { immr: u8, Rn: u8, Rd: u8, },
     SCVTF_S32_float2fix { scale: u8, Rn: u8, Rd: u8, },
     UCVTF_S32_float2fix { scale: u8, Rn: u8, Rd: u8, },
     FCVTZS_32S_float2fix { scale: u8, Rn: u8, Rd: u8, },
@@ -1309,11 +1185,8 @@ pub enum Instruction {
     FCVTZS_32H_float2fix { scale: u8, Rn: u8, Rd: u8, },
     FCVTZU_32H_float2fix { scale: u8, Rn: u8, Rd: u8, },
     AND_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    MOV_and_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BIC_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     EOR_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    NOT_eor_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    MOV_sel_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     SEL_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BRKPA_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BRKPB_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
@@ -1325,25 +1198,19 @@ pub enum Instruction {
     SQSUB_z_zi { size: u8, sh: u8, imm8: u8, Zdn: u8, },
     UQSUB_z_zi { size: u8, sh: u8, imm8: u8, Zdn: u8, },
     DUP_z_i { size: u8, sh: u8, imm8: u8, Zd: u8, },
-    MOV_dup_z_i { size: u8, sh: u8, imm8: u8, Zd: u8, },
     ANDS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    MOVS_ands_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BICS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     EORS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    NOTS_eors_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BRKPAS_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     BRKPBS_p_p_pp { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    MOV_orr_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     ORR_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     ORN_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     NOR_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     NAND_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    MOVS_orrs_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     ORRS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     ORNS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     NORS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
     NANDS_p_p_pp_z { Pm: u8, Pg: u8, Pn: u8, Pd: u8, },
-    CMN_ADDS_32S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, },
     EOR_asimdsame_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     FMLAL2_asimdsame_F { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
     FMAXNMP_asimdsamefp16_only { Q: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1372,7 +1239,6 @@ pub enum Instruction {
     LDRSB_32BL_ldst_regoff { Rm: u8, S: u8, Rn: u8, Rt: u8, },
     STR_BL_ldst_regoff { Rm: u8, S: u8, Rn: u8, Rt: u8, },
     LDR_BL_ldst_regoff { Rm: u8, S: u8, Rn: u8, Rt: u8, },
-    LSR_UBFM_32M_bitfield { immr: u8, Rn: u8, Rd: u8, },
     FMULX_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FCMEQ_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FRECPS_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1383,13 +1249,11 @@ pub enum Instruction {
     FMUL_z_zzi_h { i3h: u8, i3l: u8, Zm: u8, Zn: u8, Zd: u8, },
     BFMLALB_z_zzzi { i3h: u8, Zm: u8, i3l: u8, Zn: u8, Zda: u8, },
     BFMLALT_z_zzzi { i3h: u8, Zm: u8, i3l: u8, Zn: u8, Zda: u8, },
-    CMP_SUBS_32S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, },
     FCMGE_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FACGE_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FABD_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FCMGT_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FACGT_asisdsame_only { sz: u8, Rm: u8, Rn: u8, Rd: u8, },
-    ASR_SBFM_64M_bitfield { immr: u8, Rn: u8, Rd: u8, },
     SCVTF_S64_float2fix { scale: u8, Rn: u8, Rd: u8, },
     UCVTF_S64_float2fix { scale: u8, Rn: u8, Rd: u8, },
     FCVTZS_64S_float2fix { scale: u8, Rn: u8, Rd: u8, },
@@ -1402,8 +1266,6 @@ pub enum Instruction {
     UCVTF_H64_float2fix { scale: u8, Rn: u8, Rd: u8, },
     FCVTZS_64H_float2fix { scale: u8, Rn: u8, Rd: u8, },
     FCVTZU_64H_float2fix { scale: u8, Rn: u8, Rd: u8, },
-    CMN_ADDS_64S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, },
-    LSR_UBFM_64M_bitfield { immr: u8, Rn: u8, Rd: u8, },
     SVC_EX_exception { imm16: u16, },
     HVC_EX_exception { imm16: u16, },
     SMC_EX_exception { imm16: u16, },
@@ -1412,7 +1274,6 @@ pub enum Instruction {
     DCPS1_DC_exception { imm16: u16, },
     DCPS2_DC_exception { imm16: u16, },
     DCPS3_DC_exception { imm16: u16, },
-    CMP_SUBS_64S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, },
     SSHR_asisdshf_R { immh: u8, immb: u8, Rn: u8, Rd: u8, },
     SSRA_asisdshf_R { immh: u8, immb: u8, Rn: u8, Rd: u8, },
     SRSHR_asisdshf_R { immh: u8, immb: u8, Rn: u8, Rd: u8, },
@@ -1457,7 +1318,6 @@ pub enum Instruction {
     FTSSEL_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
     ADR_z_az_d_u32_scaled { Zm: u8, msz: u8, Zn: u8, Zd: u8, },
     DUP_z_zi { imm2: u8, tsz: u8, Zn: u8, Zd: u8, },
-    MOV_dup_z_zi { imm2: u8, tsz: u8, Zn: u8, Zd: u8, },
     TBL_z_zz_1 { size: u8, Zm: u8, Zn: u8, Zd: u8, },
     ZIP1_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
     ZIP2_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
@@ -1501,8 +1361,6 @@ pub enum Instruction {
     FCMGT_asimdsame_only { Q: u8, sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FACGT_asimdsame_only { Q: u8, sz: u8, Rm: u8, Rn: u8, Rd: u8, },
     FMINP_asimdsame_only { Q: u8, sz: u8, Rm: u8, Rn: u8, Rd: u8, },
-    MOV_ORR_32_log_imm { immr: u8, imms: u8, Rd: u8, },
-    BFC_BFM_32M_bitfield { immr: u8, imms: u8, Rd: u8, },
     SDOT_z_zzz { size: u8, Zm: u8, Zn: u8, Zda: u8, },
     UDOT_z_zzz { size: u8, Zm: u8, Zn: u8, Zda: u8, },
     SQADD_asisdsame_only { size: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1530,7 +1388,6 @@ pub enum Instruction {
     FTSMUL_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
     FRECPS_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
     FRSQRTS_z_zz { size: u8, Zm: u8, Zn: u8, Zd: u8, },
-    TST_ANDS_32S_log_imm { immr: u8, imms: u8, Rn: u8, },
     SQRDMLAH_asisdsame2_only { size: u8, Rm: u8, Rn: u8, Rd: u8, },
     SQRDMLSH_asisdsame2_only { size: u8, Rm: u8, Rn: u8, Rd: u8, },
     UQADD_asisdsame_only { size: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1609,7 +1466,6 @@ pub enum Instruction {
     LD1D_z_p_bi_u64 { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
     LD4D_z_p_bi_contiguous { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
     LDNF1D_z_p_bi_u64 { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
-    BFC_BFM_64M_bitfield { immr: u8, imms: u8, Rd: u8, },
     PRFB_i_p_ai_d { imm5: u8, Pg: u8, Zn: u8, prfop: u8, },
     PRFB_i_p_bz_d_64_scaled { Zm: u8, Pg: u8, Rn: u8, prfop: u8, },
     PRFH_i_p_bz_d_64_scaled { Zm: u8, Pg: u8, Rn: u8, prfop: u8, },
@@ -1638,8 +1494,6 @@ pub enum Instruction {
     ST2D_z_p_bi_contiguous { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
     ST3D_z_p_bi_contiguous { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
     ST4D_z_p_bi_contiguous { imm4: u8, Pg: u8, Rn: u8, Zt: u8, },
-    NEGS_SUBS_32_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
-    NEGS_SUBS_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
     SSHR_asimdshf_R { Q: u8, immh: u8, immb: u8, Rn: u8, Rd: u8, },
     SSRA_asimdshf_R { Q: u8, immh: u8, immb: u8, Rn: u8, Rd: u8, },
     SRSHR_asimdshf_R { Q: u8, immh: u8, immb: u8, Rn: u8, Rd: u8, },
@@ -1669,15 +1523,11 @@ pub enum Instruction {
     UCVTF_asimdshf_C { Q: u8, immh: u8, immb: u8, Rn: u8, Rd: u8, },
     FCVTZU_asimdshf_C { Q: u8, immh: u8, immb: u8, Rn: u8, Rd: u8, },
     ADR_z_az_sd_same_scaled { sz: u8, Zm: u8, msz: u8, Zn: u8, Zd: u8, },
-    ORN_orr_z_zi { imm13: u16, Zdn: u8, },
     ORR_z_zi { imm13: u16, Zdn: u8, },
     EXT_z_zi_des { imm8h: u8, imm8l: u8, Zm: u8, Zdn: u8, },
-    EON_eor_z_zi { imm13: u16, Zdn: u8, },
     EOR_z_zi { imm13: u16, Zdn: u8, },
     AND_z_zi { imm13: u16, Zdn: u8, },
-    BIC_and_z_zi { imm13: u16, Zdn: u8, },
     DUPM_z_i { imm13: u16, Zd: u8, },
-    MOV_dupm_z_i { imm13: u16, Zd: u8, },
     ST4_asisdlsep_R4_r { Q: u8, Rm: u8, size: u8, Rn: u8, Rt: u8, },
     ST1_asisdlsep_R4_r4 { Q: u8, Rm: u8, size: u8, Rn: u8, Rt: u8, },
     ST3_asisdlsep_R3_r { Q: u8, Rm: u8, size: u8, Rn: u8, Rt: u8, },
@@ -1764,8 +1614,6 @@ pub enum Instruction {
     FCCMPE_D_floatccmp { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     FCCMP_H_floatccmp { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     FCCMPE_H_floatccmp { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
-    MVN_ORN_32_log_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
-    CMN_ADDS_32_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
     SQRDMLAH_asimdsame2_only { Q: u8, size: u8, Rm: u8, Rn: u8, Rd: u8, },
     SQRDMLSH_asimdsame2_only { Q: u8, size: u8, Rm: u8, Rn: u8, Rd: u8, },
     UDOT_asimdsame2_D { Q: u8, size: u8, Rm: u8, Rn: u8, Rd: u8, },
@@ -1805,16 +1653,11 @@ pub enum Instruction {
     FMULX_asimdelem_RH_H { Q: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     FMLAL2_asimdelem_LH { Q: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     FMLSL2_asimdelem_LH { Q: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
-    CMN_ADDS_32S_addsub_imm { sh: u8, imm12: u16, Rn: u8, },
     CCMN_32_condcmp_reg { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     CCMN_32_condcmp_imm { imm5: u8, cond: u8, Rn: u8, nzcv: u8, },
-    NEG_SUB_32_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
     FMLA_asisdelem_R_SD { sz: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     FMLS_asisdelem_R_SD { sz: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     FMUL_asisdelem_R_SD { sz: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
-    TST_ANDS_32_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
-    CMP_SUBS_32_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
-    CMP_SUBS_32S_addsub_imm { sh: u8, imm12: u16, Rn: u8, },
     CCMP_32_condcmp_reg { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     CCMP_32_condcmp_imm { imm5: u8, cond: u8, Rn: u8, nzcv: u8, },
     FMULX_asisdelem_R_SD { sz: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
@@ -1893,10 +1736,6 @@ pub enum Instruction {
     LD1D_z_p_br_u64 { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
     LDFF1D_z_p_br_u64 { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
     LD4D_z_p_br_contiguous { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
-    MVN_ORN_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
-    CMN_ADDS_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
-    CMN_ADDS_64S_addsub_imm { sh: u8, imm12: u16, Rn: u8, },
-    MOV_ORR_64_log_imm { N: u8, immr: u8, imms: u8, Rd: u8, },
     CCMN_64_condcmp_reg { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     CCMN_64_condcmp_imm { imm5: u8, cond: u8, Rn: u8, nzcv: u8, },
     PRFB_i_p_bz_d_x32_scaled { xs: u8, Zm: u8, Pg: u8, Rn: u8, prfop: u8, },
@@ -1941,7 +1780,6 @@ pub enum Instruction {
     LDFF1D_z_p_bz_d_64_unscaled { Zm: u8, Pg: u8, Rn: u8, Zt: u8, },
     LD1D_z_p_bz_d_64_scaled { Zm: u8, Pg: u8, Rn: u8, Zt: u8, },
     LDFF1D_z_p_bz_d_64_scaled { Zm: u8, Pg: u8, Rn: u8, Zt: u8, },
-    NEG_SUB_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rd: u8, },
     STNT1B_z_p_br_contiguous { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
     ST1B_z_p_bz_d_64_unscaled { Zm: u8, Pg: u8, Rn: u8, Zt: u8, },
     ST2B_z_p_br_contiguous { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
@@ -1974,20 +1812,9 @@ pub enum Instruction {
     ST1D_z_p_ai_d { imm5: u8, Pg: u8, Zn: u8, Zt: u8, },
     ST1D_z_p_br { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
     ST4D_z_p_br_contiguous { Rm: u8, Pg: u8, Rn: u8, Zt: u8, },
-    TST_ANDS_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
-    CMP_SUBS_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, },
-    CMP_SUBS_64S_addsub_imm { sh: u8, imm12: u16, Rn: u8, },
-    TST_ANDS_64S_log_imm { N: u8, immr: u8, imms: u8, Rn: u8, },
     CCMP_64_condcmp_reg { Rm: u8, cond: u8, Rn: u8, nzcv: u8, },
     CCMP_64_condcmp_imm { imm5: u8, cond: u8, Rn: u8, nzcv: u8, },
-    CINC_CSINC_32_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
-    CINV_CSINV_32_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
-    CINC_CSINC_64_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
-    CINV_CSINV_64_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
-    CNEG_CSNEG_32_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
-    CNEG_CSNEG_64_condsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
     FCPY_z_p_i { size: u8, Pg: u8, imm8: u8, Zd: u8, },
-    FMOV_fcpy_z_p_i { size: u8, Pg: u8, imm8: u8, Zd: u8, },
     ST1_asisdlsop_BX1_r1b { Q: u8, Rm: u8, S: u8, size: u8, Rn: u8, Rt: u8, },
     ST3_asisdlsop_BX3_r3b { Q: u8, Rm: u8, S: u8, size: u8, Rn: u8, Rt: u8, },
     ST2_asisdlsop_BX2_r2b { Q: u8, Rm: u8, S: u8, size: u8, Rn: u8, Rt: u8, },
@@ -2009,9 +1836,7 @@ pub enum Instruction {
     FCSEL_D_floatsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
     FCSEL_H_floatsel { Rm: u8, cond: u8, Rn: u8, Rd: u8, },
     CMPHS_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    CMPLS_cmphs_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPHI_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    CMPLO_cmphi_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPEQ_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPNE_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPGE_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
@@ -2019,9 +1844,7 @@ pub enum Instruction {
     CMPLT_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPLE_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPGE_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    CMPLE_cmpge_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPGT_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    CMPLT_cmpgt_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPEQ_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPNE_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     CMPHS_p_p_zw { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
@@ -2084,18 +1907,13 @@ pub enum Instruction {
     SQDMULH_asisdelem_R { size: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     SQRDMULH_asisdelem_R { size: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     FCMGE_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    FCMLE_fcmge_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMGT_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    FCMLT_fcmgt_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMEQ_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMNE_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FCMUO_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FACGE_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    FACLE_facge_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     FACGT_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
-    FACLT_facgt_p_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Pd: u8, },
     INS_asimdins_IV_v { imm5: u8, imm4: u8, Rn: u8, Rd: u8, },
-    MOV_INS_asimdins_IV_v { imm5: u8, imm4: u8, Rn: u8, Rd: u8, },
     STURH_32_ldst_unscaled { imm9: u16, Rn: u8, Rt: u8, },
     STRH_32_ldst_immpost { imm9: u16, Rn: u8, Rt: u8, },
     STTRH_32_ldst_unpriv { imm9: u16, Rn: u8, Rt: u8, },
@@ -2272,9 +2090,7 @@ pub enum Instruction {
     MAD_z_p_zzz { size: u8, Zm: u8, Pg: u8, Za: u8, Zdn: u8, },
     MSB_z_p_zzz { size: u8, Zm: u8, Pg: u8, Za: u8, Zdn: u8, },
     CPY_z_o_i { size: u8, Pg: u8, sh: u8, imm8: u8, Zd: u8, },
-    MOV_cpy_z_o_i { size: u8, Pg: u8, sh: u8, imm8: u8, Zd: u8, },
     CPY_z_p_i { size: u8, Pg: u8, sh: u8, imm8: u8, Zd: u8, },
-    MOV_cpy_z_p_i { size: u8, Pg: u8, sh: u8, imm8: u8, Zd: u8, },
     STXRB_SR32_ldstexcl { Rs: u8, Rt2: u8, Rn: u8, Rt: u8, },
     STLXRB_SR32_ldstexcl { Rs: u8, Rt2: u8, Rn: u8, Rt: u8, },
     LDXRB_LR32_ldstexcl { Rs: u8, Rt2: u8, Rn: u8, Rt: u8, },
@@ -2294,7 +2110,6 @@ pub enum Instruction {
     SQRDMULH_asimdelem_R { Q: u8, size: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     SDOT_asimdelem_D { Q: u8, size: u8, L: u8, M: u8, Rm: u8, H: u8, Rn: u8, Rd: u8, },
     EXTR_32_extract { Rm: u8, imms: u8, Rn: u8, Rd: u8, },
-    ROR_EXTR_32_extract { Rm: u8, imms: u8, Rn: u8, Rd: u8, },
     MADD_32A_dp_3src { Rm: u8, Ra: u8, Rn: u8, Rd: u8, },
     MSUB_32A_dp_3src { Rm: u8, Ra: u8, Rn: u8, Rd: u8, },
     FMADD_S_floatdp3 { Rm: u8, Ra: u8, Rn: u8, Rd: u8, },
@@ -2381,7 +2196,6 @@ pub enum Instruction {
     LDRAA_64W_ldst_pac { S: u8, imm9: u16, Rn: u8, Rt: u8, },
     LDRAB_64_ldst_pac { S: u8, imm9: u16, Rn: u8, Rt: u8, },
     LDRAB_64W_ldst_pac { S: u8, imm9: u16, Rn: u8, Rt: u8, },
-    MOV_sel_z_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Zd: u8, },
     SEL_z_p_zz { size: u8, Zm: u8, Pg: u8, Zn: u8, Zd: u8, },
     ADD_32_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
     CMPHS_p_p_zi { size: u8, imm7: u8, Pg: u8, Zn: u8, Pd: u8, },
@@ -2393,21 +2207,13 @@ pub enum Instruction {
     SUBS_32S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
     ADD_64_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
     EXTR_64_extract { Rm: u8, imms: u8, Rn: u8, Rd: u8, },
-    ROR_EXTR_64_extract { Rm: u8, imms: u8, Rn: u8, Rd: u8, },
     ADDS_64S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
     SUB_64_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
     XAR_VVV2_crypto3_imm6 { Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
     SUBS_64S_addsub_ext { Rm: u8, option: u8, imm3: u8, Rn: u8, Rd: u8, },
-    BFI_BFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    LSL_UBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    BFI_BFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    LSL_UBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     AND_32_log_imm { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    MOV_MOVN_32_movewide { hw: u8, imm16: u16, Rd: u8, },
     MOVN_32_movewide { hw: u8, imm16: u16, Rd: u8, },
-    SBFIZ_SBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     SBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    SBFX_SBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     STNP_32_ldstnapair_offs { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     LDNP_32_ldstnapair_offs { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     STP_32_ldstpair_post { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
@@ -2426,7 +2232,6 @@ pub enum Instruction {
     LDP_S_ldstpair_pre { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     ORR_32_log_imm { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     BFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    BFXIL_BFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     STRB_32_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDRB_32_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDRSB_64_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
@@ -2436,11 +2241,8 @@ pub enum Instruction {
     STR_Q_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDR_Q_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     EOR_32_log_imm { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    MOV_MOVZ_32_movewide { hw: u8, imm16: u16, Rd: u8, },
     MOVZ_32_movewide { hw: u8, imm16: u16, Rd: u8, },
-    UBFIZ_UBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     UBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    UBFX_UBFM_32M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     FCMLA_z_p_zzz { size: u8, Zm: u8, rot: u8, Pg: u8, Zn: u8, Zda: u8, },
     STGP_64_ldstpair_post { simm7: u8, Xt2: u8, Xn: u8, Xt: u8, },
     LDPSW_64_ldstpair_post { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
@@ -2465,9 +2267,7 @@ pub enum Instruction {
     STR_H_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDR_H_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     ADDG_64_addsub_immtags { uimm6: u8, op3: u8, uimm4: u8, Xn: u8, Xd: u8, },
-    SBFIZ_SBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     SBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    SBFX_SBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     STNP_64_ldstnapair_offs { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     LDNP_64_ldstnapair_offs { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     STP_64_ldstpair_post { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
@@ -2485,16 +2285,13 @@ pub enum Instruction {
     STP_Q_ldstpair_pre { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     LDP_Q_ldstpair_pre { imm7: u8, Rt2: u8, Rn: u8, Rt: u8, },
     BFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    BFXIL_BFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     STR_32_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDR_32_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDRSW_64_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     STR_S_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDR_S_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     SUBG_64_addsub_immtags { uimm6: u8, op3: u8, uimm4: u8, Xn: u8, Xd: u8, },
-    UBFIZ_UBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     UBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    UBFX_UBFM_64M_bitfield { immr: u8, imms: u8, Rn: u8, Rd: u8, },
     STR_64_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     LDR_64_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
     PRFM_P_ldst_pos { imm12: u16, Rn: u8, Rt: u8, },
@@ -2522,7 +2319,6 @@ pub enum Instruction {
     ADD_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
     ADD_64_addsub_imm { sh: u8, imm12: u16, Rn: u8, Rd: u8, },
     AND_64_log_imm { N: u8, immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    MOV_MOVN_64_movewide { hw: u8, imm16: u16, Rd: u8, },
     MOVN_64_movewide { hw: u8, imm16: u16, Rd: u8, },
     ORR_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
     ORN_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
@@ -2534,7 +2330,6 @@ pub enum Instruction {
     SUB_64_addsub_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
     SUB_64_addsub_imm { sh: u8, imm12: u16, Rn: u8, Rd: u8, },
     EOR_64_log_imm { N: u8, immr: u8, imms: u8, Rn: u8, Rd: u8, },
-    MOV_MOVZ_64_movewide { hw: u8, imm16: u16, Rd: u8, },
     MOVZ_64_movewide { hw: u8, imm16: u16, Rd: u8, },
     ANDS_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
     BICS_64_log_shift { shift: u8, Rm: u8, imm6: u8, Rn: u8, Rd: u8, },
@@ -2750,21 +2545,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffffffe0 == 0xd50b7380 {
-            return Self::CFP_SYS_CR_systeminstrs {
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffffffe0 == 0xd50b73a0 {
-            return Self::DVP_SYS_CR_systeminstrs {
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffffffe0 == 0xd50b73e0 {
-            return Self::CPP_SYS_CR_systeminstrs {
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffffc1f == 0xd61f0000 {
             return Self::BR_64_branch_reg {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -2850,12 +2630,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff3fffe0 == 0x2538c000 {
-            return Self::FMOV_dup_z_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffff01f == 0xd503201f {
             return Self::HINT_HM_hints {
                 CRm: ((opcode & 0x00000f00) >> 8) as u8,
@@ -2898,30 +2672,6 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xffff0fe0 == 0x1a9f07e0 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CSET_CSINC_32_condsel {
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffff0fe0 == 0x5a9f03e0 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CSETM_CSINV_32_condsel {
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffff0fe0 == 0x9a9f07e0 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CSET_CSINC_64_condsel {
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffff0fe0 == 0xda9f03e0 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CSETM_CSINV_64_condsel {
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0x0420bc00 {
             return Self::MOVPRFX_z_z {
                 Zn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -2933,24 +2683,6 @@ impl Instruction {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Pn: ((opcode & 0x000001e0) >> 5) as u8,
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x11000000 {
-            return Self::MOV_ADD_32_addsub_imm {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x13001c00 {
-            return Self::SXTB_SBFM_32M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x13003c00 {
-            return Self::SXTH_SBFM_32M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xfffffc00 == 0x1e200000 {
@@ -3566,108 +3298,6 @@ impl Instruction {
                 Pdn: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0ffe0 == 0x2a0003e0 {
-            return Self::MOV_ORR_32_log_shift {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820001f {
-            return Self::STADDB_LDADDB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820101f {
-            return Self::STCLRB_LDCLRB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820201f {
-            return Self::STEORB_LDEORB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820301f {
-            return Self::STSETB_LDSETB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820401f {
-            return Self::STSMAXB_LDSMAXB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820501f {
-            return Self::STSMINB_LDSMINB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820601f {
-            return Self::STUMAXB_LDUMAXB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3820701f {
-            return Self::STUMINB_LDUMINB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860001f {
-            return Self::STADDLB_LDADDLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860101f {
-            return Self::STCLRLB_LDCLRLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860201f {
-            return Self::STEORLB_LDEORLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860301f {
-            return Self::STSETLB_LDSETLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860401f {
-            return Self::STSMAXLB_LDSMAXLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860501f {
-            return Self::STSMINLB_LDSMINLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860601f {
-            return Self::STUMAXLB_LDUMAXLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x3860701f {
-            return Self::STUMINLB_LDUMINLB_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0x4e284800 {
             return Self::AESE_B_cryptoaes {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -3689,24 +3319,6 @@ impl Instruction {
         if opcode & 0xfffffc00 == 0x4e287800 {
             return Self::AESIMC_B_cryptoaes {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x53001c00 {
-            return Self::UXTB_UBFM_32M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x53003c00 {
-            return Self::UXTH_UBFM_32M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0ffe0 == 0x5a0003e0 {
-            return Self::NGC_SBC_32_addsub_carry {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
@@ -3824,108 +3436,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0fc1f == 0x7820001f {
-            return Self::STADDH_LDADDH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820101f {
-            return Self::STCLRH_LDCLRH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820201f {
-            return Self::STEORH_LDEORH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820301f {
-            return Self::STSETH_LDSETH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820401f {
-            return Self::STSMAXH_LDSMAXH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820501f {
-            return Self::STSMINH_LDSMINH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820601f {
-            return Self::STUMAXH_LDUMAXH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7820701f {
-            return Self::STUMINH_LDUMINH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860001f {
-            return Self::STADDLH_LDADDLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860101f {
-            return Self::STCLRLH_LDCLRLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860201f {
-            return Self::STEORLH_LDEORLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860301f {
-            return Self::STSETLH_LDSETLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860401f {
-            return Self::STSMAXLH_LDSMAXLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860501f {
-            return Self::STSMINLH_LDSMINLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860601f {
-            return Self::STUMAXLH_LDUMAXLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0x7860701f {
-            return Self::STUMINLH_LDUMINLH_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0ffe0 == 0x7a0003e0 {
-            return Self::NGCS_SBCS_32_addsub_carry {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0x7e79a800 {
             return Self::FCVTNU_asisdmiscfp16_R {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -3976,30 +3486,6 @@ impl Instruction {
         }
         if opcode & 0xfffffc00 == 0x7ef9d800 {
             return Self::FRSQRTE_asisdmiscfp16_R {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x91000000 {
-            return Self::MOV_ADD_64_addsub_imm {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x93401c00 {
-            return Self::SXTB_SBFM_64M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x93403c00 {
-            return Self::SXTH_SBFM_64M_bitfield {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0x93407c00 {
-            return Self::SXTW_SBFM_64M_bitfield {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
@@ -4256,114 +3742,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0ffe0 == 0xaa0003e0 {
-            return Self::MOV_ORR_64_log_shift {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820001f {
-            return Self::STADD_LDADD_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820101f {
-            return Self::STCLR_LDCLR_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820201f {
-            return Self::STEOR_LDEOR_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820301f {
-            return Self::STSET_LDSET_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820401f {
-            return Self::STSMAX_LDSMAX_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820501f {
-            return Self::STSMIN_LDSMIN_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820601f {
-            return Self::STUMAX_LDUMAX_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb820701f {
-            return Self::STUMIN_LDUMIN_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860001f {
-            return Self::STADDL_LDADDL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860101f {
-            return Self::STCLRL_LDCLRL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860201f {
-            return Self::STEORL_LDEORL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860301f {
-            return Self::STSETL_LDSETL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860401f {
-            return Self::STSMAXL_LDSMAXL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860501f {
-            return Self::STSMINL_LDSMINL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860601f {
-            return Self::STUMAXL_LDUMAXL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xb860701f {
-            return Self::STUMINL_LDUMINL_32_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xbac0001f {
-            return Self::CMPP_SUBPS_64S_dp_2src {
-                Xm: ((opcode & 0x001f0000) >> 16) as u8,
-                Xn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0xcec08000 {
             return Self::SHA512SU0_VV2_cryptosha512_2 {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -4425,12 +3803,6 @@ impl Instruction {
                 Xt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0ffe0 == 0xda0003e0 {
-            return Self::NGC_SBC_64_addsub_carry {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0xdac00000 {
             return Self::RBIT_64_dp_1src {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -4451,12 +3823,6 @@ impl Instruction {
         }
         if opcode & 0xfffffc00 == 0xdac00c00 {
             return Self::REV_64_dp_1src {
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffffc00 == 0xdac00c00 {
-            return Self::REV64_REV_64_dp_1src {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
@@ -4521,54 +3887,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0fc1f == 0xf820001f {
-            return Self::STADD_LDADD_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820101f {
-            return Self::STCLR_LDCLR_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820201f {
-            return Self::STEOR_LDEOR_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820301f {
-            return Self::STSET_LDSET_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820401f {
-            return Self::STSMAX_LDSMAX_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820501f {
-            return Self::STSMIN_LDSMIN_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820601f {
-            return Self::STUMAX_LDUMAX_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf820701f {
-            return Self::STUMIN_LDUMIN_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xfffffc00 == 0xf83f9000 {
             return Self::ST64B_64L_memop {
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -4581,71 +3899,10 @@ impl Instruction {
                 Rt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0fc1f == 0xf860001f {
-            return Self::STADDL_LDADDL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860101f {
-            return Self::STCLRL_LDCLRL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860201f {
-            return Self::STEORL_LDEORL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860301f {
-            return Self::STSETL_LDSETL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860401f {
-            return Self::STSMAXL_LDSMAXL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860501f {
-            return Self::STSMINL_LDSMINL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860601f {
-            return Self::STUMAXL_LDUMAXL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0fc1f == 0xf860701f {
-            return Self::STUMINL_LDUMINL_64_memop {
-                Rs: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffe0ffe0 == 0xfa0003e0 {
-            return Self::NGCS_SBCS_64_addsub_carry {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffff800 == 0x04bf5000 {
             return Self::RDVL_r_i {
                 imm6: ((opcode & 0x000007e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff30ffe0 == 0x05104000 {
-            return Self::FMOV_cpy_z_p_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x000f0000) >> 16) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xbffffc00 == 0x0d008400 {
@@ -5041,13 +4298,6 @@ impl Instruction {
             };
         }
         if opcode & 0xbffffc00 == 0x2e205800 {
-            return Self::MVN_NOT_asimdmisc_R {
-                Q: ((opcode & 0x40000000) >> 30) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xbffffc00 == 0x2e205800 {
             return Self::NOT_asimdmisc_R {
                 Q: ((opcode & 0x40000000) >> 30) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -5155,13 +4405,6 @@ impl Instruction {
         if opcode & 0xbffffc00 == 0x2ef9f800 {
             return Self::FSQRT_asimdmiscfp16_R {
                 Q: ((opcode & 0x40000000) >> 30) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffeffc00 == 0x4e083c00 {
-            return Self::MOV_UMOV_asimdins_X_x {
-                imm5: ((opcode & 0x00100000) >> 20) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
@@ -5468,13 +4711,6 @@ impl Instruction {
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff3ffc00 == 0x05203800 {
-            return Self::MOV_dup_z_r {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff3ffc00 == 0x05243800 {
             return Self::INSR_z_r {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
@@ -5650,13 +4886,6 @@ impl Instruction {
                 S: ((opcode & 0x00001000) >> 12) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe7fc00 == 0x0e043c00 {
-            return Self::MOV_UMOV_asimdins_W_w {
-                imm5: ((opcode & 0x00180000) >> 19) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xbfbffc00 == 0x0e216800 {
@@ -6140,14 +5369,6 @@ impl Instruction {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff8fe00 == 0xd5087800 {
-            return Self::AT_SYS_CR_systeminstrs {
-                op1: ((opcode & 0x00070000) >> 16) as u8,
-                CRm: ((opcode & 0x00000100) >> 8) as u8,
-                op2: ((opcode & 0x000000e0) >> 5) as u8,
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xbffff000 == 0x0c000000 {
@@ -7887,22 +7108,6 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xbf87fc00 == 0x0f00a400 && (opcode & 0x00780000 != 0x00000000) {
-            return Self::SXTL_SSHLL_asimdshf_L {
-                Q: ((opcode & 0x40000000) >> 30) as u8,
-                immh: ((opcode & 0x00780000) >> 19) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xbf87fc00 == 0x2f00a400 && (opcode & 0x00780000 != 0x00000000) {
-            return Self::UXTL_USHLL_asimdshf_L {
-                Q: ((opcode & 0x40000000) >> 30) as u8,
-                immh: ((opcode & 0x00780000) >> 19) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff3fe000 == 0x04000000 {
             return Self::ADD_z_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
@@ -8371,13 +7576,6 @@ impl Instruction {
             };
         }
         if opcode & 0xffe0fc00 == 0x04603000 {
-            return Self::MOV_orr_z_zz {
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x04603000 {
             return Self::ORR_z_zz {
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
                 Zn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -8400,14 +7598,6 @@ impl Instruction {
         }
         if opcode & 0xff3fe000 == 0x05208000 {
             return Self::CPY_z_p_v {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Vn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff3fe000 == 0x05208000 {
-            return Self::MOV_cpy_z_p_v {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
                 Vn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -8496,14 +7686,6 @@ impl Instruction {
         }
         if opcode & 0xff3fe000 == 0x0528a000 {
             return Self::CPY_z_p_r {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff3fe000 == 0x0528a000 {
-            return Self::MOV_cpy_z_p_r {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -8737,21 +7919,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffe0fc00 == 0x1ac02000 {
-            return Self::LSL_LSLV_32_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1ac02000 {
             return Self::LSLV_32_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1ac02400 {
-            return Self::LSR_LSRV_32_dp_2src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -8765,21 +7933,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffe0fc00 == 0x1ac02800 {
-            return Self::ASR_ASRV_32_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1ac02800 {
             return Self::ASRV_32_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1ac02c00 {
-            return Self::ROR_RORV_32_dp_2src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -8829,20 +7983,6 @@ impl Instruction {
         }
         if opcode & 0xffe0fc00 == 0x1ac05800 {
             return Self::CRC32CW_32C_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1b007c00 {
-            return Self::MUL_MADD_32A_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x1b00fc00 {
-            return Self::MNEG_MSUB_32A_dp_3src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -9082,13 +8222,6 @@ impl Instruction {
         }
         if opcode & 0xff3fe000 == 0x2539c000 {
             return Self::FDUP_z_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                imm8: ((opcode & 0x00001fe0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff3fe000 == 0x2539c000 {
-            return Self::FMOV_fdup_z_i {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 imm8: ((opcode & 0x00001fe0) >> 5) as u8,
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -9544,13 +8677,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0fc00 == 0x4e001c00 {
-            return Self::MOV_INS_asimdins_IR_r {
-                imm5: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe0fc00 == 0x4e002c00 {
             return Self::SMOV_asimdins_X_x {
                 imm5: ((opcode & 0x001f0000) >> 16) as u8,
@@ -9588,13 +8714,6 @@ impl Instruction {
         }
         if opcode & 0xffe0fc00 == 0x5e000400 {
             return Self::DUP_asisdone_only {
-                imm5: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x5e000400 {
-            return Self::MOV_DUP_asisdone_only {
                 imm5: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -10386,21 +9505,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffe0fc00 == 0x9ac02000 {
-            return Self::LSL_LSLV_64_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ac02000 {
             return Self::LSLV_64_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ac02400 {
-            return Self::LSR_LSRV_64_dp_2src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -10414,21 +9519,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffe0fc00 == 0x9ac02800 {
-            return Self::ASR_ASRV_64_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ac02800 {
             return Self::ASRV_64_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ac02c00 {
-            return Self::ROR_RORV_64_dp_2src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -10457,48 +9548,6 @@ impl Instruction {
         }
         if opcode & 0xffe0fc00 == 0x9ac05c00 {
             return Self::CRC32CX_64C_dp_2src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9b007c00 {
-            return Self::MUL_MADD_64A_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9b00fc00 {
-            return Self::MNEG_MSUB_64A_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9b207c00 {
-            return Self::SMULL_SMADDL_64WA_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9b20fc00 {
-            return Self::SMNEGL_SMSUBL_64WA_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ba07c00 {
-            return Self::UMULL_UMADDL_64WA_dp_3src {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0fc00 == 0x9ba0fc00 {
-            return Self::UMNEGL_UMSUBL_64WA_dp_3src {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
@@ -10859,30 +9908,6 @@ impl Instruction {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff8f000 == 0xd5087000 {
-            return Self::DC_SYS_CR_systeminstrs {
-                op1: ((opcode & 0x00070000) >> 16) as u8,
-                CRm: ((opcode & 0x00000f00) >> 8) as u8,
-                op2: ((opcode & 0x000000e0) >> 5) as u8,
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff8f000 == 0xd5087000 {
-            return Self::IC_SYS_CR_systeminstrs {
-                op1: ((opcode & 0x00070000) >> 16) as u8,
-                CRm: ((opcode & 0x00000f00) >> 8) as u8,
-                op2: ((opcode & 0x000000e0) >> 5) as u8,
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff8f000 == 0xd5088000 {
-            return Self::TLBI_SYS_CR_systeminstrs {
-                op1: ((opcode & 0x00070000) >> 16) as u8,
-                CRm: ((opcode & 0x00000f00) >> 8) as u8,
-                op2: ((opcode & 0x000000e0) >> 5) as u8,
-                Rt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xffe0fc00 == 0xda000000 {
@@ -11433,14 +10458,6 @@ impl Instruction {
             };
         }
         if opcode & 0xbfe0fc00 == 0x0ea01c00 {
-            return Self::MOV_ORR_asimdsame_only {
-                Q: ((opcode & 0x40000000) >> 30) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xbfe0fc00 == 0x0ea01c00 {
             return Self::ORR_asimdsame_only {
                 Q: ((opcode & 0x40000000) >> 30) as u8,
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -11531,13 +10548,6 @@ impl Instruction {
                 f: ((opcode & 0x00000080) >> 7) as u8,
                 g: ((opcode & 0x00000040) >> 6) as u8,
                 h: ((opcode & 0x00000020) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc0fc00 == 0x13007c00 {
-            return Self::ASR_SBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
@@ -11633,14 +10643,6 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xfff0c210 == 0x25004000 {
-            return Self::MOV_and_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfff0c210 == 0x25004010 {
             return Self::BIC_p_p_pp_z {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
@@ -11651,22 +10653,6 @@ impl Instruction {
         }
         if opcode & 0xfff0c210 == 0x25004200 {
             return Self::EOR_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff0c210 == 0x25004200 {
-            return Self::NOT_eor_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff0c210 == 0x25004210 {
-            return Self::MOV_sel_p_p_pp {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00003c00) >> 10) as u8,
                 Pn: ((opcode & 0x000001e0) >> 5) as u8,
@@ -11761,24 +10747,8 @@ impl Instruction {
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff3fc000 == 0x2538c000 {
-            return Self::MOV_dup_z_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                sh: ((opcode & 0x00002000) >> 13) as u8,
-                imm8: ((opcode & 0x00001fe0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfff0c210 == 0x25404000 {
             return Self::ANDS_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff0c210 == 0x25404000 {
-            return Self::MOVS_ands_p_p_pp_z {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00003c00) >> 10) as u8,
                 Pn: ((opcode & 0x000001e0) >> 5) as u8,
@@ -11801,14 +10771,6 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xfff0c210 == 0x25404200 {
-            return Self::NOTS_eors_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfff0c210 == 0x2540c000 {
             return Self::BRKPAS_p_p_pp {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
@@ -11819,14 +10781,6 @@ impl Instruction {
         }
         if opcode & 0xfff0c210 == 0x2540c010 {
             return Self::BRKPBS_p_p_pp {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff0c210 == 0x25804000 {
-            return Self::MOV_orr_p_p_pp_z {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00003c00) >> 10) as u8,
                 Pn: ((opcode & 0x000001e0) >> 5) as u8,
@@ -11866,14 +10820,6 @@ impl Instruction {
             };
         }
         if opcode & 0xfff0c210 == 0x25c04000 {
-            return Self::MOVS_orrs_p_p_pp_z {
-                Pm: ((opcode & 0x000f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Pn: ((opcode & 0x000001e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfff0c210 == 0x25c04000 {
             return Self::ORRS_p_p_pp_z {
                 Pm: ((opcode & 0x000f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00003c00) >> 10) as u8,
@@ -11903,14 +10849,6 @@ impl Instruction {
                 Pg: ((opcode & 0x00003c00) >> 10) as u8,
                 Pn: ((opcode & 0x000001e0) >> 5) as u8,
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe0001f == 0x2b20001f {
-            return Self::CMN_ADDS_32S_addsub_ext {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                option: ((opcode & 0x0000e000) >> 13) as u8,
-                imm3: ((opcode & 0x00001c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
             };
         }
         if opcode & 0xbfe0fc00 == 0x2e201c00 {
@@ -12151,13 +11089,6 @@ impl Instruction {
                 Rt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc0fc00 == 0x53007c00 {
-            return Self::LSR_UBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffa0fc00 == 0x5e20dc00 {
             return Self::FMULX_asisdsame_only {
                 sz: ((opcode & 0x00400000) >> 22) as u8,
@@ -12244,14 +11175,6 @@ impl Instruction {
                 Zda: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0001f == 0x6b20001f {
-            return Self::CMP_SUBS_32S_addsub_ext {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                option: ((opcode & 0x0000e000) >> 13) as u8,
-                imm3: ((opcode & 0x00001c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xffa0fc00 == 0x7e20e400 {
             return Self::FCMGE_asisdsame_only {
                 sz: ((opcode & 0x00400000) >> 22) as u8,
@@ -12288,13 +11211,6 @@ impl Instruction {
             return Self::FACGT_asisdsame_only {
                 sz: ((opcode & 0x00400000) >> 22) as u8,
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc0fc00 == 0x9340fc00 {
-            return Self::ASR_SBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
@@ -12383,21 +11299,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe0001f == 0xab20001f {
-            return Self::CMN_ADDS_64S_addsub_ext {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                option: ((opcode & 0x0000e000) >> 13) as u8,
-                imm3: ((opcode & 0x00001c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xffc0fc00 == 0xd340fc00 {
-            return Self::LSR_UBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe0001f == 0xd4000001 {
             return Self::SVC_EX_exception {
                 imm16: ((opcode & 0x001fffe0) >> 5) as u16,
@@ -12436,14 +11337,6 @@ impl Instruction {
         if opcode & 0xffe0001f == 0xd4a00003 {
             return Self::DCPS3_DC_exception {
                 imm16: ((opcode & 0x001fffe0) >> 5) as u16,
-            };
-        }
-        if opcode & 0xffe0001f == 0xeb20001f {
-            return Self::CMP_SUBS_64S_addsub_ext {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                option: ((opcode & 0x0000e000) >> 13) as u8,
-                imm3: ((opcode & 0x00001c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
             };
         }
         if opcode & 0xff80fc00 == 0x5f000400 && (opcode & 0x00780000 != 0x00000000) {
@@ -12795,14 +11688,6 @@ impl Instruction {
         }
         if opcode & 0xff20fc00 == 0x05202000 {
             return Self::DUP_z_zi {
-                imm2: ((opcode & 0x00c00000) >> 22) as u8,
-                tsz: ((opcode & 0x001f0000) >> 16) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20fc00 == 0x05202000 {
-            return Self::MOV_dup_z_zi {
                 imm2: ((opcode & 0x00c00000) >> 22) as u8,
                 tsz: ((opcode & 0x001f0000) >> 16) as u8,
                 Zn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -13189,20 +12074,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc003e0 == 0x320003e0 {
-            return Self::MOV_ORR_32_log_imm {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc003e0 == 0x330003e0 {
-            return Self::BFC_BFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff20fc00 == 0x44000000 {
             return Self::SDOT_z_zzz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
@@ -13425,13 +12296,6 @@ impl Instruction {
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
                 Zn: ((opcode & 0x000003e0) >> 5) as u8,
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc0001f == 0x7200001f {
-            return Self::TST_ANDS_32S_log_imm {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
             };
         }
         if opcode & 0xff20fc00 == 0x7e008400 {
@@ -14060,13 +12924,6 @@ impl Instruction {
                 Zt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc003e0 == 0xb34003e0 {
-            return Self::BFC_BFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe0e010 == 0xc400e000 {
             return Self::PRFB_i_p_ai_d {
                 imm5: ((opcode & 0x001f0000) >> 16) as u8,
@@ -14289,22 +13146,6 @@ impl Instruction {
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Zt: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff2003e0 == 0x6b0003e0 && (opcode & 0x0000001f != 0x0000001f) {
-            return Self::NEGS_SUBS_32_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff2003e0 == 0xeb0003e0 && (opcode & 0x0000001f != 0x0000001f) {
-            return Self::NEGS_SUBS_64_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xbf80fc00 == 0x0f000400 && (opcode & 0x00780000 != 0x00000000) {
@@ -14569,12 +13410,6 @@ impl Instruction {
             };
         }
         if opcode & 0xfffc0000 == 0x05000000 {
-            return Self::ORN_orr_z_zi {
-                imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
-                Zdn: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffc0000 == 0x05000000 {
             return Self::ORR_z_zi {
                 imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
                 Zdn: ((opcode & 0x0000001f) >> 0) as u8,
@@ -14585,12 +13420,6 @@ impl Instruction {
                 imm8h: ((opcode & 0x001f0000) >> 16) as u8,
                 imm8l: ((opcode & 0x00001c00) >> 10) as u8,
                 Zm: ((opcode & 0x000003e0) >> 5) as u8,
-                Zdn: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffc0000 == 0x05400000 {
-            return Self::EON_eor_z_zi {
-                imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
                 Zdn: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
@@ -14606,20 +13435,8 @@ impl Instruction {
                 Zdn: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xfffc0000 == 0x05800000 {
-            return Self::BIC_and_z_zi {
-                imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
-                Zdn: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xfffc0000 == 0x05c00000 {
             return Self::DUPM_z_i {
-                imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xfffc0000 == 0x05c00000 {
-            return Self::MOV_dupm_z_i {
                 imm13: ((opcode & 0x0003ffe0) >> 5) as u16,
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
             };
@@ -15418,22 +14235,6 @@ impl Instruction {
                 nzcv: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff2003e0 == 0x2a2003e0 {
-            return Self::MVN_ORN_32_log_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20001f == 0x2b00001f {
-            return Self::CMN_ADDS_32_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xbf20fc00 == 0x2e008400 {
             return Self::SQRDMLAH_asimdsame2_only {
                 Q: ((opcode & 0x40000000) >> 30) as u8,
@@ -15791,13 +14592,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff80001f == 0x3100001f {
-            return Self::CMN_ADDS_32S_addsub_imm {
-                sh: ((opcode & 0x00400000) >> 22) as u8,
-                imm12: ((opcode & 0x003ffc00) >> 10) as u16,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xffe00c10 == 0x3a400000 {
             return Self::CCMN_32_condcmp_reg {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -15812,14 +14606,6 @@ impl Instruction {
                 cond: ((opcode & 0x0000f000) >> 12) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 nzcv: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff2003e0 == 0x4b0003e0 {
-            return Self::NEG_SUB_32_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
         if opcode & 0xff80f400 == 0x5f801000 {
@@ -15853,29 +14639,6 @@ impl Instruction {
                 H: ((opcode & 0x00000800) >> 11) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20001f == 0x6a00001f {
-            return Self::TST_ANDS_32_log_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff20001f == 0x6b00001f {
-            return Self::CMP_SUBS_32_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff80001f == 0x7100001f {
-            return Self::CMP_SUBS_32S_addsub_imm {
-                sh: ((opcode & 0x00400000) >> 22) as u8,
-                imm12: ((opcode & 0x003ffc00) >> 10) as u16,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
             };
         }
         if opcode & 0xffe00c10 == 0x7a400000 {
@@ -16509,37 +15272,6 @@ impl Instruction {
                 Zt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff2003e0 == 0xaa2003e0 {
-            return Self::MVN_ORN_64_log_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20001f == 0xab00001f {
-            return Self::CMN_ADDS_64_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff80001f == 0xb100001f {
-            return Self::CMN_ADDS_64S_addsub_imm {
-                sh: ((opcode & 0x00400000) >> 22) as u8,
-                imm12: ((opcode & 0x003ffc00) >> 10) as u16,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff8003e0 == 0xb20003e0 {
-            return Self::MOV_ORR_64_log_imm {
-                N: ((opcode & 0x00400000) >> 22) as u8,
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe00c10 == 0xba400000 {
             return Self::CCMN_64_condcmp_reg {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -16896,14 +15628,6 @@ impl Instruction {
                 Zt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff2003e0 == 0xcb0003e0 {
-            return Self::NEG_SUB_64_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe0e000 == 0xe4006000 {
             return Self::STNT1B_z_p_br_contiguous {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -17160,37 +15884,6 @@ impl Instruction {
                 Zt: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20001f == 0xea00001f {
-            return Self::TST_ANDS_64_log_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff20001f == 0xeb00001f {
-            return Self::CMP_SUBS_64_addsub_shift {
-                shift: ((opcode & 0x00c00000) >> 22) as u8,
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imm6: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff80001f == 0xf100001f {
-            return Self::CMP_SUBS_64S_addsub_imm {
-                sh: ((opcode & 0x00400000) >> 22) as u8,
-                imm12: ((opcode & 0x003ffc00) >> 10) as u16,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
-        if opcode & 0xff80001f == 0xf200001f {
-            return Self::TST_ANDS_64S_log_imm {
-                N: ((opcode & 0x00400000) >> 22) as u8,
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-            };
-        }
         if opcode & 0xffe00c10 == 0xfa400000 {
             return Self::CCMP_64_condcmp_reg {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -17207,64 +15900,8 @@ impl Instruction {
                 nzcv: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe00c00 == 0x1a800400 && (opcode & 0x001f0000 != 0x001f0000) && (opcode & 0x0000e000 != 0x0000e000) && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::CINC_CSINC_32_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe00c00 == 0x5a800000 && (opcode & 0x001f0000 != 0x001f0000) && (opcode & 0x0000e000 != 0x0000e000) && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::CINV_CSINV_32_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe00c00 == 0x9a800400 && (opcode & 0x001f0000 != 0x001f0000) && (opcode & 0x0000e000 != 0x0000e000) && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::CINC_CSINC_64_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe00c00 == 0xda800000 && (opcode & 0x001f0000 != 0x001f0000) && (opcode & 0x0000e000 != 0x0000e000) && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::CINV_CSINV_64_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe00c00 == 0x5a800400 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CNEG_CSNEG_32_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe00c00 == 0xda800400 && (opcode & 0x0000e000 != 0x0000e000) {
-            return Self::CNEG_CSNEG_64_condsel {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                cond: ((opcode & 0x0000f000) >> 12) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff30e000 == 0x0510c000 {
             return Self::FCPY_z_p_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x000f0000) >> 16) as u8,
-                imm8: ((opcode & 0x00001fe0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff30e000 == 0x0510c000 {
-            return Self::FMOV_fcpy_z_p_i {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Pg: ((opcode & 0x000f0000) >> 16) as u8,
                 imm8: ((opcode & 0x00001fe0) >> 5) as u8,
@@ -17464,26 +16101,8 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20e010 == 0x24000000 {
-            return Self::CMPLS_cmphs_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff20e010 == 0x24000010 {
             return Self::CMPHI_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20e010 == 0x24000010 {
-            return Self::CMPLO_cmphi_p_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
@@ -17554,26 +16173,8 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20e010 == 0x24008000 {
-            return Self::CMPLE_cmpge_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff20e010 == 0x24008010 {
             return Self::CMPGT_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20e010 == 0x24008010 {
-            return Self::CMPLT_cmpgt_p_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
@@ -18087,26 +16688,8 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20e010 == 0x65004000 {
-            return Self::FCMLE_fcmge_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff20e010 == 0x65004010 {
             return Self::FCMGT_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20e010 == 0x65004010 {
-            return Self::FCMLT_fcmgt_p_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
                 Pg: ((opcode & 0x00001c00) >> 10) as u8,
@@ -18150,15 +16733,6 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20e010 == 0x6500c010 {
-            return Self::FACLE_facge_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff20e010 == 0x6500e010 {
             return Self::FACGT_p_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
@@ -18168,25 +16742,8 @@ impl Instruction {
                 Pd: ((opcode & 0x0000000f) >> 0) as u8,
             };
         }
-        if opcode & 0xff20e010 == 0x6500e010 {
-            return Self::FACLT_facgt_p_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00001c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Pd: ((opcode & 0x0000000f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe08400 == 0x6e000400 {
             return Self::INS_asimdins_IV_v {
-                imm5: ((opcode & 0x001f0000) >> 16) as u8,
-                imm4: ((opcode & 0x00007800) >> 11) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe08400 == 0x6e000400 {
-            return Self::MOV_INS_asimdins_IV_v {
                 imm5: ((opcode & 0x001f0000) >> 16) as u8,
                 imm4: ((opcode & 0x00007800) >> 11) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -19613,26 +18170,8 @@ impl Instruction {
                 Zd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xff30c000 == 0x05100000 {
-            return Self::MOV_cpy_z_o_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x000f0000) >> 16) as u8,
-                sh: ((opcode & 0x00002000) >> 13) as u8,
-                imm8: ((opcode & 0x00001fe0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xff30c000 == 0x05104000 {
             return Self::CPY_z_p_i {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Pg: ((opcode & 0x000f0000) >> 16) as u8,
-                sh: ((opcode & 0x00002000) >> 13) as u8,
-                imm8: ((opcode & 0x00001fe0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff30c000 == 0x05104000 {
-            return Self::MOV_cpy_z_p_i {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Pg: ((opcode & 0x000f0000) >> 16) as u8,
                 sh: ((opcode & 0x00002000) >> 13) as u8,
@@ -19826,14 +18365,6 @@ impl Instruction {
         }
         if opcode & 0xffe08000 == 0x13800000 {
             return Self::EXTR_32_extract {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imms: ((opcode & 0x00007c00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffe08000 == 0x13800000 {
-            return Self::ROR_EXTR_32_extract {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
                 imms: ((opcode & 0x00007c00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -20587,15 +19118,6 @@ impl Instruction {
             };
         }
         if opcode & 0xff20c000 == 0x0520c000 {
-            return Self::MOV_sel_z_p_zz {
-                size: ((opcode & 0x00c00000) >> 22) as u8,
-                Zm: ((opcode & 0x001f0000) >> 16) as u8,
-                Pg: ((opcode & 0x00003c00) >> 10) as u8,
-                Zn: ((opcode & 0x000003e0) >> 5) as u8,
-                Zd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff20c000 == 0x0520c000 {
             return Self::SEL_z_p_zz {
                 size: ((opcode & 0x00c00000) >> 22) as u8,
                 Zm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -20693,14 +19215,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffe00000 == 0x93c00000 {
-            return Self::ROR_EXTR_64_extract {
-                Rm: ((opcode & 0x001f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffe00000 == 0xab200000 {
             return Self::ADDS_64S_addsub_ext {
                 Rm: ((opcode & 0x001f0000) >> 16) as u8,
@@ -20736,50 +19250,11 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc00000 == 0x33000000 && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::BFI_BFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x53000000 && (opcode & 0x00007c00 != 0x00007c00) {
-            return Self::LSL_UBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0xb3400000 && (opcode & 0x000003e0 != 0x000003e0) {
-            return Self::BFI_BFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0xd3400000 && (opcode & 0x00007c00 != 0x00007c00) {
-            return Self::LSL_UBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffc00000 == 0x12000000 {
             return Self::AND_32_log_imm {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x12800000 {
-            return Self::MOV_MOVN_32_movewide {
-                hw: ((opcode & 0x00200000) >> 21) as u8,
-                imm16: ((opcode & 0x001fffe0) >> 5) as u16,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
@@ -20791,23 +19266,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffc00000 == 0x13000000 {
-            return Self::SBFIZ_SBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x13000000 {
             return Self::SBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x13000000 {
-            return Self::SBFX_SBFM_32M_bitfield {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -20958,14 +19417,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc00000 == 0x33000000 {
-            return Self::BFXIL_BFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffc00000 == 0x39000000 {
             return Self::STRB_32_ldst_pos {
                 imm12: ((opcode & 0x003ffc00) >> 10) as u16,
@@ -21031,13 +19482,6 @@ impl Instruction {
             };
         }
         if opcode & 0xffc00000 == 0x52800000 {
-            return Self::MOV_MOVZ_32_movewide {
-                hw: ((opcode & 0x00200000) >> 21) as u8,
-                imm16: ((opcode & 0x001fffe0) >> 5) as u16,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x52800000 {
             return Self::MOVZ_32_movewide {
                 hw: ((opcode & 0x00200000) >> 21) as u8,
                 imm16: ((opcode & 0x001fffe0) >> 5) as u16,
@@ -21045,23 +19489,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffc00000 == 0x53000000 {
-            return Self::UBFIZ_UBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x53000000 {
             return Self::UBFM_32M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x53000000 {
-            return Self::UBFX_UBFM_32M_bitfield {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -21257,23 +19685,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffc00000 == 0x93400000 {
-            return Self::SBFIZ_SBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x93400000 {
             return Self::SBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0x93400000 {
-            return Self::SBFX_SBFM_64M_bitfield {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -21416,14 +19828,6 @@ impl Instruction {
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
-        if opcode & 0xffc00000 == 0xb3400000 {
-            return Self::BFXIL_BFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
         if opcode & 0xffc00000 == 0xb9000000 {
             return Self::STR_32_ldst_pos {
                 imm12: ((opcode & 0x003ffc00) >> 10) as u16,
@@ -21469,23 +19873,7 @@ impl Instruction {
             };
         }
         if opcode & 0xffc00000 == 0xd3400000 {
-            return Self::UBFIZ_UBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0xd3400000 {
             return Self::UBFM_64M_bitfield {
-                immr: ((opcode & 0x003f0000) >> 16) as u8,
-                imms: ((opcode & 0x0000fc00) >> 10) as u8,
-                Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xffc00000 == 0xd3400000 {
-            return Self::UBFX_UBFM_64M_bitfield {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
@@ -21718,13 +20106,6 @@ impl Instruction {
             };
         }
         if opcode & 0xff800000 == 0x92800000 {
-            return Self::MOV_MOVN_64_movewide {
-                hw: ((opcode & 0x00600000) >> 21) as u8,
-                imm16: ((opcode & 0x001fffe0) >> 5) as u16,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff800000 == 0x92800000 {
             return Self::MOVN_64_movewide {
                 hw: ((opcode & 0x00600000) >> 21) as u8,
                 imm16: ((opcode & 0x001fffe0) >> 5) as u16,
@@ -21816,13 +20197,6 @@ impl Instruction {
                 immr: ((opcode & 0x003f0000) >> 16) as u8,
                 imms: ((opcode & 0x0000fc00) >> 10) as u8,
                 Rn: ((opcode & 0x000003e0) >> 5) as u8,
-                Rd: ((opcode & 0x0000001f) >> 0) as u8,
-            };
-        }
-        if opcode & 0xff800000 == 0xd2800000 {
-            return Self::MOV_MOVZ_64_movewide {
-                hw: ((opcode & 0x00600000) >> 21) as u8,
-                imm16: ((opcode & 0x001fffe0) >> 5) as u16,
                 Rd: ((opcode & 0x0000001f) >> 0) as u8,
             };
         }
@@ -22063,12 +20437,6 @@ impl Instruction {
                 | ((*Rd as u32) << 0),
             Self::WFIT_only_systeminstrswithreg { Rd, } => 0xd5031020
                 | ((*Rd as u32) << 0),
-            Self::CFP_SYS_CR_systeminstrs { Rt, } => 0xd50b7380
-                | ((*Rt as u32) << 0),
-            Self::DVP_SYS_CR_systeminstrs { Rt, } => 0xd50b73a0
-                | ((*Rt as u32) << 0),
-            Self::CPP_SYS_CR_systeminstrs { Rt, } => 0xd50b73e0
-                | ((*Rt as u32) << 0),
             Self::BR_64_branch_reg { Rn, } => 0xd61f0000
                 | ((*Rn as u32) << 5),
             Self::BRAAZ_64_branch_reg { Rn, } => 0xd61f081f
@@ -22103,9 +20471,6 @@ impl Instruction {
                 | ((*Rd as u32) << 0),
             Self::XPACD_64Z_dp_1src { Rd, } => 0xdac147e0
                 | ((*Rd as u32) << 0),
-            Self::FMOV_dup_z_i { size, Zd, } => 0x2538c000
-                | ((*size as u32) << 22)
-                | ((*Zd as u32) << 0),
             Self::HINT_HM_hints { CRm, op2, } => 0xd503201f
                 | ((*CRm as u32) << 8)
                 | ((*op2 as u32) << 5),
@@ -22127,18 +20492,6 @@ impl Instruction {
             Self::RDFFRS_p_p_f { Pg, Pd, } => 0x2558f000
                 | ((*Pg as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::CSET_CSINC_32_condsel { cond, Rd, } => 0x1a9f07e0
-                | ((*cond as u32) << 12)
-                | ((*Rd as u32) << 0),
-            Self::CSETM_CSINV_32_condsel { cond, Rd, } => 0x5a9f03e0
-                | ((*cond as u32) << 12)
-                | ((*Rd as u32) << 0),
-            Self::CSET_CSINC_64_condsel { cond, Rd, } => 0x9a9f07e0
-                | ((*cond as u32) << 12)
-                | ((*Rd as u32) << 0),
-            Self::CSETM_CSINV_64_condsel { cond, Rd, } => 0xda9f03e0
-                | ((*cond as u32) << 12)
-                | ((*Rd as u32) << 0),
             Self::MOVPRFX_z_z { Zn, Zd, } => 0x0420bc00
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
@@ -22146,15 +20499,6 @@ impl Instruction {
                 | ((*size as u32) << 22)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::MOV_ADD_32_addsub_imm { Rn, Rd, } => 0x11000000
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SXTB_SBFM_32M_bitfield { Rn, Rd, } => 0x13001c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SXTH_SBFM_32M_bitfield { Rn, Rd, } => 0x13003c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::FCVTNS_32S_float2int { Rn, Rd, } => 0x1e200000
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -22462,57 +20806,6 @@ impl Instruction {
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 5)
                 | ((*Pdn as u32) << 0),
-            Self::MOV_ORR_32_log_shift { Rm, Rd, } => 0x2a0003e0
-                | ((*Rm as u32) << 16)
-                | ((*Rd as u32) << 0),
-            Self::STADDB_LDADDB_32_memop { Rs, Rn, } => 0x3820001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRB_LDCLRB_32_memop { Rs, Rn, } => 0x3820101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORB_LDEORB_32_memop { Rs, Rn, } => 0x3820201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETB_LDSETB_32_memop { Rs, Rn, } => 0x3820301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXB_LDSMAXB_32_memop { Rs, Rn, } => 0x3820401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINB_LDSMINB_32_memop { Rs, Rn, } => 0x3820501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXB_LDUMAXB_32_memop { Rs, Rn, } => 0x3820601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINB_LDUMINB_32_memop { Rs, Rn, } => 0x3820701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STADDLB_LDADDLB_32_memop { Rs, Rn, } => 0x3860001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRLB_LDCLRLB_32_memop { Rs, Rn, } => 0x3860101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORLB_LDEORLB_32_memop { Rs, Rn, } => 0x3860201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETLB_LDSETLB_32_memop { Rs, Rn, } => 0x3860301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXLB_LDSMAXLB_32_memop { Rs, Rn, } => 0x3860401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINLB_LDSMINLB_32_memop { Rs, Rn, } => 0x3860501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXLB_LDUMAXLB_32_memop { Rs, Rn, } => 0x3860601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINLB_LDUMINLB_32_memop { Rs, Rn, } => 0x3860701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
             Self::AESE_B_cryptoaes { Rn, Rd, } => 0x4e284800
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -22524,15 +20817,6 @@ impl Instruction {
                 | ((*Rd as u32) << 0),
             Self::AESIMC_B_cryptoaes { Rn, Rd, } => 0x4e287800
                 | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UXTB_UBFM_32M_bitfield { Rn, Rd, } => 0x53001c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UXTH_UBFM_32M_bitfield { Rn, Rd, } => 0x53003c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::NGC_SBC_32_addsub_carry { Rm, Rd, } => 0x5a0003e0
-                | ((*Rm as u32) << 16)
                 | ((*Rd as u32) << 0),
             Self::RBIT_32_dp_1src { Rn, Rd, } => 0x5ac00000
                 | ((*Rn as u32) << 5)
@@ -22591,57 +20875,6 @@ impl Instruction {
             Self::FRECPX_asisdmiscfp16_R { Rn, Rd, } => 0x5ef9f800
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::STADDH_LDADDH_32_memop { Rs, Rn, } => 0x7820001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRH_LDCLRH_32_memop { Rs, Rn, } => 0x7820101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORH_LDEORH_32_memop { Rs, Rn, } => 0x7820201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETH_LDSETH_32_memop { Rs, Rn, } => 0x7820301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXH_LDSMAXH_32_memop { Rs, Rn, } => 0x7820401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINH_LDSMINH_32_memop { Rs, Rn, } => 0x7820501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXH_LDUMAXH_32_memop { Rs, Rn, } => 0x7820601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINH_LDUMINH_32_memop { Rs, Rn, } => 0x7820701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STADDLH_LDADDLH_32_memop { Rs, Rn, } => 0x7860001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRLH_LDCLRLH_32_memop { Rs, Rn, } => 0x7860101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORLH_LDEORLH_32_memop { Rs, Rn, } => 0x7860201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETLH_LDSETLH_32_memop { Rs, Rn, } => 0x7860301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXLH_LDSMAXLH_32_memop { Rs, Rn, } => 0x7860401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINLH_LDSMINLH_32_memop { Rs, Rn, } => 0x7860501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXLH_LDUMAXLH_32_memop { Rs, Rn, } => 0x7860601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINLH_LDUMINLH_32_memop { Rs, Rn, } => 0x7860701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::NGCS_SBCS_32_addsub_carry { Rm, Rd, } => 0x7a0003e0
-                | ((*Rm as u32) << 16)
-                | ((*Rd as u32) << 0),
             Self::FCVTNU_asisdmiscfp16_R { Rn, Rd, } => 0x7e79a800
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -22667,18 +20900,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::FRSQRTE_asisdmiscfp16_R { Rn, Rd, } => 0x7ef9d800
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MOV_ADD_64_addsub_imm { Rn, Rd, } => 0x91000000
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SXTB_SBFM_64M_bitfield { Rn, Rd, } => 0x93401c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SXTH_SBFM_64M_bitfield { Rn, Rd, } => 0x93403c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SXTW_SBFM_64M_bitfield { Rn, Rd, } => 0x93407c00
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::FCVTNS_64S_float2int { Rn, Rd, } => 0x9e200000
@@ -22807,60 +21028,6 @@ impl Instruction {
             Self::FCVTZU_64H_float2int { Rn, Rd, } => 0x9ef90000
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_ORR_64_log_shift { Rm, Rd, } => 0xaa0003e0
-                | ((*Rm as u32) << 16)
-                | ((*Rd as u32) << 0),
-            Self::STADD_LDADD_32_memop { Rs, Rn, } => 0xb820001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLR_LDCLR_32_memop { Rs, Rn, } => 0xb820101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEOR_LDEOR_32_memop { Rs, Rn, } => 0xb820201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSET_LDSET_32_memop { Rs, Rn, } => 0xb820301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAX_LDSMAX_32_memop { Rs, Rn, } => 0xb820401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMIN_LDSMIN_32_memop { Rs, Rn, } => 0xb820501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAX_LDUMAX_32_memop { Rs, Rn, } => 0xb820601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMIN_LDUMIN_32_memop { Rs, Rn, } => 0xb820701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STADDL_LDADDL_32_memop { Rs, Rn, } => 0xb860001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRL_LDCLRL_32_memop { Rs, Rn, } => 0xb860101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORL_LDEORL_32_memop { Rs, Rn, } => 0xb860201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETL_LDSETL_32_memop { Rs, Rn, } => 0xb860301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXL_LDSMAXL_32_memop { Rs, Rn, } => 0xb860401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINL_LDSMINL_32_memop { Rs, Rn, } => 0xb860501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXL_LDUMAXL_32_memop { Rs, Rn, } => 0xb860601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINL_LDUMINL_32_memop { Rs, Rn, } => 0xb860701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::CMPP_SUBPS_64S_dp_2src { Xm, Xn, } => 0xbac0001f
-                | ((*Xm as u32) << 16)
-                | ((*Xn as u32) << 5),
             Self::SHA512SU0_VV2_cryptosha512_2 { Rn, Rd, } => 0xcec08000
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -22892,9 +21059,6 @@ impl Instruction {
             Self::LDGM_64bulk_ldsttags { Xn, Xt, } => 0xd9e00000
                 | ((*Xn as u32) << 5)
                 | ((*Xt as u32) << 0),
-            Self::NGC_SBC_64_addsub_carry { Rm, Rd, } => 0xda0003e0
-                | ((*Rm as u32) << 16)
-                | ((*Rd as u32) << 0),
             Self::RBIT_64_dp_1src { Rn, Rd, } => 0xdac00000
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -22905,9 +21069,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::REV_64_dp_1src { Rn, Rd, } => 0xdac00c00
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::REV64_REV_64_dp_1src { Rn, Rd, } => 0xdac00c00
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::CLZ_64_dp_1src { Rn, Rd, } => 0xdac01000
@@ -22940,70 +21101,15 @@ impl Instruction {
             Self::AUTDB_64P_dp_1src { Rn, Rd, } => 0xdac11c00
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::STADD_LDADD_64_memop { Rs, Rn, } => 0xf820001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLR_LDCLR_64_memop { Rs, Rn, } => 0xf820101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEOR_LDEOR_64_memop { Rs, Rn, } => 0xf820201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSET_LDSET_64_memop { Rs, Rn, } => 0xf820301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAX_LDSMAX_64_memop { Rs, Rn, } => 0xf820401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMIN_LDSMIN_64_memop { Rs, Rn, } => 0xf820501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAX_LDUMAX_64_memop { Rs, Rn, } => 0xf820601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMIN_LDUMIN_64_memop { Rs, Rn, } => 0xf820701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
             Self::ST64B_64L_memop { Rn, Rt, } => 0xf83f9000
                 | ((*Rn as u32) << 5)
                 | ((*Rt as u32) << 0),
             Self::LD64B_64L_memop { Rn, Rt, } => 0xf83fd000
                 | ((*Rn as u32) << 5)
                 | ((*Rt as u32) << 0),
-            Self::STADDL_LDADDL_64_memop { Rs, Rn, } => 0xf860001f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STCLRL_LDCLRL_64_memop { Rs, Rn, } => 0xf860101f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STEORL_LDEORL_64_memop { Rs, Rn, } => 0xf860201f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSETL_LDSETL_64_memop { Rs, Rn, } => 0xf860301f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMAXL_LDSMAXL_64_memop { Rs, Rn, } => 0xf860401f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STSMINL_LDSMINL_64_memop { Rs, Rn, } => 0xf860501f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMAXL_LDUMAXL_64_memop { Rs, Rn, } => 0xf860601f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::STUMINL_LDUMINL_64_memop { Rs, Rn, } => 0xf860701f
-                | ((*Rs as u32) << 16)
-                | ((*Rn as u32) << 5),
-            Self::NGCS_SBCS_64_addsub_carry { Rm, Rd, } => 0xfa0003e0
-                | ((*Rm as u32) << 16)
-                | ((*Rd as u32) << 0),
             Self::RDVL_r_i { imm6, Rd, } => 0x04bf5000
                 | ((*imm6 as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::FMOV_cpy_z_p_i { size, Pg, Zd, } => 0x05104000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 16)
-                | ((*Zd as u32) << 0),
             Self::ST1_asisdlso_D1_1d { Q, Rn, Rt, } => 0x0d008400
                 | ((*Q as u32) << 30)
                 | ((*Rn as u32) << 5)
@@ -23228,10 +21334,6 @@ impl Instruction {
                 | ((*sz as u32) << 22)
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5),
-            Self::MVN_NOT_asimdmisc_R { Q, Rn, Rd, } => 0x2e205800
-                | ((*Q as u32) << 30)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::NOT_asimdmisc_R { Q, Rn, Rd, } => 0x2e205800
                 | ((*Q as u32) << 30)
                 | ((*Rn as u32) << 5)
@@ -23294,10 +21396,6 @@ impl Instruction {
                 | ((*Rd as u32) << 0),
             Self::FSQRT_asimdmiscfp16_R { Q, Rn, Rd, } => 0x2ef9f800
                 | ((*Q as u32) << 30)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MOV_UMOV_asimdins_X_x { imm5, Rn, Rd, } => 0x4e083c00
-                | ((*imm5 as u32) << 20)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::UMOV_asimdins_X_x { imm5, Rn, Rd, } => 0x4e083c00
@@ -23476,10 +21574,6 @@ impl Instruction {
                 | ((*size as u32) << 22)
                 | ((*Rn as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::MOV_dup_z_r { size, Rn, Zd, } => 0x05203800
-                | ((*size as u32) << 22)
-                | ((*Rn as u32) << 5)
-                | ((*Zd as u32) << 0),
             Self::INSR_z_r { size, Rm, Zdn, } => 0x05243800
                 | ((*size as u32) << 22)
                 | ((*Rm as u32) << 5)
@@ -23588,10 +21682,6 @@ impl Instruction {
                 | ((*S as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*Rt as u32) << 0),
-            Self::MOV_UMOV_asimdins_W_w { imm5, Rn, Rd, } => 0x0e043c00
-                | ((*imm5 as u32) << 19)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::FCVTN_asimdmisc_N { Q, sz, Rn, Rd, } => 0x0e216800
                 | ((*Q as u32) << 30)
                 | ((*sz as u32) << 22)
@@ -23886,11 +21976,6 @@ impl Instruction {
                 | ((*size as u32) << 22)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::AT_SYS_CR_systeminstrs { op1, CRm, op2, Rt, } => 0xd5087800
-                | ((*op1 as u32) << 16)
-                | ((*CRm as u32) << 8)
-                | ((*op2 as u32) << 5)
-                | ((*Rt as u32) << 0),
             Self::ST4_asisdlse_R4 { Q, size, Rn, Rt, } => 0x0c000000
                 | ((*Q as u32) << 30)
                 | ((*size as u32) << 10)
@@ -24962,16 +23047,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::SXTL_SSHLL_asimdshf_L { Q, immh, Rn, Rd, } => 0x0f00a400
-                | ((*Q as u32) << 30)
-                | ((*immh as u32) << 19)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UXTL_USHLL_asimdshf_L { Q, immh, Rn, Rd, } => 0x2f00a400
-                | ((*Q as u32) << 30)
-                | ((*immh as u32) << 19)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::ADD_z_p_zz { size, Pg, Zm, Zdn, } => 0x04000000
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 10)
@@ -25265,10 +23340,6 @@ impl Instruction {
                 | ((*Zm as u32) << 16)
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::MOV_orr_z_zz { Zm, Zn, Zd, } => 0x04603000
-                | ((*Zm as u32) << 16)
-                | ((*Zn as u32) << 5)
-                | ((*Zd as u32) << 0),
             Self::ORR_z_zz { Zm, Zn, Zd, } => 0x04603000
                 | ((*Zm as u32) << 16)
                 | ((*Zn as u32) << 5)
@@ -25282,11 +23353,6 @@ impl Instruction {
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
             Self::CPY_z_p_v { size, Pg, Vn, Zd, } => 0x05208000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 10)
-                | ((*Vn as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::MOV_cpy_z_p_v { size, Pg, Vn, Zd, } => 0x05208000
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 10)
                 | ((*Vn as u32) << 5)
@@ -25342,11 +23408,6 @@ impl Instruction {
                 | ((*Zm as u32) << 5)
                 | ((*Zdn as u32) << 0),
             Self::CPY_z_p_r { size, Pg, Rn, Zd, } => 0x0528a000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::MOV_cpy_z_p_r { size, Pg, Rn, Zd, } => 0x0528a000
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -25493,15 +23554,7 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::LSL_LSLV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02000
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::LSLV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02000
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::LSR_LSRV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02400
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -25509,15 +23562,7 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::ASR_ASRV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02800
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::ASRV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02800
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::ROR_RORV_32_dp_2src { Rm, Rn, Rd, } => 0x1ac02c00
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -25546,14 +23591,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::CRC32CW_32C_dp_2src { Rm, Rn, Rd, } => 0x1ac05800
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MUL_MADD_32A_dp_3src { Rm, Rn, Rd, } => 0x1b007c00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MNEG_MSUB_32A_dp_3src { Rm, Rn, Rd, } => 0x1b00fc00
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -25691,10 +23728,6 @@ impl Instruction {
                 | ((*imm8 as u32) << 5)
                 | ((*Zdn as u32) << 0),
             Self::FDUP_z_i { size, imm8, Zd, } => 0x2539c000
-                | ((*size as u32) << 22)
-                | ((*imm8 as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::FMOV_fdup_z_i { size, imm8, Zd, } => 0x2539c000
                 | ((*size as u32) << 22)
                 | ((*imm8 as u32) << 5)
                 | ((*Zd as u32) << 0),
@@ -25968,10 +24001,6 @@ impl Instruction {
                 | ((*imm5 as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_INS_asimdins_IR_r { imm5, Rn, Rd, } => 0x4e001c00
-                | ((*imm5 as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::SMOV_asimdins_X_x { imm5, Rn, Rd, } => 0x4e002c00
                 | ((*imm5 as u32) << 16)
                 | ((*Rn as u32) << 5)
@@ -25993,10 +24022,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::DUP_asisdone_only { imm5, Rn, Rd, } => 0x5e000400
-                | ((*imm5 as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MOV_DUP_asisdone_only { imm5, Rn, Rd, } => 0x5e000400
                 | ((*imm5 as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -26464,15 +24489,7 @@ impl Instruction {
                 | ((*Xm as u32) << 16)
                 | ((*Xn as u32) << 5)
                 | ((*Xd as u32) << 0),
-            Self::LSL_LSLV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02000
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::LSLV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02000
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::LSR_LSRV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02400
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -26480,15 +24497,7 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::ASR_ASRV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02800
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::ASRV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02800
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::ROR_RORV_64_dp_2src { Rm, Rn, Rd, } => 0x9ac02c00
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -26505,30 +24514,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::CRC32CX_64C_dp_2src { Rm, Rn, Rd, } => 0x9ac05c00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MUL_MADD_64A_dp_3src { Rm, Rn, Rd, } => 0x9b007c00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MNEG_MSUB_64A_dp_3src { Rm, Rn, Rd, } => 0x9b00fc00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SMULL_SMADDL_64WA_dp_3src { Rm, Rn, Rd, } => 0x9b207c00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SMNEGL_SMSUBL_64WA_dp_3src { Rm, Rn, Rd, } => 0x9b20fc00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UMULL_UMADDL_64WA_dp_3src { Rm, Rn, Rd, } => 0x9ba07c00
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UMNEGL_UMSUBL_64WA_dp_3src { Rm, Rn, Rd, } => 0x9ba0fc00
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
@@ -26736,21 +24721,6 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::DC_SYS_CR_systeminstrs { op1, CRm, op2, Rt, } => 0xd5087000
-                | ((*op1 as u32) << 16)
-                | ((*CRm as u32) << 8)
-                | ((*op2 as u32) << 5)
-                | ((*Rt as u32) << 0),
-            Self::IC_SYS_CR_systeminstrs { op1, CRm, op2, Rt, } => 0xd5087000
-                | ((*op1 as u32) << 16)
-                | ((*CRm as u32) << 8)
-                | ((*op2 as u32) << 5)
-                | ((*Rt as u32) << 0),
-            Self::TLBI_SYS_CR_systeminstrs { op1, CRm, op2, Rt, } => 0xd5088000
-                | ((*op1 as u32) << 16)
-                | ((*CRm as u32) << 8)
-                | ((*op2 as u32) << 5)
-                | ((*Rt as u32) << 0),
             Self::SBC_64_addsub_carry { Rm, Rn, Rd, } => 0xda000000
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
@@ -27076,11 +25046,6 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_ORR_asimdsame_only { Q, Rm, Rn, Rd, } => 0x0ea01c00
-                | ((*Q as u32) << 30)
-                | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::ORR_asimdsame_only { Q, Rm, Rn, Rd, } => 0x0ea01c00
                 | ((*Q as u32) << 30)
                 | ((*Rm as u32) << 16)
@@ -27145,10 +25110,6 @@ impl Instruction {
                 | ((*g as u32) << 6)
                 | ((*h as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::ASR_SBFM_32M_bitfield { immr, Rn, Rd, } => 0x13007c00
-                | ((*immr as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::SCVTF_S32_float2fix { scale, Rn, Rd, } => 0x1e020000
                 | ((*scale as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -27202,27 +25163,12 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::MOV_and_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25004000
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::BIC_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25004010
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
             Self::EOR_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25004200
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::NOT_eor_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25004200
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::MOV_sel_p_p_pp { Pm, Pg, Pn, Pd, } => 0x25004210
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
@@ -27282,17 +25228,7 @@ impl Instruction {
                 | ((*sh as u32) << 13)
                 | ((*imm8 as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::MOV_dup_z_i { size, sh, imm8, Zd, } => 0x2538c000
-                | ((*size as u32) << 22)
-                | ((*sh as u32) << 13)
-                | ((*imm8 as u32) << 5)
-                | ((*Zd as u32) << 0),
             Self::ANDS_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25404000
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::MOVS_ands_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25404000
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
@@ -27307,22 +25243,12 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::NOTS_eors_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25404200
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::BRKPAS_p_p_pp { Pm, Pg, Pn, Pd, } => 0x2540c000
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
             Self::BRKPBS_p_p_pp { Pm, Pg, Pn, Pd, } => 0x2540c010
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::MOV_orr_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25804000
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
@@ -27347,11 +25273,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::MOVS_orrs_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25c04000
-                | ((*Pm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Pn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::ORRS_p_p_pp_z { Pm, Pg, Pn, Pd, } => 0x25c04000
                 | ((*Pm as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -27372,11 +25293,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Pn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::CMN_ADDS_32S_addsub_ext { Rm, option, imm3, Rn, } => 0x2b20001f
-                | ((*Rm as u32) << 16)
-                | ((*option as u32) << 13)
-                | ((*imm3 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::EOR_asimdsame_only { Q, Rm, Rn, Rd, } => 0x2e201c00
                 | ((*Q as u32) << 30)
                 | ((*Rm as u32) << 16)
@@ -27531,10 +25447,6 @@ impl Instruction {
                 | ((*S as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*Rt as u32) << 0),
-            Self::LSR_UBFM_32M_bitfield { immr, Rn, Rd, } => 0x53007c00
-                | ((*immr as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::FMULX_asisdsame_only { sz, Rm, Rn, Rd, } => 0x5e20dc00
                 | ((*sz as u32) << 22)
                 | ((*Rm as u32) << 16)
@@ -27591,11 +25503,6 @@ impl Instruction {
                 | ((*i3l as u32) << 11)
                 | ((*Zn as u32) << 5)
                 | ((*Zda as u32) << 0),
-            Self::CMP_SUBS_32S_addsub_ext { Rm, option, imm3, Rn, } => 0x6b20001f
-                | ((*Rm as u32) << 16)
-                | ((*option as u32) << 13)
-                | ((*imm3 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::FCMGE_asisdsame_only { sz, Rm, Rn, Rd, } => 0x7e20e400
                 | ((*sz as u32) << 22)
                 | ((*Rm as u32) << 16)
@@ -27619,10 +25526,6 @@ impl Instruction {
             Self::FACGT_asisdsame_only { sz, Rm, Rn, Rd, } => 0x7ea0ec00
                 | ((*sz as u32) << 22)
                 | ((*Rm as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::ASR_SBFM_64M_bitfield { immr, Rn, Rd, } => 0x9340fc00
-                | ((*immr as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::SCVTF_S64_float2fix { scale, Rn, Rd, } => 0x9e020000
@@ -27673,15 +25576,6 @@ impl Instruction {
                 | ((*scale as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::CMN_ADDS_64S_addsub_ext { Rm, option, imm3, Rn, } => 0xab20001f
-                | ((*Rm as u32) << 16)
-                | ((*option as u32) << 13)
-                | ((*imm3 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::LSR_UBFM_64M_bitfield { immr, Rn, Rd, } => 0xd340fc00
-                | ((*immr as u32) << 16)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::SVC_EX_exception { imm16, } => 0xd4000001
                 | ((*imm16 as u32) << 5),
             Self::HVC_EX_exception { imm16, } => 0xd4000002
@@ -27698,11 +25592,6 @@ impl Instruction {
                 | ((*imm16 as u32) << 5),
             Self::DCPS3_DC_exception { imm16, } => 0xd4a00003
                 | ((*imm16 as u32) << 5),
-            Self::CMP_SUBS_64S_addsub_ext { Rm, option, imm3, Rn, } => 0xeb20001f
-                | ((*Rm as u32) << 16)
-                | ((*option as u32) << 13)
-                | ((*imm3 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::SSHR_asisdshf_R { immh, immb, Rn, Rd, } => 0x5f000400
                 | ((*immh as u32) << 19)
                 | ((*immb as u32) << 16)
@@ -27922,11 +25811,6 @@ impl Instruction {
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
             Self::DUP_z_zi { imm2, tsz, Zn, Zd, } => 0x05202000
-                | ((*imm2 as u32) << 22)
-                | ((*tsz as u32) << 16)
-                | ((*Zn as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::MOV_dup_z_zi { imm2, tsz, Zn, Zd, } => 0x05202000
                 | ((*imm2 as u32) << 22)
                 | ((*tsz as u32) << 16)
                 | ((*Zn as u32) << 5)
@@ -28182,14 +26066,6 @@ impl Instruction {
                 | ((*Rm as u32) << 16)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_ORR_32_log_imm { immr, imms, Rd, } => 0x320003e0
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rd as u32) << 0),
-            Self::BFC_BFM_32M_bitfield { immr, imms, Rd, } => 0x330003e0
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::SDOT_z_zzz { size, Zm, Zn, Zda, } => 0x44000000
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
@@ -28333,10 +26209,6 @@ impl Instruction {
                 | ((*Zm as u32) << 16)
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::TST_ANDS_32S_log_imm { immr, imms, Rn, } => 0x7200001f
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::SQRDMLAH_asisdsame2_only { size, Rm, Rn, Rd, } => 0x7e008400
                 | ((*size as u32) << 22)
                 | ((*Rm as u32) << 16)
@@ -28729,10 +26601,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Zt as u32) << 0),
-            Self::BFC_BFM_64M_bitfield { immr, imms, Rd, } => 0xb34003e0
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::PRFB_i_p_ai_d { imm5, Pg, Zn, prfop, } => 0xc400e000
                 | ((*imm5 as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -28873,16 +26741,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Zt as u32) << 0),
-            Self::NEGS_SUBS_32_addsub_shift { shift, Rm, imm6, Rd, } => 0x6b0003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
-            Self::NEGS_SUBS_64_addsub_shift { shift, Rm, imm6, Rd, } => 0xeb0003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::SSHR_asimdshf_R { Q, immh, immb, Rn, Rd, } => 0x0f000400
                 | ((*Q as u32) << 30)
                 | ((*immh as u32) << 19)
@@ -29057,9 +26915,6 @@ impl Instruction {
                 | ((*msz as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::ORN_orr_z_zi { imm13, Zdn, } => 0x05000000
-                | ((*imm13 as u32) << 5)
-                | ((*Zdn as u32) << 0),
             Self::ORR_z_zi { imm13, Zdn, } => 0x05000000
                 | ((*imm13 as u32) << 5)
                 | ((*Zdn as u32) << 0),
@@ -29068,22 +26923,13 @@ impl Instruction {
                 | ((*imm8l as u32) << 10)
                 | ((*Zm as u32) << 5)
                 | ((*Zdn as u32) << 0),
-            Self::EON_eor_z_zi { imm13, Zdn, } => 0x05400000
-                | ((*imm13 as u32) << 5)
-                | ((*Zdn as u32) << 0),
             Self::EOR_z_zi { imm13, Zdn, } => 0x05400000
                 | ((*imm13 as u32) << 5)
                 | ((*Zdn as u32) << 0),
             Self::AND_z_zi { imm13, Zdn, } => 0x05800000
                 | ((*imm13 as u32) << 5)
                 | ((*Zdn as u32) << 0),
-            Self::BIC_and_z_zi { imm13, Zdn, } => 0x05800000
-                | ((*imm13 as u32) << 5)
-                | ((*Zdn as u32) << 0),
             Self::DUPM_z_i { imm13, Zd, } => 0x05c00000
-                | ((*imm13 as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::MOV_dupm_z_i { imm13, Zd, } => 0x05c00000
                 | ((*imm13 as u32) << 5)
                 | ((*Zd as u32) << 0),
             Self::ST4_asisdlsep_R4_r { Q, Rm, size, Rn, Rt, } => 0x0c800000
@@ -29622,16 +27468,6 @@ impl Instruction {
                 | ((*cond as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*nzcv as u32) << 0),
-            Self::MVN_ORN_32_log_shift { shift, Rm, imm6, Rd, } => 0x2a2003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
-            Self::CMN_ADDS_32_addsub_shift { shift, Rm, imm6, Rn, } => 0x2b00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::SQRDMLAH_asimdsame2_only { Q, size, Rm, Rn, Rd, } => 0x2e008400
                 | ((*Q as u32) << 30)
                 | ((*size as u32) << 22)
@@ -29872,10 +27708,6 @@ impl Instruction {
                 | ((*H as u32) << 11)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::CMN_ADDS_32S_addsub_imm { sh, imm12, Rn, } => 0x3100001f
-                | ((*sh as u32) << 22)
-                | ((*imm12 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::CCMN_32_condcmp_reg { Rm, cond, Rn, nzcv, } => 0x3a400000
                 | ((*Rm as u32) << 16)
                 | ((*cond as u32) << 12)
@@ -29886,11 +27718,6 @@ impl Instruction {
                 | ((*cond as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*nzcv as u32) << 0),
-            Self::NEG_SUB_32_addsub_shift { shift, Rm, imm6, Rd, } => 0x4b0003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::FMLA_asisdelem_R_SD { sz, L, M, Rm, H, Rn, Rd, } => 0x5f801000
                 | ((*sz as u32) << 22)
                 | ((*L as u32) << 21)
@@ -29915,20 +27742,6 @@ impl Instruction {
                 | ((*H as u32) << 11)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::TST_ANDS_32_log_shift { shift, Rm, imm6, Rn, } => 0x6a00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::CMP_SUBS_32_addsub_shift { shift, Rm, imm6, Rn, } => 0x6b00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::CMP_SUBS_32S_addsub_imm { sh, imm12, Rn, } => 0x7100001f
-                | ((*sh as u32) << 22)
-                | ((*imm12 as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::CCMP_32_condcmp_reg { Rm, cond, Rn, nzcv, } => 0x7a400000
                 | ((*Rm as u32) << 16)
                 | ((*cond as u32) << 12)
@@ -30326,25 +28139,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Zt as u32) << 0),
-            Self::MVN_ORN_64_log_shift { shift, Rm, imm6, Rd, } => 0xaa2003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
-            Self::CMN_ADDS_64_addsub_shift { shift, Rm, imm6, Rn, } => 0xab00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::CMN_ADDS_64S_addsub_imm { sh, imm12, Rn, } => 0xb100001f
-                | ((*sh as u32) << 22)
-                | ((*imm12 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::MOV_ORR_64_log_imm { N, immr, imms, Rd, } => 0xb20003e0
-                | ((*N as u32) << 22)
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::CCMN_64_condcmp_reg { Rm, cond, Rn, nzcv, } => 0xba400000
                 | ((*Rm as u32) << 16)
                 | ((*cond as u32) << 12)
@@ -30569,11 +28363,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Zt as u32) << 0),
-            Self::NEG_SUB_64_addsub_shift { shift, Rm, imm6, Rd, } => 0xcb0003e0
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rd as u32) << 0),
             Self::STNT1B_z_p_br_contiguous { Rm, Pg, Rn, Zt, } => 0xe4006000
                 | ((*Rm as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -30734,25 +28523,6 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Zt as u32) << 0),
-            Self::TST_ANDS_64_log_shift { shift, Rm, imm6, Rn, } => 0xea00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::CMP_SUBS_64_addsub_shift { shift, Rm, imm6, Rn, } => 0xeb00001f
-                | ((*shift as u32) << 22)
-                | ((*Rm as u32) << 16)
-                | ((*imm6 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::CMP_SUBS_64S_addsub_imm { sh, imm12, Rn, } => 0xf100001f
-                | ((*sh as u32) << 22)
-                | ((*imm12 as u32) << 10)
-                | ((*Rn as u32) << 5),
-            Self::TST_ANDS_64S_log_imm { N, immr, imms, Rn, } => 0xf200001f
-                | ((*N as u32) << 22)
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5),
             Self::CCMP_64_condcmp_reg { Rm, cond, Rn, nzcv, } => 0xfa400000
                 | ((*Rm as u32) << 16)
                 | ((*cond as u32) << 12)
@@ -30763,42 +28533,7 @@ impl Instruction {
                 | ((*cond as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*nzcv as u32) << 0),
-            Self::CINC_CSINC_32_condsel { Rm, cond, Rn, Rd, } => 0x1a800400
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::CINV_CSINV_32_condsel { Rm, cond, Rn, Rd, } => 0x5a800000
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::CINC_CSINC_64_condsel { Rm, cond, Rn, Rd, } => 0x9a800400
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::CINV_CSINV_64_condsel { Rm, cond, Rn, Rd, } => 0xda800000
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::CNEG_CSNEG_32_condsel { Rm, cond, Rn, Rd, } => 0x5a800400
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::CNEG_CSNEG_64_condsel { Rm, cond, Rn, Rd, } => 0xda800400
-                | ((*Rm as u32) << 16)
-                | ((*cond as u32) << 12)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::FCPY_z_p_i { size, Pg, imm8, Zd, } => 0x0510c000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 16)
-                | ((*imm8 as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::FMOV_fcpy_z_p_i { size, Pg, imm8, Zd, } => 0x0510c000
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 16)
                 | ((*imm8 as u32) << 5)
@@ -30933,19 +28668,7 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::CMPLS_cmphs_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24000000
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::CMPHI_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24000010
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::CMPLO_cmphi_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24000010
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -30993,19 +28716,7 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::CMPLE_cmpge_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24008000
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::CMPGT_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24008010
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::CMPLT_cmpgt_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x24008010
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -31331,19 +29042,7 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::FCMLE_fcmge_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x65004000
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::FCMGT_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x65004010
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
-            Self::FCMLT_fcmgt_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x65004010
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
                 | ((*Pg as u32) << 10)
@@ -31373,30 +29072,13 @@ impl Instruction {
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::FACLE_facge_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x6500c010
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::FACGT_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x6500e010
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
                 | ((*Pg as u32) << 10)
                 | ((*Zn as u32) << 5)
                 | ((*Pd as u32) << 0),
-            Self::FACLT_facgt_p_p_zz { size, Zm, Pg, Zn, Pd, } => 0x6500e010
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Pd as u32) << 0),
             Self::INS_asimdins_IV_v { imm5, imm4, Rn, Rd, } => 0x6e000400
-                | ((*imm5 as u32) << 16)
-                | ((*imm4 as u32) << 11)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MOV_INS_asimdins_IV_v { imm5, imm4, Rn, Rd, } => 0x6e000400
                 | ((*imm5 as u32) << 16)
                 | ((*imm4 as u32) << 11)
                 | ((*Rn as u32) << 5)
@@ -32293,19 +29975,7 @@ impl Instruction {
                 | ((*sh as u32) << 13)
                 | ((*imm8 as u32) << 5)
                 | ((*Zd as u32) << 0),
-            Self::MOV_cpy_z_o_i { size, Pg, sh, imm8, Zd, } => 0x05100000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 16)
-                | ((*sh as u32) << 13)
-                | ((*imm8 as u32) << 5)
-                | ((*Zd as u32) << 0),
             Self::CPY_z_p_i { size, Pg, sh, imm8, Zd, } => 0x05104000
-                | ((*size as u32) << 22)
-                | ((*Pg as u32) << 16)
-                | ((*sh as u32) << 13)
-                | ((*imm8 as u32) << 5)
-                | ((*Zd as u32) << 0),
-            Self::MOV_cpy_z_p_i { size, Pg, sh, imm8, Zd, } => 0x05104000
                 | ((*size as u32) << 22)
                 | ((*Pg as u32) << 16)
                 | ((*sh as u32) << 13)
@@ -32442,11 +30112,6 @@ impl Instruction {
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::EXTR_32_extract { Rm, imms, Rn, Rd, } => 0x13800000
-                | ((*Rm as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::ROR_EXTR_32_extract { Rm, imms, Rn, Rd, } => 0x13800000
                 | ((*Rm as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -32939,12 +30604,6 @@ impl Instruction {
                 | ((*imm9 as u32) << 12)
                 | ((*Rn as u32) << 5)
                 | ((*Rt as u32) << 0),
-            Self::MOV_sel_z_p_zz { size, Zm, Pg, Zn, Zd, } => 0x0520c000
-                | ((*size as u32) << 22)
-                | ((*Zm as u32) << 16)
-                | ((*Pg as u32) << 10)
-                | ((*Zn as u32) << 5)
-                | ((*Zd as u32) << 0),
             Self::SEL_z_p_zz { size, Zm, Pg, Zn, Zd, } => 0x0520c000
                 | ((*size as u32) << 22)
                 | ((*Zm as u32) << 16)
@@ -33010,11 +30669,6 @@ impl Instruction {
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::ROR_EXTR_64_extract { Rm, imms, Rn, Rd, } => 0x93c00000
-                | ((*Rm as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::ADDS_64S_addsub_ext { Rm, option, imm3, Rn, Rd, } => 0xab200000
                 | ((*Rm as u32) << 16)
                 | ((*option as u32) << 13)
@@ -33038,50 +30692,16 @@ impl Instruction {
                 | ((*imm3 as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::BFI_BFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x33000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::LSL_UBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x53000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::BFI_BFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xb3400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::LSL_UBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xd3400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::AND_32_log_imm { immr, imms, Rn, Rd, } => 0x12000000
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_MOVN_32_movewide { hw, imm16, Rd, } => 0x12800000
-                | ((*hw as u32) << 21)
-                | ((*imm16 as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::MOVN_32_movewide { hw, imm16, Rd, } => 0x12800000
                 | ((*hw as u32) << 21)
                 | ((*imm16 as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::SBFIZ_SBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x13000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::SBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x13000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SBFX_SBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x13000000
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33176,11 +30796,6 @@ impl Instruction {
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::BFXIL_BFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x33000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::STRB_32_ldst_pos { imm12, Rn, Rt, } => 0x39000000
                 | ((*imm12 as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33218,25 +30833,11 @@ impl Instruction {
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_MOVZ_32_movewide { hw, imm16, Rd, } => 0x52800000
-                | ((*hw as u32) << 21)
-                | ((*imm16 as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::MOVZ_32_movewide { hw, imm16, Rd, } => 0x52800000
                 | ((*hw as u32) << 21)
                 | ((*imm16 as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::UBFIZ_UBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x53000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::UBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x53000000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UBFX_UBFM_32M_bitfield { immr, imms, Rn, Rd, } => 0x53000000
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33357,17 +30958,7 @@ impl Instruction {
                 | ((*uimm4 as u32) << 10)
                 | ((*Xn as u32) << 5)
                 | ((*Xd as u32) << 0),
-            Self::SBFIZ_SBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0x93400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::SBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0x93400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::SBFX_SBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0x93400000
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33457,11 +31048,6 @@ impl Instruction {
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::BFXIL_BFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xb3400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::STR_32_ldst_pos { imm12, Rn, Rt, } => 0xb9000000
                 | ((*imm12 as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33488,17 +31074,7 @@ impl Instruction {
                 | ((*uimm4 as u32) << 10)
                 | ((*Xn as u32) << 5)
                 | ((*Xd as u32) << 0),
-            Self::UBFIZ_UBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xd3400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::UBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xd3400000
-                | ((*immr as u32) << 16)
-                | ((*imms as u32) << 10)
-                | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::UBFX_UBFM_64M_bitfield { immr, imms, Rn, Rd, } => 0xd3400000
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
@@ -33647,10 +31223,6 @@ impl Instruction {
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
                 | ((*Rd as u32) << 0),
-            Self::MOV_MOVN_64_movewide { hw, imm16, Rd, } => 0x92800000
-                | ((*hw as u32) << 21)
-                | ((*imm16 as u32) << 5)
-                | ((*Rd as u32) << 0),
             Self::MOVN_64_movewide { hw, imm16, Rd, } => 0x92800000
                 | ((*hw as u32) << 21)
                 | ((*imm16 as u32) << 5)
@@ -33712,10 +31284,6 @@ impl Instruction {
                 | ((*immr as u32) << 16)
                 | ((*imms as u32) << 10)
                 | ((*Rn as u32) << 5)
-                | ((*Rd as u32) << 0),
-            Self::MOV_MOVZ_64_movewide { hw, imm16, Rd, } => 0xd2800000
-                | ((*hw as u32) << 21)
-                | ((*imm16 as u32) << 5)
                 | ((*Rd as u32) << 0),
             Self::MOVZ_64_movewide { hw, imm16, Rd, } => 0xd2800000
                 | ((*hw as u32) << 21)

@@ -55,6 +55,13 @@ pub struct BitRange {
     pub bits: Vec<Option<u32>>,
 }
 
+#[allow(dead_code)] // TODO: add functionality for handling special box values
+enum Bit {
+    Any,          // "", "(0)", "(1)"
+    Equal(i8),    // "0", "z" (zero), "1"
+    NotEqual(i8), // "Z" (not zero), "N" (not one)
+}
+
 impl BitRange {
     pub fn new(box_input: &BoxElement) -> Self {
         let bits: Vec<Option<u32>> = if box_input.c.len() == 1 && box_input.c[0] == "" {

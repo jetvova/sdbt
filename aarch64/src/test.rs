@@ -260,21 +260,6 @@ fn roundtrip_WFIT_only_systeminstrswithreg() {
                 Instruction::WFIT_only_systeminstrswithreg { Rd: 31, })
 }
 #[test]
-fn roundtrip_CFP_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::CFP_SYS_CR_systeminstrs { Rt: 31, }.encode().decode(), 
-                Instruction::CFP_SYS_CR_systeminstrs { Rt: 31, })
-}
-#[test]
-fn roundtrip_DVP_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::DVP_SYS_CR_systeminstrs { Rt: 31, }.encode().decode(), 
-                Instruction::DVP_SYS_CR_systeminstrs { Rt: 31, })
-}
-#[test]
-fn roundtrip_CPP_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::CPP_SYS_CR_systeminstrs { Rt: 31, }.encode().decode(), 
-                Instruction::CPP_SYS_CR_systeminstrs { Rt: 31, })
-}
-#[test]
 fn roundtrip_BR_64_branch_reg() {
     assert_eq!(Instruction::BR_64_branch_reg { Rn: 31, }.encode().decode(), 
                 Instruction::BR_64_branch_reg { Rn: 31, })
@@ -360,11 +345,6 @@ fn roundtrip_XPACD_64Z_dp_1src() {
                 Instruction::XPACD_64Z_dp_1src { Rd: 31, })
 }
 #[test]
-fn roundtrip_FMOV_dup_z_i() {
-    assert_eq!(Instruction::FMOV_dup_z_i { size: 3, Zd: 31, }.encode().decode(), 
-                Instruction::FMOV_dup_z_i { size: 3, Zd: 31, })
-}
-#[test]
 fn roundtrip_HINT_HM_hints() {
     assert_eq!(Instruction::HINT_HM_hints { CRm: 15, op2: 7, }.encode().decode(), 
                 Instruction::HINT_HM_hints { CRm: 15, op2: 7, })
@@ -400,26 +380,6 @@ fn roundtrip_RDFFRS_p_p_f() {
                 Instruction::RDFFRS_p_p_f { Pg: 15, Pd: 15, })
 }
 #[test]
-fn roundtrip_CSET_CSINC_32_condsel() {
-    assert_eq!(Instruction::CSET_CSINC_32_condsel { cond: 1, Rd: 31, }.encode().decode(), 
-                Instruction::CSET_CSINC_32_condsel { cond: 1, Rd: 31, })
-}
-#[test]
-fn roundtrip_CSETM_CSINV_32_condsel() {
-    assert_eq!(Instruction::CSETM_CSINV_32_condsel { cond: 1, Rd: 31, }.encode().decode(), 
-                Instruction::CSETM_CSINV_32_condsel { cond: 1, Rd: 31, })
-}
-#[test]
-fn roundtrip_CSET_CSINC_64_condsel() {
-    assert_eq!(Instruction::CSET_CSINC_64_condsel { cond: 1, Rd: 31, }.encode().decode(), 
-                Instruction::CSET_CSINC_64_condsel { cond: 1, Rd: 31, })
-}
-#[test]
-fn roundtrip_CSETM_CSINV_64_condsel() {
-    assert_eq!(Instruction::CSETM_CSINV_64_condsel { cond: 1, Rd: 31, }.encode().decode(), 
-                Instruction::CSETM_CSINV_64_condsel { cond: 1, Rd: 31, })
-}
-#[test]
 fn roundtrip_MOVPRFX_z_z() {
     assert_eq!(Instruction::MOVPRFX_z_z { Zn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::MOVPRFX_z_z { Zn: 31, Zd: 31, })
@@ -428,21 +388,6 @@ fn roundtrip_MOVPRFX_z_z() {
 fn roundtrip_REV_p_p() {
     assert_eq!(Instruction::REV_p_p { size: 3, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::REV_p_p { size: 3, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_MOV_ADD_32_addsub_imm() {
-    assert_eq!(Instruction::MOV_ADD_32_addsub_imm { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ADD_32_addsub_imm { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SXTB_SBFM_32M_bitfield() {
-    assert_eq!(Instruction::SXTB_SBFM_32M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTB_SBFM_32M_bitfield { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SXTH_SBFM_32M_bitfield() {
-    assert_eq!(Instruction::SXTH_SBFM_32M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTH_SBFM_32M_bitfield { Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_FCVTNS_32S_float2int() {
@@ -955,91 +900,6 @@ fn roundtrip_PNEXT_p_p_p() {
                 Instruction::PNEXT_p_p_p { size: 3, Pg: 15, Pdn: 15, })
 }
 #[test]
-fn roundtrip_MOV_ORR_32_log_shift() {
-    assert_eq!(Instruction::MOV_ORR_32_log_shift { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ORR_32_log_shift { Rm: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_STADDB_LDADDB_32_memop() {
-    assert_eq!(Instruction::STADDB_LDADDB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDB_LDADDB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRB_LDCLRB_32_memop() {
-    assert_eq!(Instruction::STCLRB_LDCLRB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRB_LDCLRB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORB_LDEORB_32_memop() {
-    assert_eq!(Instruction::STEORB_LDEORB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORB_LDEORB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETB_LDSETB_32_memop() {
-    assert_eq!(Instruction::STSETB_LDSETB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETB_LDSETB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXB_LDSMAXB_32_memop() {
-    assert_eq!(Instruction::STSMAXB_LDSMAXB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXB_LDSMAXB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINB_LDSMINB_32_memop() {
-    assert_eq!(Instruction::STSMINB_LDSMINB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINB_LDSMINB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXB_LDUMAXB_32_memop() {
-    assert_eq!(Instruction::STUMAXB_LDUMAXB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXB_LDUMAXB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINB_LDUMINB_32_memop() {
-    assert_eq!(Instruction::STUMINB_LDUMINB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINB_LDUMINB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STADDLB_LDADDLB_32_memop() {
-    assert_eq!(Instruction::STADDLB_LDADDLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDLB_LDADDLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRLB_LDCLRLB_32_memop() {
-    assert_eq!(Instruction::STCLRLB_LDCLRLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRLB_LDCLRLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORLB_LDEORLB_32_memop() {
-    assert_eq!(Instruction::STEORLB_LDEORLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORLB_LDEORLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETLB_LDSETLB_32_memop() {
-    assert_eq!(Instruction::STSETLB_LDSETLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETLB_LDSETLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXLB_LDSMAXLB_32_memop() {
-    assert_eq!(Instruction::STSMAXLB_LDSMAXLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXLB_LDSMAXLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINLB_LDSMINLB_32_memop() {
-    assert_eq!(Instruction::STSMINLB_LDSMINLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINLB_LDSMINLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXLB_LDUMAXLB_32_memop() {
-    assert_eq!(Instruction::STUMAXLB_LDUMAXLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXLB_LDUMAXLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINLB_LDUMINLB_32_memop() {
-    assert_eq!(Instruction::STUMINLB_LDUMINLB_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINLB_LDUMINLB_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
 fn roundtrip_AESE_B_cryptoaes() {
     assert_eq!(Instruction::AESE_B_cryptoaes { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::AESE_B_cryptoaes { Rn: 31, Rd: 31, })
@@ -1058,21 +918,6 @@ fn roundtrip_AESMC_B_cryptoaes() {
 fn roundtrip_AESIMC_B_cryptoaes() {
     assert_eq!(Instruction::AESIMC_B_cryptoaes { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::AESIMC_B_cryptoaes { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UXTB_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::UXTB_UBFM_32M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UXTB_UBFM_32M_bitfield { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UXTH_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::UXTH_UBFM_32M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UXTH_UBFM_32M_bitfield { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_NGC_SBC_32_addsub_carry() {
-    assert_eq!(Instruction::NGC_SBC_32_addsub_carry { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::NGC_SBC_32_addsub_carry { Rm: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_RBIT_32_dp_1src() {
@@ -1170,91 +1015,6 @@ fn roundtrip_FRECPX_asisdmiscfp16_R() {
                 Instruction::FRECPX_asisdmiscfp16_R { Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_STADDH_LDADDH_32_memop() {
-    assert_eq!(Instruction::STADDH_LDADDH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDH_LDADDH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRH_LDCLRH_32_memop() {
-    assert_eq!(Instruction::STCLRH_LDCLRH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRH_LDCLRH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORH_LDEORH_32_memop() {
-    assert_eq!(Instruction::STEORH_LDEORH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORH_LDEORH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETH_LDSETH_32_memop() {
-    assert_eq!(Instruction::STSETH_LDSETH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETH_LDSETH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXH_LDSMAXH_32_memop() {
-    assert_eq!(Instruction::STSMAXH_LDSMAXH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXH_LDSMAXH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINH_LDSMINH_32_memop() {
-    assert_eq!(Instruction::STSMINH_LDSMINH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINH_LDSMINH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXH_LDUMAXH_32_memop() {
-    assert_eq!(Instruction::STUMAXH_LDUMAXH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXH_LDUMAXH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINH_LDUMINH_32_memop() {
-    assert_eq!(Instruction::STUMINH_LDUMINH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINH_LDUMINH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STADDLH_LDADDLH_32_memop() {
-    assert_eq!(Instruction::STADDLH_LDADDLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDLH_LDADDLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRLH_LDCLRLH_32_memop() {
-    assert_eq!(Instruction::STCLRLH_LDCLRLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRLH_LDCLRLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORLH_LDEORLH_32_memop() {
-    assert_eq!(Instruction::STEORLH_LDEORLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORLH_LDEORLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETLH_LDSETLH_32_memop() {
-    assert_eq!(Instruction::STSETLH_LDSETLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETLH_LDSETLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXLH_LDSMAXLH_32_memop() {
-    assert_eq!(Instruction::STSMAXLH_LDSMAXLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXLH_LDSMAXLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINLH_LDSMINLH_32_memop() {
-    assert_eq!(Instruction::STSMINLH_LDSMINLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINLH_LDSMINLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXLH_LDUMAXLH_32_memop() {
-    assert_eq!(Instruction::STUMAXLH_LDUMAXLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXLH_LDUMAXLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINLH_LDUMINLH_32_memop() {
-    assert_eq!(Instruction::STUMINLH_LDUMINLH_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINLH_LDUMINLH_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_NGCS_SBCS_32_addsub_carry() {
-    assert_eq!(Instruction::NGCS_SBCS_32_addsub_carry { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::NGCS_SBCS_32_addsub_carry { Rm: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_FCVTNU_asisdmiscfp16_R() {
     assert_eq!(Instruction::FCVTNU_asisdmiscfp16_R { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FCVTNU_asisdmiscfp16_R { Rn: 31, Rd: 31, })
@@ -1298,26 +1058,6 @@ fn roundtrip_FCVTZU_asisdmiscfp16_R() {
 fn roundtrip_FRSQRTE_asisdmiscfp16_R() {
     assert_eq!(Instruction::FRSQRTE_asisdmiscfp16_R { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FRSQRTE_asisdmiscfp16_R { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_ADD_64_addsub_imm() {
-    assert_eq!(Instruction::MOV_ADD_64_addsub_imm { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ADD_64_addsub_imm { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SXTB_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::SXTB_SBFM_64M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTB_SBFM_64M_bitfield { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SXTH_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::SXTH_SBFM_64M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTH_SBFM_64M_bitfield { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SXTW_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::SXTW_SBFM_64M_bitfield { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTW_SBFM_64M_bitfield { Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_FCVTNS_64S_float2int() {
@@ -1530,96 +1270,6 @@ fn roundtrip_FCVTZU_64H_float2int() {
                 Instruction::FCVTZU_64H_float2int { Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_ORR_64_log_shift() {
-    assert_eq!(Instruction::MOV_ORR_64_log_shift { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ORR_64_log_shift { Rm: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_STADD_LDADD_32_memop() {
-    assert_eq!(Instruction::STADD_LDADD_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADD_LDADD_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLR_LDCLR_32_memop() {
-    assert_eq!(Instruction::STCLR_LDCLR_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLR_LDCLR_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEOR_LDEOR_32_memop() {
-    assert_eq!(Instruction::STEOR_LDEOR_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEOR_LDEOR_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSET_LDSET_32_memop() {
-    assert_eq!(Instruction::STSET_LDSET_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSET_LDSET_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAX_LDSMAX_32_memop() {
-    assert_eq!(Instruction::STSMAX_LDSMAX_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAX_LDSMAX_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMIN_LDSMIN_32_memop() {
-    assert_eq!(Instruction::STSMIN_LDSMIN_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMIN_LDSMIN_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAX_LDUMAX_32_memop() {
-    assert_eq!(Instruction::STUMAX_LDUMAX_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAX_LDUMAX_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMIN_LDUMIN_32_memop() {
-    assert_eq!(Instruction::STUMIN_LDUMIN_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMIN_LDUMIN_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STADDL_LDADDL_32_memop() {
-    assert_eq!(Instruction::STADDL_LDADDL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDL_LDADDL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRL_LDCLRL_32_memop() {
-    assert_eq!(Instruction::STCLRL_LDCLRL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRL_LDCLRL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORL_LDEORL_32_memop() {
-    assert_eq!(Instruction::STEORL_LDEORL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORL_LDEORL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETL_LDSETL_32_memop() {
-    assert_eq!(Instruction::STSETL_LDSETL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETL_LDSETL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXL_LDSMAXL_32_memop() {
-    assert_eq!(Instruction::STSMAXL_LDSMAXL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXL_LDSMAXL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINL_LDSMINL_32_memop() {
-    assert_eq!(Instruction::STSMINL_LDSMINL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINL_LDSMINL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXL_LDUMAXL_32_memop() {
-    assert_eq!(Instruction::STUMAXL_LDUMAXL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXL_LDUMAXL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINL_LDUMINL_32_memop() {
-    assert_eq!(Instruction::STUMINL_LDUMINL_32_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINL_LDUMINL_32_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMPP_SUBPS_64S_dp_2src() {
-    assert_eq!(Instruction::CMPP_SUBPS_64S_dp_2src { Xm: 31, Xn: 31, }.encode().decode(), 
-                Instruction::CMPP_SUBPS_64S_dp_2src { Xm: 31, Xn: 31, })
-}
-#[test]
 fn roundtrip_SHA512SU0_VV2_cryptosha512_2() {
     assert_eq!(Instruction::SHA512SU0_VV2_cryptosha512_2 { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SHA512SU0_VV2_cryptosha512_2 { Rn: 31, Rd: 31, })
@@ -1670,11 +1320,6 @@ fn roundtrip_LDGM_64bulk_ldsttags() {
                 Instruction::LDGM_64bulk_ldsttags { Xn: 31, Xt: 31, })
 }
 #[test]
-fn roundtrip_NGC_SBC_64_addsub_carry() {
-    assert_eq!(Instruction::NGC_SBC_64_addsub_carry { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::NGC_SBC_64_addsub_carry { Rm: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_RBIT_64_dp_1src() {
     assert_eq!(Instruction::RBIT_64_dp_1src { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::RBIT_64_dp_1src { Rn: 31, Rd: 31, })
@@ -1693,11 +1338,6 @@ fn roundtrip_REV32_64_dp_1src() {
 fn roundtrip_REV_64_dp_1src() {
     assert_eq!(Instruction::REV_64_dp_1src { Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::REV_64_dp_1src { Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_REV64_REV_64_dp_1src() {
-    assert_eq!(Instruction::REV64_REV_64_dp_1src { Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::REV64_REV_64_dp_1src { Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_CLZ_64_dp_1src() {
@@ -1750,46 +1390,6 @@ fn roundtrip_AUTDB_64P_dp_1src() {
                 Instruction::AUTDB_64P_dp_1src { Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_STADD_LDADD_64_memop() {
-    assert_eq!(Instruction::STADD_LDADD_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADD_LDADD_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLR_LDCLR_64_memop() {
-    assert_eq!(Instruction::STCLR_LDCLR_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLR_LDCLR_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEOR_LDEOR_64_memop() {
-    assert_eq!(Instruction::STEOR_LDEOR_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEOR_LDEOR_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSET_LDSET_64_memop() {
-    assert_eq!(Instruction::STSET_LDSET_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSET_LDSET_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAX_LDSMAX_64_memop() {
-    assert_eq!(Instruction::STSMAX_LDSMAX_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAX_LDSMAX_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMIN_LDSMIN_64_memop() {
-    assert_eq!(Instruction::STSMIN_LDSMIN_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMIN_LDSMIN_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAX_LDUMAX_64_memop() {
-    assert_eq!(Instruction::STUMAX_LDUMAX_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAX_LDUMAX_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMIN_LDUMIN_64_memop() {
-    assert_eq!(Instruction::STUMIN_LDUMIN_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMIN_LDUMIN_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
 fn roundtrip_ST64B_64L_memop() {
     assert_eq!(Instruction::ST64B_64L_memop { Rn: 31, Rt: 31, }.encode().decode(), 
                 Instruction::ST64B_64L_memop { Rn: 31, Rt: 31, })
@@ -1800,59 +1400,9 @@ fn roundtrip_LD64B_64L_memop() {
                 Instruction::LD64B_64L_memop { Rn: 31, Rt: 31, })
 }
 #[test]
-fn roundtrip_STADDL_LDADDL_64_memop() {
-    assert_eq!(Instruction::STADDL_LDADDL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STADDL_LDADDL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STCLRL_LDCLRL_64_memop() {
-    assert_eq!(Instruction::STCLRL_LDCLRL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STCLRL_LDCLRL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STEORL_LDEORL_64_memop() {
-    assert_eq!(Instruction::STEORL_LDEORL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STEORL_LDEORL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSETL_LDSETL_64_memop() {
-    assert_eq!(Instruction::STSETL_LDSETL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSETL_LDSETL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMAXL_LDSMAXL_64_memop() {
-    assert_eq!(Instruction::STSMAXL_LDSMAXL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMAXL_LDSMAXL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STSMINL_LDSMINL_64_memop() {
-    assert_eq!(Instruction::STSMINL_LDSMINL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STSMINL_LDSMINL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMAXL_LDUMAXL_64_memop() {
-    assert_eq!(Instruction::STUMAXL_LDUMAXL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMAXL_LDUMAXL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_STUMINL_LDUMINL_64_memop() {
-    assert_eq!(Instruction::STUMINL_LDUMINL_64_memop { Rs: 31, Rn: 31, }.encode().decode(), 
-                Instruction::STUMINL_LDUMINL_64_memop { Rs: 31, Rn: 31, })
-}
-#[test]
-fn roundtrip_NGCS_SBCS_64_addsub_carry() {
-    assert_eq!(Instruction::NGCS_SBCS_64_addsub_carry { Rm: 31, Rd: 31, }.encode().decode(), 
-                Instruction::NGCS_SBCS_64_addsub_carry { Rm: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_RDVL_r_i() {
     assert_eq!(Instruction::RDVL_r_i { imm6: 63, Rd: 31, }.encode().decode(), 
                 Instruction::RDVL_r_i { imm6: 63, Rd: 31, })
-}
-#[test]
-fn roundtrip_FMOV_cpy_z_p_i() {
-    assert_eq!(Instruction::FMOV_cpy_z_p_i { size: 3, Pg: 15, Zd: 31, }.encode().decode(), 
-                Instruction::FMOV_cpy_z_p_i { size: 3, Pg: 15, Zd: 31, })
 }
 #[test]
 fn roundtrip_ST1_asisdlso_D1_1d() {
@@ -2135,11 +1685,6 @@ fn roundtrip_CTERMNE_rr() {
                 Instruction::CTERMNE_rr { sz: 1, Rm: 31, Rn: 31, })
 }
 #[test]
-fn roundtrip_MVN_NOT_asimdmisc_R() {
-    assert_eq!(Instruction::MVN_NOT_asimdmisc_R { Q: 1, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MVN_NOT_asimdmisc_R { Q: 1, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_NOT_asimdmisc_R() {
     assert_eq!(Instruction::NOT_asimdmisc_R { Q: 1, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::NOT_asimdmisc_R { Q: 1, Rn: 31, Rd: 31, })
@@ -2218,11 +1763,6 @@ fn roundtrip_FRSQRTE_asimdmiscfp16_R() {
 fn roundtrip_FSQRT_asimdmiscfp16_R() {
     assert_eq!(Instruction::FSQRT_asimdmiscfp16_R { Q: 1, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FSQRT_asimdmiscfp16_R { Q: 1, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_UMOV_asimdins_X_x() {
-    assert_eq!(Instruction::MOV_UMOV_asimdins_X_x { imm5: 1, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_UMOV_asimdins_X_x { imm5: 1, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_UMOV_asimdins_X_x() {
@@ -2435,11 +1975,6 @@ fn roundtrip_DUP_z_r() {
                 Instruction::DUP_z_r { size: 3, Rn: 31, Zd: 31, })
 }
 #[test]
-fn roundtrip_MOV_dup_z_r() {
-    assert_eq!(Instruction::MOV_dup_z_r { size: 3, Rn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_dup_z_r { size: 3, Rn: 31, Zd: 31, })
-}
-#[test]
 fn roundtrip_INSR_z_r() {
     assert_eq!(Instruction::INSR_z_r { size: 3, Rm: 31, Zdn: 31, }.encode().decode(), 
                 Instruction::INSR_z_r { size: 3, Rm: 31, Zdn: 31, })
@@ -2553,11 +2088,6 @@ fn roundtrip_LD2_asisdlsop_S2_i2s() {
 fn roundtrip_LD4_asisdlsop_S4_i4s() {
     assert_eq!(Instruction::LD4_asisdlsop_S4_i4s { Q: 1, S: 1, Rn: 31, Rt: 31, }.encode().decode(), 
                 Instruction::LD4_asisdlsop_S4_i4s { Q: 1, S: 1, Rn: 31, Rt: 31, })
-}
-#[test]
-fn roundtrip_MOV_UMOV_asimdins_W_w() {
-    assert_eq!(Instruction::MOV_UMOV_asimdins_W_w { imm5: 3, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_UMOV_asimdins_W_w { imm5: 3, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_FCVTN_asimdmisc_N() {
@@ -2873,11 +2403,6 @@ fn roundtrip_SQXTUN_asisdmisc_N() {
 fn roundtrip_UQXTN_asisdmisc_N() {
     assert_eq!(Instruction::UQXTN_asisdmisc_N { size: 3, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::UQXTN_asisdmisc_N { size: 3, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_AT_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::AT_SYS_CR_systeminstrs { op1: 7, CRm: 1, op2: 7, Rt: 31, }.encode().decode(), 
-                Instruction::AT_SYS_CR_systeminstrs { op1: 7, CRm: 1, op2: 7, Rt: 31, })
 }
 #[test]
 fn roundtrip_ST4_asisdlse_R4() {
@@ -3990,16 +3515,6 @@ fn roundtrip_FCMNE_p_p_z0() {
                 Instruction::FCMNE_p_p_z0 { size: 3, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_SXTL_SSHLL_asimdshf_L() {
-    assert_eq!(Instruction::SXTL_SSHLL_asimdshf_L { Q: 1, immh: 15, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SXTL_SSHLL_asimdshf_L { Q: 1, immh: 15, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UXTL_USHLL_asimdshf_L() {
-    assert_eq!(Instruction::UXTL_USHLL_asimdshf_L { Q: 1, immh: 15, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UXTL_USHLL_asimdshf_L { Q: 1, immh: 15, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_ADD_z_p_zz() {
     assert_eq!(Instruction::ADD_z_p_zz { size: 3, Pg: 7, Zm: 31, Zdn: 31, }.encode().decode(), 
                 Instruction::ADD_z_p_zz { size: 3, Pg: 7, Zm: 31, Zdn: 31, })
@@ -4290,11 +3805,6 @@ fn roundtrip_AND_z_zz() {
                 Instruction::AND_z_zz { Zm: 31, Zn: 31, Zd: 31, })
 }
 #[test]
-fn roundtrip_MOV_orr_z_zz() {
-    assert_eq!(Instruction::MOV_orr_z_zz { Zm: 31, Zn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_orr_z_zz { Zm: 31, Zn: 31, Zd: 31, })
-}
-#[test]
 fn roundtrip_ORR_z_zz() {
     assert_eq!(Instruction::ORR_z_zz { Zm: 31, Zn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::ORR_z_zz { Zm: 31, Zn: 31, Zd: 31, })
@@ -4313,11 +3823,6 @@ fn roundtrip_BIC_z_zz() {
 fn roundtrip_CPY_z_p_v() {
     assert_eq!(Instruction::CPY_z_p_v { size: 3, Pg: 7, Vn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::CPY_z_p_v { size: 3, Pg: 7, Vn: 31, Zd: 31, })
-}
-#[test]
-fn roundtrip_MOV_cpy_z_p_v() {
-    assert_eq!(Instruction::MOV_cpy_z_p_v { size: 3, Pg: 7, Vn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_cpy_z_p_v { size: 3, Pg: 7, Vn: 31, Zd: 31, })
 }
 #[test]
 fn roundtrip_LASTA_r_p_z() {
@@ -4373,11 +3878,6 @@ fn roundtrip_CLASTA_z_p_zz() {
 fn roundtrip_CPY_z_p_r() {
     assert_eq!(Instruction::CPY_z_p_r { size: 3, Pg: 7, Rn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::CPY_z_p_r { size: 3, Pg: 7, Rn: 31, Zd: 31, })
-}
-#[test]
-fn roundtrip_MOV_cpy_z_p_r() {
-    assert_eq!(Instruction::MOV_cpy_z_p_r { size: 3, Pg: 7, Rn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_cpy_z_p_r { size: 3, Pg: 7, Rn: 31, Zd: 31, })
 }
 #[test]
 fn roundtrip_CLASTB_z_p_zz() {
@@ -4520,19 +4020,9 @@ fn roundtrip_SDIV_32_dp_2src() {
                 Instruction::SDIV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_LSL_LSLV_32_dp_2src() {
-    assert_eq!(Instruction::LSL_LSLV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSL_LSLV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_LSLV_32_dp_2src() {
     assert_eq!(Instruction::LSLV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::LSLV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_LSR_LSRV_32_dp_2src() {
-    assert_eq!(Instruction::LSR_LSRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSR_LSRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_LSRV_32_dp_2src() {
@@ -4540,19 +4030,9 @@ fn roundtrip_LSRV_32_dp_2src() {
                 Instruction::LSRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_ASR_ASRV_32_dp_2src() {
-    assert_eq!(Instruction::ASR_ASRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ASR_ASRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_ASRV_32_dp_2src() {
     assert_eq!(Instruction::ASRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::ASRV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_ROR_RORV_32_dp_2src() {
-    assert_eq!(Instruction::ROR_RORV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ROR_RORV_32_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_RORV_32_dp_2src() {
@@ -4588,16 +4068,6 @@ fn roundtrip_CRC32CH_32C_dp_2src() {
 fn roundtrip_CRC32CW_32C_dp_2src() {
     assert_eq!(Instruction::CRC32CW_32C_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::CRC32CW_32C_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MUL_MADD_32A_dp_3src() {
-    assert_eq!(Instruction::MUL_MADD_32A_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MUL_MADD_32A_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MNEG_MSUB_32A_dp_3src() {
-    assert_eq!(Instruction::MNEG_MSUB_32A_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MNEG_MSUB_32A_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_FMUL_S_floatdp2() {
@@ -4768,11 +4238,6 @@ fn roundtrip_MUL_z_zi() {
 fn roundtrip_FDUP_z_i() {
     assert_eq!(Instruction::FDUP_z_i { size: 3, imm8: 255, Zd: 31, }.encode().decode(), 
                 Instruction::FDUP_z_i { size: 3, imm8: 255, Zd: 31, })
-}
-#[test]
-fn roundtrip_FMOV_fdup_z_i() {
-    assert_eq!(Instruction::FMOV_fdup_z_i { size: 3, imm8: 255, Zd: 31, }.encode().decode(), 
-                Instruction::FMOV_fdup_z_i { size: 3, imm8: 255, Zd: 31, })
 }
 #[test]
 fn roundtrip_MVNI_asimdimm_L_hl() {
@@ -5075,11 +4540,6 @@ fn roundtrip_INS_asimdins_IR_r() {
                 Instruction::INS_asimdins_IR_r { imm5: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_INS_asimdins_IR_r() {
-    assert_eq!(Instruction::MOV_INS_asimdins_IR_r { imm5: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_INS_asimdins_IR_r { imm5: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_SMOV_asimdins_X_x() {
     assert_eq!(Instruction::SMOV_asimdins_X_x { imm5: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SMOV_asimdins_X_x { imm5: 31, Rn: 31, Rd: 31, })
@@ -5108,11 +4568,6 @@ fn roundtrip_SHA1C_QSV_cryptosha3() {
 fn roundtrip_DUP_asisdone_only() {
     assert_eq!(Instruction::DUP_asisdone_only { imm5: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::DUP_asisdone_only { imm5: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_DUP_asisdone_only() {
-    assert_eq!(Instruction::MOV_DUP_asisdone_only { imm5: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_DUP_asisdone_only { imm5: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_SHA1P_QSV_cryptosha3() {
@@ -5650,19 +5105,9 @@ fn roundtrip_GMI_64G_dp_2src() {
                 Instruction::GMI_64G_dp_2src { Xm: 31, Xn: 31, Xd: 31, })
 }
 #[test]
-fn roundtrip_LSL_LSLV_64_dp_2src() {
-    assert_eq!(Instruction::LSL_LSLV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSL_LSLV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_LSLV_64_dp_2src() {
     assert_eq!(Instruction::LSLV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::LSLV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_LSR_LSRV_64_dp_2src() {
-    assert_eq!(Instruction::LSR_LSRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSR_LSRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_LSRV_64_dp_2src() {
@@ -5670,19 +5115,9 @@ fn roundtrip_LSRV_64_dp_2src() {
                 Instruction::LSRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_ASR_ASRV_64_dp_2src() {
-    assert_eq!(Instruction::ASR_ASRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ASR_ASRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_ASRV_64_dp_2src() {
     assert_eq!(Instruction::ASRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::ASRV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_ROR_RORV_64_dp_2src() {
-    assert_eq!(Instruction::ROR_RORV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ROR_RORV_64_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_RORV_64_dp_2src() {
@@ -5703,36 +5138,6 @@ fn roundtrip_CRC32X_64C_dp_2src() {
 fn roundtrip_CRC32CX_64C_dp_2src() {
     assert_eq!(Instruction::CRC32CX_64C_dp_2src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::CRC32CX_64C_dp_2src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MUL_MADD_64A_dp_3src() {
-    assert_eq!(Instruction::MUL_MADD_64A_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MUL_MADD_64A_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MNEG_MSUB_64A_dp_3src() {
-    assert_eq!(Instruction::MNEG_MSUB_64A_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MNEG_MSUB_64A_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SMULL_SMADDL_64WA_dp_3src() {
-    assert_eq!(Instruction::SMULL_SMADDL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SMULL_SMADDL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SMNEGL_SMSUBL_64WA_dp_3src() {
-    assert_eq!(Instruction::SMNEGL_SMSUBL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SMNEGL_SMSUBL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UMULL_UMADDL_64WA_dp_3src() {
-    assert_eq!(Instruction::UMULL_UMADDL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UMULL_UMADDL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UMNEGL_UMSUBL_64WA_dp_3src() {
-    assert_eq!(Instruction::UMNEGL_UMSUBL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UMNEGL_UMSUBL_64WA_dp_3src { Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_LDADD_32_memop() {
@@ -5988,21 +5393,6 @@ fn roundtrip_SM3PARTW2_VVV4_cryptosha512_3() {
 fn roundtrip_SM4EKEY_VVV4_cryptosha512_3() {
     assert_eq!(Instruction::SM4EKEY_VVV4_cryptosha512_3 { Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SM4EKEY_VVV4_cryptosha512_3 { Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_DC_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::DC_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, }.encode().decode(), 
-                Instruction::DC_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, })
-}
-#[test]
-fn roundtrip_IC_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::IC_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, }.encode().decode(), 
-                Instruction::IC_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, })
-}
-#[test]
-fn roundtrip_TLBI_SYS_CR_systeminstrs() {
-    assert_eq!(Instruction::TLBI_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, }.encode().decode(), 
-                Instruction::TLBI_SYS_CR_systeminstrs { op1: 7, CRm: 15, op2: 7, Rt: 31, })
 }
 #[test]
 fn roundtrip_SBC_64_addsub_carry() {
@@ -6375,11 +5765,6 @@ fn roundtrip_USDOT_asimdsame2_D() {
                 Instruction::USDOT_asimdsame2_D { Q: 1, Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_ORR_asimdsame_only() {
-    assert_eq!(Instruction::MOV_ORR_asimdsame_only { Q: 1, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ORR_asimdsame_only { Q: 1, Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_ORR_asimdsame_only() {
     assert_eq!(Instruction::ORR_asimdsame_only { Q: 1, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::ORR_asimdsame_only { Q: 1, Rm: 31, Rn: 31, Rd: 31, })
@@ -6428,11 +5813,6 @@ fn roundtrip_MOVI_asimdimm_L_sl() {
 fn roundtrip_ORR_asimdimm_L_sl() {
     assert_eq!(Instruction::ORR_asimdimm_L_sl { Q: 1, a: 1, b: 1, c: 1, cmode: 3, d: 1, e: 1, f: 1, g: 1, h: 1, Rd: 31, }.encode().decode(), 
                 Instruction::ORR_asimdimm_L_sl { Q: 1, a: 1, b: 1, c: 1, cmode: 3, d: 1, e: 1, f: 1, g: 1, h: 1, Rd: 31, })
-}
-#[test]
-fn roundtrip_ASR_SBFM_32M_bitfield() {
-    assert_eq!(Instruction::ASR_SBFM_32M_bitfield { immr: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ASR_SBFM_32M_bitfield { immr: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_SCVTF_S32_float2fix() {
@@ -6500,11 +5880,6 @@ fn roundtrip_AND_p_p_pp_z() {
                 Instruction::AND_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
-fn roundtrip_MOV_and_p_p_pp_z() {
-    assert_eq!(Instruction::MOV_and_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::MOV_and_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
 fn roundtrip_BIC_p_p_pp_z() {
     assert_eq!(Instruction::BIC_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::BIC_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
@@ -6513,16 +5888,6 @@ fn roundtrip_BIC_p_p_pp_z() {
 fn roundtrip_EOR_p_p_pp_z() {
     assert_eq!(Instruction::EOR_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::EOR_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_NOT_eor_p_p_pp_z() {
-    assert_eq!(Instruction::NOT_eor_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::NOT_eor_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_MOV_sel_p_p_pp() {
-    assert_eq!(Instruction::MOV_sel_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::MOV_sel_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
 fn roundtrip_SEL_p_p_pp() {
@@ -6580,19 +5945,9 @@ fn roundtrip_DUP_z_i() {
                 Instruction::DUP_z_i { size: 3, sh: 1, imm8: 255, Zd: 31, })
 }
 #[test]
-fn roundtrip_MOV_dup_z_i() {
-    assert_eq!(Instruction::MOV_dup_z_i { size: 3, sh: 1, imm8: 255, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_dup_z_i { size: 3, sh: 1, imm8: 255, Zd: 31, })
-}
-#[test]
 fn roundtrip_ANDS_p_p_pp_z() {
     assert_eq!(Instruction::ANDS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::ANDS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_MOVS_ands_p_p_pp_z() {
-    assert_eq!(Instruction::MOVS_ands_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::MOVS_ands_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
 fn roundtrip_BICS_p_p_pp_z() {
@@ -6605,11 +5960,6 @@ fn roundtrip_EORS_p_p_pp_z() {
                 Instruction::EORS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
-fn roundtrip_NOTS_eors_p_p_pp_z() {
-    assert_eq!(Instruction::NOTS_eors_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::NOTS_eors_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
 fn roundtrip_BRKPAS_p_p_pp() {
     assert_eq!(Instruction::BRKPAS_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::BRKPAS_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
@@ -6618,11 +5968,6 @@ fn roundtrip_BRKPAS_p_p_pp() {
 fn roundtrip_BRKPBS_p_p_pp() {
     assert_eq!(Instruction::BRKPBS_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::BRKPBS_p_p_pp { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_MOV_orr_p_p_pp_z() {
-    assert_eq!(Instruction::MOV_orr_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::MOV_orr_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
 fn roundtrip_ORR_p_p_pp_z() {
@@ -6645,11 +5990,6 @@ fn roundtrip_NAND_p_p_pp_z() {
                 Instruction::NAND_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
 }
 #[test]
-fn roundtrip_MOVS_orrs_p_p_pp_z() {
-    assert_eq!(Instruction::MOVS_orrs_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
-                Instruction::MOVS_orrs_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
 fn roundtrip_ORRS_p_p_pp_z() {
     assert_eq!(Instruction::ORRS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::ORRS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
@@ -6668,11 +6008,6 @@ fn roundtrip_NORS_p_p_pp_z() {
 fn roundtrip_NANDS_p_p_pp_z() {
     assert_eq!(Instruction::NANDS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, }.encode().decode(), 
                 Instruction::NANDS_p_p_pp_z { Pm: 15, Pg: 15, Pn: 15, Pd: 15, })
-}
-#[test]
-fn roundtrip_CMN_ADDS_32S_addsub_ext() {
-    assert_eq!(Instruction::CMN_ADDS_32S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_32S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, })
 }
 #[test]
 fn roundtrip_EOR_asimdsame_only() {
@@ -6815,11 +6150,6 @@ fn roundtrip_LDR_BL_ldst_regoff() {
                 Instruction::LDR_BL_ldst_regoff { Rm: 31, S: 1, Rn: 31, Rt: 31, })
 }
 #[test]
-fn roundtrip_LSR_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::LSR_UBFM_32M_bitfield { immr: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSR_UBFM_32M_bitfield { immr: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_FMULX_asisdsame_only() {
     assert_eq!(Instruction::FMULX_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FMULX_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, })
@@ -6870,11 +6200,6 @@ fn roundtrip_BFMLALT_z_zzzi() {
                 Instruction::BFMLALT_z_zzzi { i3h: 3, Zm: 7, i3l: 1, Zn: 31, Zda: 31, })
 }
 #[test]
-fn roundtrip_CMP_SUBS_32S_addsub_ext() {
-    assert_eq!(Instruction::CMP_SUBS_32S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_32S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, })
-}
-#[test]
 fn roundtrip_FCMGE_asisdsame_only() {
     assert_eq!(Instruction::FCMGE_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FCMGE_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, })
@@ -6898,11 +6223,6 @@ fn roundtrip_FCMGT_asisdsame_only() {
 fn roundtrip_FACGT_asisdsame_only() {
     assert_eq!(Instruction::FACGT_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FACGT_asisdsame_only { sz: 1, Rm: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_ASR_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::ASR_SBFM_64M_bitfield { immr: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ASR_SBFM_64M_bitfield { immr: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_SCVTF_S64_float2fix() {
@@ -6965,16 +6285,6 @@ fn roundtrip_FCVTZU_64H_float2fix() {
                 Instruction::FCVTZU_64H_float2fix { scale: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_CMN_ADDS_64S_addsub_ext() {
-    assert_eq!(Instruction::CMN_ADDS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, })
-}
-#[test]
-fn roundtrip_LSR_UBFM_64M_bitfield() {
-    assert_eq!(Instruction::LSR_UBFM_64M_bitfield { immr: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSR_UBFM_64M_bitfield { immr: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_SVC_EX_exception() {
     assert_eq!(Instruction::SVC_EX_exception { imm16: 65535, }.encode().decode(), 
                 Instruction::SVC_EX_exception { imm16: 65535, })
@@ -7013,11 +6323,6 @@ fn roundtrip_DCPS2_DC_exception() {
 fn roundtrip_DCPS3_DC_exception() {
     assert_eq!(Instruction::DCPS3_DC_exception { imm16: 65535, }.encode().decode(), 
                 Instruction::DCPS3_DC_exception { imm16: 65535, })
-}
-#[test]
-fn roundtrip_CMP_SUBS_64S_addsub_ext() {
-    assert_eq!(Instruction::CMP_SUBS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, })
 }
 #[test]
 fn roundtrip_SSHR_asisdshf_R() {
@@ -7240,11 +6545,6 @@ fn roundtrip_DUP_z_zi() {
                 Instruction::DUP_z_zi { imm2: 3, tsz: 31, Zn: 31, Zd: 31, })
 }
 #[test]
-fn roundtrip_MOV_dup_z_zi() {
-    assert_eq!(Instruction::MOV_dup_z_zi { imm2: 3, tsz: 31, Zn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_dup_z_zi { imm2: 3, tsz: 31, Zn: 31, Zd: 31, })
-}
-#[test]
 fn roundtrip_TBL_z_zz_1() {
     assert_eq!(Instruction::TBL_z_zz_1 { size: 3, Zm: 31, Zn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::TBL_z_zz_1 { size: 3, Zm: 31, Zn: 31, Zd: 31, })
@@ -7460,16 +6760,6 @@ fn roundtrip_FMINP_asimdsame_only() {
                 Instruction::FMINP_asimdsame_only { Q: 1, sz: 1, Rm: 31, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_ORR_32_log_imm() {
-    assert_eq!(Instruction::MOV_ORR_32_log_imm { immr: 63, imms: 63, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ORR_32_log_imm { immr: 63, imms: 63, Rd: 31, })
-}
-#[test]
-fn roundtrip_BFC_BFM_32M_bitfield() {
-    assert_eq!(Instruction::BFC_BFM_32M_bitfield { immr: 63, imms: 63, Rd: 31, }.encode().decode(), 
-                Instruction::BFC_BFM_32M_bitfield { immr: 63, imms: 63, Rd: 31, })
-}
-#[test]
 fn roundtrip_SDOT_z_zzz() {
     assert_eq!(Instruction::SDOT_z_zzz { size: 3, Zm: 31, Zn: 31, Zda: 31, }.encode().decode(), 
                 Instruction::SDOT_z_zzz { size: 3, Zm: 31, Zn: 31, Zda: 31, })
@@ -7603,11 +6893,6 @@ fn roundtrip_FRECPS_z_zz() {
 fn roundtrip_FRSQRTS_z_zz() {
     assert_eq!(Instruction::FRSQRTS_z_zz { size: 3, Zm: 31, Zn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::FRSQRTS_z_zz { size: 3, Zm: 31, Zn: 31, Zd: 31, })
-}
-#[test]
-fn roundtrip_TST_ANDS_32S_log_imm() {
-    assert_eq!(Instruction::TST_ANDS_32S_log_imm { immr: 63, imms: 63, Rn: 31, }.encode().decode(), 
-                Instruction::TST_ANDS_32S_log_imm { immr: 63, imms: 63, Rn: 31, })
 }
 #[test]
 fn roundtrip_SQRDMLAH_asisdsame2_only() {
@@ -8000,11 +7285,6 @@ fn roundtrip_LDNF1D_z_p_bi_u64() {
                 Instruction::LDNF1D_z_p_bi_u64 { imm4: 15, Pg: 7, Rn: 31, Zt: 31, })
 }
 #[test]
-fn roundtrip_BFC_BFM_64M_bitfield() {
-    assert_eq!(Instruction::BFC_BFM_64M_bitfield { immr: 63, imms: 63, Rd: 31, }.encode().decode(), 
-                Instruction::BFC_BFM_64M_bitfield { immr: 63, imms: 63, Rd: 31, })
-}
-#[test]
 fn roundtrip_PRFB_i_p_ai_d() {
     assert_eq!(Instruction::PRFB_i_p_ai_d { imm5: 31, Pg: 7, Zn: 31, prfop: 15, }.encode().decode(), 
                 Instruction::PRFB_i_p_ai_d { imm5: 31, Pg: 7, Zn: 31, prfop: 15, })
@@ -8143,16 +7423,6 @@ fn roundtrip_ST3D_z_p_bi_contiguous() {
 fn roundtrip_ST4D_z_p_bi_contiguous() {
     assert_eq!(Instruction::ST4D_z_p_bi_contiguous { imm4: 15, Pg: 7, Rn: 31, Zt: 31, }.encode().decode(), 
                 Instruction::ST4D_z_p_bi_contiguous { imm4: 15, Pg: 7, Rn: 31, Zt: 31, })
-}
-#[test]
-fn roundtrip_NEGS_SUBS_32_addsub_shift() {
-    assert_eq!(Instruction::NEGS_SUBS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 0, }.encode().decode(), 
-                Instruction::NEGS_SUBS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 0, })
-}
-#[test]
-fn roundtrip_NEGS_SUBS_64_addsub_shift() {
-    assert_eq!(Instruction::NEGS_SUBS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 0, }.encode().decode(), 
-                Instruction::NEGS_SUBS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 0, })
 }
 #[test]
 fn roundtrip_SSHR_asimdshf_R() {
@@ -8300,11 +7570,6 @@ fn roundtrip_ADR_z_az_sd_same_scaled() {
                 Instruction::ADR_z_az_sd_same_scaled { sz: 1, Zm: 31, msz: 3, Zn: 31, Zd: 31, })
 }
 #[test]
-fn roundtrip_ORN_orr_z_zi() {
-    assert_eq!(Instruction::ORN_orr_z_zi { imm13: 8191, Zdn: 31, }.encode().decode(), 
-                Instruction::ORN_orr_z_zi { imm13: 8191, Zdn: 31, })
-}
-#[test]
 fn roundtrip_ORR_z_zi() {
     assert_eq!(Instruction::ORR_z_zi { imm13: 8191, Zdn: 31, }.encode().decode(), 
                 Instruction::ORR_z_zi { imm13: 8191, Zdn: 31, })
@@ -8313,11 +7578,6 @@ fn roundtrip_ORR_z_zi() {
 fn roundtrip_EXT_z_zi_des() {
     assert_eq!(Instruction::EXT_z_zi_des { imm8h: 31, imm8l: 7, Zm: 31, Zdn: 31, }.encode().decode(), 
                 Instruction::EXT_z_zi_des { imm8h: 31, imm8l: 7, Zm: 31, Zdn: 31, })
-}
-#[test]
-fn roundtrip_EON_eor_z_zi() {
-    assert_eq!(Instruction::EON_eor_z_zi { imm13: 8191, Zdn: 31, }.encode().decode(), 
-                Instruction::EON_eor_z_zi { imm13: 8191, Zdn: 31, })
 }
 #[test]
 fn roundtrip_EOR_z_zi() {
@@ -8330,19 +7590,9 @@ fn roundtrip_AND_z_zi() {
                 Instruction::AND_z_zi { imm13: 8191, Zdn: 31, })
 }
 #[test]
-fn roundtrip_BIC_and_z_zi() {
-    assert_eq!(Instruction::BIC_and_z_zi { imm13: 8191, Zdn: 31, }.encode().decode(), 
-                Instruction::BIC_and_z_zi { imm13: 8191, Zdn: 31, })
-}
-#[test]
 fn roundtrip_DUPM_z_i() {
     assert_eq!(Instruction::DUPM_z_i { imm13: 8191, Zd: 31, }.encode().decode(), 
                 Instruction::DUPM_z_i { imm13: 8191, Zd: 31, })
-}
-#[test]
-fn roundtrip_MOV_dupm_z_i() {
-    assert_eq!(Instruction::MOV_dupm_z_i { imm13: 8191, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_dupm_z_i { imm13: 8191, Zd: 31, })
 }
 #[test]
 fn roundtrip_ST4_asisdlsep_R4_r() {
@@ -8775,16 +8025,6 @@ fn roundtrip_FCCMPE_H_floatccmp() {
                 Instruction::FCCMPE_H_floatccmp { Rm: 31, cond: 15, Rn: 31, nzcv: 15, })
 }
 #[test]
-fn roundtrip_MVN_ORN_32_log_shift() {
-    assert_eq!(Instruction::MVN_ORN_32_log_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, }.encode().decode(), 
-                Instruction::MVN_ORN_32_log_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, })
-}
-#[test]
-fn roundtrip_CMN_ADDS_32_addsub_shift() {
-    assert_eq!(Instruction::CMN_ADDS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
 fn roundtrip_SQRDMLAH_asimdsame2_only() {
     assert_eq!(Instruction::SQRDMLAH_asimdsame2_only { Q: 1, size: 3, Rm: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SQRDMLAH_asimdsame2_only { Q: 1, size: 3, Rm: 31, Rn: 31, Rd: 31, })
@@ -8980,11 +8220,6 @@ fn roundtrip_FMLSL2_asimdelem_LH() {
                 Instruction::FMLSL2_asimdelem_LH { Q: 1, L: 1, M: 1, Rm: 15, H: 1, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_CMN_ADDS_32S_addsub_imm() {
-    assert_eq!(Instruction::CMN_ADDS_32S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_32S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, })
-}
-#[test]
 fn roundtrip_CCMN_32_condcmp_reg() {
     assert_eq!(Instruction::CCMN_32_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, }.encode().decode(), 
                 Instruction::CCMN_32_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, })
@@ -8993,11 +8228,6 @@ fn roundtrip_CCMN_32_condcmp_reg() {
 fn roundtrip_CCMN_32_condcmp_imm() {
     assert_eq!(Instruction::CCMN_32_condcmp_imm { imm5: 31, cond: 15, Rn: 31, nzcv: 15, }.encode().decode(), 
                 Instruction::CCMN_32_condcmp_imm { imm5: 31, cond: 15, Rn: 31, nzcv: 15, })
-}
-#[test]
-fn roundtrip_NEG_SUB_32_addsub_shift() {
-    assert_eq!(Instruction::NEG_SUB_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, }.encode().decode(), 
-                Instruction::NEG_SUB_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, })
 }
 #[test]
 fn roundtrip_FMLA_asisdelem_R_SD() {
@@ -9013,21 +8243,6 @@ fn roundtrip_FMLS_asisdelem_R_SD() {
 fn roundtrip_FMUL_asisdelem_R_SD() {
     assert_eq!(Instruction::FMUL_asisdelem_R_SD { sz: 1, L: 1, M: 1, Rm: 15, H: 1, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::FMUL_asisdelem_R_SD { sz: 1, L: 1, M: 1, Rm: 15, H: 1, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_TST_ANDS_32_log_shift() {
-    assert_eq!(Instruction::TST_ANDS_32_log_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::TST_ANDS_32_log_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMP_SUBS_32_addsub_shift() {
-    assert_eq!(Instruction::CMP_SUBS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_32_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMP_SUBS_32S_addsub_imm() {
-    assert_eq!(Instruction::CMP_SUBS_32S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_32S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, })
 }
 #[test]
 fn roundtrip_CCMP_32_condcmp_reg() {
@@ -9420,26 +8635,6 @@ fn roundtrip_LD4D_z_p_br_contiguous() {
                 Instruction::LD4D_z_p_br_contiguous { Rm: 31, Pg: 7, Rn: 31, Zt: 31, })
 }
 #[test]
-fn roundtrip_MVN_ORN_64_log_shift() {
-    assert_eq!(Instruction::MVN_ORN_64_log_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, }.encode().decode(), 
-                Instruction::MVN_ORN_64_log_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, })
-}
-#[test]
-fn roundtrip_CMN_ADDS_64_addsub_shift() {
-    assert_eq!(Instruction::CMN_ADDS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMN_ADDS_64S_addsub_imm() {
-    assert_eq!(Instruction::CMN_ADDS_64S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, }.encode().decode(), 
-                Instruction::CMN_ADDS_64S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, })
-}
-#[test]
-fn roundtrip_MOV_ORR_64_log_imm() {
-    assert_eq!(Instruction::MOV_ORR_64_log_imm { N: 1, immr: 63, imms: 63, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_ORR_64_log_imm { N: 1, immr: 63, imms: 63, Rd: 31, })
-}
-#[test]
 fn roundtrip_CCMN_64_condcmp_reg() {
     assert_eq!(Instruction::CCMN_64_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, }.encode().decode(), 
                 Instruction::CCMN_64_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, })
@@ -9660,11 +8855,6 @@ fn roundtrip_LDFF1D_z_p_bz_d_64_scaled() {
                 Instruction::LDFF1D_z_p_bz_d_64_scaled { Zm: 31, Pg: 7, Rn: 31, Zt: 31, })
 }
 #[test]
-fn roundtrip_NEG_SUB_64_addsub_shift() {
-    assert_eq!(Instruction::NEG_SUB_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, }.encode().decode(), 
-                Instruction::NEG_SUB_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rd: 31, })
-}
-#[test]
 fn roundtrip_STNT1B_z_p_br_contiguous() {
     assert_eq!(Instruction::STNT1B_z_p_br_contiguous { Rm: 31, Pg: 7, Rn: 31, Zt: 31, }.encode().decode(), 
                 Instruction::STNT1B_z_p_br_contiguous { Rm: 31, Pg: 7, Rn: 31, Zt: 31, })
@@ -9825,26 +9015,6 @@ fn roundtrip_ST4D_z_p_br_contiguous() {
                 Instruction::ST4D_z_p_br_contiguous { Rm: 31, Pg: 7, Rn: 31, Zt: 31, })
 }
 #[test]
-fn roundtrip_TST_ANDS_64_log_shift() {
-    assert_eq!(Instruction::TST_ANDS_64_log_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::TST_ANDS_64_log_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMP_SUBS_64_addsub_shift() {
-    assert_eq!(Instruction::CMP_SUBS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_64_addsub_shift { shift: 3, Rm: 31, imm6: 63, Rn: 31, })
-}
-#[test]
-fn roundtrip_CMP_SUBS_64S_addsub_imm() {
-    assert_eq!(Instruction::CMP_SUBS_64S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, }.encode().decode(), 
-                Instruction::CMP_SUBS_64S_addsub_imm { sh: 1, imm12: 4095, Rn: 31, })
-}
-#[test]
-fn roundtrip_TST_ANDS_64S_log_imm() {
-    assert_eq!(Instruction::TST_ANDS_64S_log_imm { N: 1, immr: 63, imms: 63, Rn: 31, }.encode().decode(), 
-                Instruction::TST_ANDS_64S_log_imm { N: 1, immr: 63, imms: 63, Rn: 31, })
-}
-#[test]
 fn roundtrip_CCMP_64_condcmp_reg() {
     assert_eq!(Instruction::CCMP_64_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, }.encode().decode(), 
                 Instruction::CCMP_64_condcmp_reg { Rm: 31, cond: 15, Rn: 31, nzcv: 15, })
@@ -9855,44 +9025,9 @@ fn roundtrip_CCMP_64_condcmp_imm() {
                 Instruction::CCMP_64_condcmp_imm { imm5: 31, cond: 15, Rn: 31, nzcv: 15, })
 }
 #[test]
-fn roundtrip_CINC_CSINC_32_condsel() {
-    assert_eq!(Instruction::CINC_CSINC_32_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::CINC_CSINC_32_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_CINV_CSINV_32_condsel() {
-    assert_eq!(Instruction::CINV_CSINV_32_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::CINV_CSINV_32_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_CINC_CSINC_64_condsel() {
-    assert_eq!(Instruction::CINC_CSINC_64_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::CINC_CSINC_64_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_CINV_CSINV_64_condsel() {
-    assert_eq!(Instruction::CINV_CSINV_64_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::CINV_CSINV_64_condsel { Rm: 0, cond: 1, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_CNEG_CSNEG_32_condsel() {
-    assert_eq!(Instruction::CNEG_CSNEG_32_condsel { Rm: 31, cond: 1, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::CNEG_CSNEG_32_condsel { Rm: 31, cond: 1, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_CNEG_CSNEG_64_condsel() {
-    assert_eq!(Instruction::CNEG_CSNEG_64_condsel { Rm: 31, cond: 1, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::CNEG_CSNEG_64_condsel { Rm: 31, cond: 1, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_FCPY_z_p_i() {
     assert_eq!(Instruction::FCPY_z_p_i { size: 3, Pg: 15, imm8: 255, Zd: 31, }.encode().decode(), 
                 Instruction::FCPY_z_p_i { size: 3, Pg: 15, imm8: 255, Zd: 31, })
-}
-#[test]
-fn roundtrip_FMOV_fcpy_z_p_i() {
-    assert_eq!(Instruction::FMOV_fcpy_z_p_i { size: 3, Pg: 15, imm8: 255, Zd: 31, }.encode().decode(), 
-                Instruction::FMOV_fcpy_z_p_i { size: 3, Pg: 15, imm8: 255, Zd: 31, })
 }
 #[test]
 fn roundtrip_ST1_asisdlsop_BX1_r1b() {
@@ -10000,19 +9135,9 @@ fn roundtrip_CMPHS_p_p_zz() {
                 Instruction::CMPHS_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_CMPLS_cmphs_p_p_zz() {
-    assert_eq!(Instruction::CMPLS_cmphs_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::CMPLS_cmphs_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
 fn roundtrip_CMPHI_p_p_zz() {
     assert_eq!(Instruction::CMPHI_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
                 Instruction::CMPHI_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
-fn roundtrip_CMPLO_cmphi_p_p_zz() {
-    assert_eq!(Instruction::CMPLO_cmphi_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::CMPLO_cmphi_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
 fn roundtrip_CMPEQ_p_p_zw() {
@@ -10050,19 +9175,9 @@ fn roundtrip_CMPGE_p_p_zz() {
                 Instruction::CMPGE_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_CMPLE_cmpge_p_p_zz() {
-    assert_eq!(Instruction::CMPLE_cmpge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::CMPLE_cmpge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
 fn roundtrip_CMPGT_p_p_zz() {
     assert_eq!(Instruction::CMPGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
                 Instruction::CMPGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
-fn roundtrip_CMPLT_cmpgt_p_p_zz() {
-    assert_eq!(Instruction::CMPLT_cmpgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::CMPLT_cmpgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
 fn roundtrip_CMPEQ_p_p_zz() {
@@ -10375,19 +9490,9 @@ fn roundtrip_FCMGE_p_p_zz() {
                 Instruction::FCMGE_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_FCMLE_fcmge_p_p_zz() {
-    assert_eq!(Instruction::FCMLE_fcmge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::FCMLE_fcmge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
 fn roundtrip_FCMGT_p_p_zz() {
     assert_eq!(Instruction::FCMGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
                 Instruction::FCMGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
-fn roundtrip_FCMLT_fcmgt_p_p_zz() {
-    assert_eq!(Instruction::FCMLT_fcmgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::FCMLT_fcmgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
 fn roundtrip_FCMEQ_p_p_zz() {
@@ -10410,29 +9515,14 @@ fn roundtrip_FACGE_p_p_zz() {
                 Instruction::FACGE_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_FACLE_facge_p_p_zz() {
-    assert_eq!(Instruction::FACLE_facge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::FACLE_facge_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
 fn roundtrip_FACGT_p_p_zz() {
     assert_eq!(Instruction::FACGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
                 Instruction::FACGT_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
 }
 #[test]
-fn roundtrip_FACLT_facgt_p_p_zz() {
-    assert_eq!(Instruction::FACLT_facgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, }.encode().decode(), 
-                Instruction::FACLT_facgt_p_p_zz { size: 3, Zm: 31, Pg: 7, Zn: 31, Pd: 15, })
-}
-#[test]
 fn roundtrip_INS_asimdins_IV_v() {
     assert_eq!(Instruction::INS_asimdins_IV_v { imm5: 31, imm4: 15, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::INS_asimdins_IV_v { imm5: 31, imm4: 15, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_INS_asimdins_IV_v() {
-    assert_eq!(Instruction::MOV_INS_asimdins_IV_v { imm5: 31, imm4: 15, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_INS_asimdins_IV_v { imm5: 31, imm4: 15, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_STURH_32_ldst_unscaled() {
@@ -11315,19 +10405,9 @@ fn roundtrip_CPY_z_o_i() {
                 Instruction::CPY_z_o_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, })
 }
 #[test]
-fn roundtrip_MOV_cpy_z_o_i() {
-    assert_eq!(Instruction::MOV_cpy_z_o_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_cpy_z_o_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, })
-}
-#[test]
 fn roundtrip_CPY_z_p_i() {
     assert_eq!(Instruction::CPY_z_p_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, }.encode().decode(), 
                 Instruction::CPY_z_p_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, })
-}
-#[test]
-fn roundtrip_MOV_cpy_z_p_i() {
-    assert_eq!(Instruction::MOV_cpy_z_p_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_cpy_z_p_i { size: 3, Pg: 15, sh: 1, imm8: 255, Zd: 31, })
 }
 #[test]
 fn roundtrip_STXRB_SR32_ldstexcl() {
@@ -11423,11 +10503,6 @@ fn roundtrip_SDOT_asimdelem_D() {
 fn roundtrip_EXTR_32_extract() {
     assert_eq!(Instruction::EXTR_32_extract { Rm: 31, imms: 31, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::EXTR_32_extract { Rm: 31, imms: 31, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_ROR_EXTR_32_extract() {
-    assert_eq!(Instruction::ROR_EXTR_32_extract { Rm: 31, imms: 31, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ROR_EXTR_32_extract { Rm: 31, imms: 31, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_MADD_32A_dp_3src() {
@@ -11860,11 +10935,6 @@ fn roundtrip_LDRAB_64W_ldst_pac() {
                 Instruction::LDRAB_64W_ldst_pac { S: 1, imm9: 511, Rn: 31, Rt: 31, })
 }
 #[test]
-fn roundtrip_MOV_sel_z_p_zz() {
-    assert_eq!(Instruction::MOV_sel_z_p_zz { size: 3, Zm: 31, Pg: 15, Zn: 31, Zd: 31, }.encode().decode(), 
-                Instruction::MOV_sel_z_p_zz { size: 3, Zm: 31, Pg: 15, Zn: 31, Zd: 31, })
-}
-#[test]
 fn roundtrip_SEL_z_p_zz() {
     assert_eq!(Instruction::SEL_z_p_zz { size: 3, Zm: 31, Pg: 15, Zn: 31, Zd: 31, }.encode().decode(), 
                 Instruction::SEL_z_p_zz { size: 3, Zm: 31, Pg: 15, Zn: 31, Zd: 31, })
@@ -11920,11 +10990,6 @@ fn roundtrip_EXTR_64_extract() {
                 Instruction::EXTR_64_extract { Rm: 31, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_ROR_EXTR_64_extract() {
-    assert_eq!(Instruction::ROR_EXTR_64_extract { Rm: 31, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::ROR_EXTR_64_extract { Rm: 31, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_ADDS_64S_addsub_ext() {
     assert_eq!(Instruction::ADDS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::ADDS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, Rd: 31, })
@@ -11945,34 +11010,9 @@ fn roundtrip_SUBS_64S_addsub_ext() {
                 Instruction::SUBS_64S_addsub_ext { Rm: 31, option: 7, imm3: 7, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_BFI_BFM_32M_bitfield() {
-    assert_eq!(Instruction::BFI_BFM_32M_bitfield { immr: 63, imms: 63, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::BFI_BFM_32M_bitfield { immr: 63, imms: 63, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_LSL_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::LSL_UBFM_32M_bitfield { immr: 63, imms: 32, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSL_UBFM_32M_bitfield { immr: 63, imms: 32, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_BFI_BFM_64M_bitfield() {
-    assert_eq!(Instruction::BFI_BFM_64M_bitfield { immr: 63, imms: 63, Rn: 0, Rd: 31, }.encode().decode(), 
-                Instruction::BFI_BFM_64M_bitfield { immr: 63, imms: 63, Rn: 0, Rd: 31, })
-}
-#[test]
-fn roundtrip_LSL_UBFM_64M_bitfield() {
-    assert_eq!(Instruction::LSL_UBFM_64M_bitfield { immr: 63, imms: 32, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::LSL_UBFM_64M_bitfield { immr: 63, imms: 32, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_AND_32_log_imm() {
     assert_eq!(Instruction::AND_32_log_imm { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::AND_32_log_imm { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_MOVN_32_movewide() {
-    assert_eq!(Instruction::MOV_MOVN_32_movewide { hw: 1, imm16: 65535, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_MOVN_32_movewide { hw: 1, imm16: 65535, Rd: 31, })
 }
 #[test]
 fn roundtrip_MOVN_32_movewide() {
@@ -11980,19 +11020,9 @@ fn roundtrip_MOVN_32_movewide() {
                 Instruction::MOVN_32_movewide { hw: 1, imm16: 65535, Rd: 31, })
 }
 #[test]
-fn roundtrip_SBFIZ_SBFM_32M_bitfield() {
-    assert_eq!(Instruction::SBFIZ_SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SBFIZ_SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_SBFM_32M_bitfield() {
     assert_eq!(Instruction::SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SBFX_SBFM_32M_bitfield() {
-    assert_eq!(Instruction::SBFX_SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SBFX_SBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_STNP_32_ldstnapair_offs() {
@@ -12085,11 +11115,6 @@ fn roundtrip_BFM_32M_bitfield() {
                 Instruction::BFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_BFXIL_BFM_32M_bitfield() {
-    assert_eq!(Instruction::BFXIL_BFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::BFXIL_BFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_STRB_32_ldst_pos() {
     assert_eq!(Instruction::STRB_32_ldst_pos { imm12: 4095, Rn: 31, Rt: 31, }.encode().decode(), 
                 Instruction::STRB_32_ldst_pos { imm12: 4095, Rn: 31, Rt: 31, })
@@ -12135,29 +11160,14 @@ fn roundtrip_EOR_32_log_imm() {
                 Instruction::EOR_32_log_imm { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_MOVZ_32_movewide() {
-    assert_eq!(Instruction::MOV_MOVZ_32_movewide { hw: 1, imm16: 65535, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_MOVZ_32_movewide { hw: 1, imm16: 65535, Rd: 31, })
-}
-#[test]
 fn roundtrip_MOVZ_32_movewide() {
     assert_eq!(Instruction::MOVZ_32_movewide { hw: 1, imm16: 65535, Rd: 31, }.encode().decode(), 
                 Instruction::MOVZ_32_movewide { hw: 1, imm16: 65535, Rd: 31, })
 }
 #[test]
-fn roundtrip_UBFIZ_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::UBFIZ_UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UBFIZ_UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_UBFM_32M_bitfield() {
     assert_eq!(Instruction::UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UBFX_UBFM_32M_bitfield() {
-    assert_eq!(Instruction::UBFX_UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UBFX_UBFM_32M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_FCMLA_z_p_zzz() {
@@ -12280,19 +11290,9 @@ fn roundtrip_ADDG_64_addsub_immtags() {
                 Instruction::ADDG_64_addsub_immtags { uimm6: 63, op3: 3, uimm4: 15, Xn: 31, Xd: 31, })
 }
 #[test]
-fn roundtrip_SBFIZ_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::SBFIZ_SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SBFIZ_SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_SBFM_64M_bitfield() {
     assert_eq!(Instruction::SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_SBFX_SBFM_64M_bitfield() {
-    assert_eq!(Instruction::SBFX_SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::SBFX_SBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_STNP_64_ldstnapair_offs() {
@@ -12380,11 +11380,6 @@ fn roundtrip_BFM_64M_bitfield() {
                 Instruction::BFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_BFXIL_BFM_64M_bitfield() {
-    assert_eq!(Instruction::BFXIL_BFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::BFXIL_BFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_STR_32_ldst_pos() {
     assert_eq!(Instruction::STR_32_ldst_pos { imm12: 4095, Rn: 31, Rt: 31, }.encode().decode(), 
                 Instruction::STR_32_ldst_pos { imm12: 4095, Rn: 31, Rt: 31, })
@@ -12415,19 +11410,9 @@ fn roundtrip_SUBG_64_addsub_immtags() {
                 Instruction::SUBG_64_addsub_immtags { uimm6: 63, op3: 3, uimm4: 15, Xn: 31, Xd: 31, })
 }
 #[test]
-fn roundtrip_UBFIZ_UBFM_64M_bitfield() {
-    assert_eq!(Instruction::UBFIZ_UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UBFIZ_UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
 fn roundtrip_UBFM_64M_bitfield() {
     assert_eq!(Instruction::UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_UBFX_UBFM_64M_bitfield() {
-    assert_eq!(Instruction::UBFX_UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
-                Instruction::UBFX_UBFM_64M_bitfield { immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
 fn roundtrip_STR_64_ldst_pos() {
@@ -12565,11 +11550,6 @@ fn roundtrip_AND_64_log_imm() {
                 Instruction::AND_64_log_imm { N: 1, immr: 63, imms: 63, Rn: 31, Rd: 31, })
 }
 #[test]
-fn roundtrip_MOV_MOVN_64_movewide() {
-    assert_eq!(Instruction::MOV_MOVN_64_movewide { hw: 3, imm16: 65535, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_MOVN_64_movewide { hw: 3, imm16: 65535, Rd: 31, })
-}
-#[test]
 fn roundtrip_MOVN_64_movewide() {
     assert_eq!(Instruction::MOVN_64_movewide { hw: 3, imm16: 65535, Rd: 31, }.encode().decode(), 
                 Instruction::MOVN_64_movewide { hw: 3, imm16: 65535, Rd: 31, })
@@ -12623,11 +11603,6 @@ fn roundtrip_SUB_64_addsub_imm() {
 fn roundtrip_EOR_64_log_imm() {
     assert_eq!(Instruction::EOR_64_log_imm { N: 1, immr: 63, imms: 63, Rn: 31, Rd: 31, }.encode().decode(), 
                 Instruction::EOR_64_log_imm { N: 1, immr: 63, imms: 63, Rn: 31, Rd: 31, })
-}
-#[test]
-fn roundtrip_MOV_MOVZ_64_movewide() {
-    assert_eq!(Instruction::MOV_MOVZ_64_movewide { hw: 3, imm16: 65535, Rd: 31, }.encode().decode(), 
-                Instruction::MOV_MOVZ_64_movewide { hw: 3, imm16: 65535, Rd: 31, })
 }
 #[test]
 fn roundtrip_MOVZ_64_movewide() {

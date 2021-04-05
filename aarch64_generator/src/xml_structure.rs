@@ -1,6 +1,7 @@
 #[derive(Debug, Deserialize)]
 pub struct InstructionSection {
     pub classes: Classes,
+    pub aliasto: Option<Aliasto>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -35,3 +36,6 @@ pub struct BoxElement {
     pub constraint: Option<String>,
     pub c: Vec<String>,
 }
+
+#[derive(Debug, Deserialize)]
+pub struct Aliasto {} // Instruction aliases aren't currently handled, only the parent instruction is looked at.
